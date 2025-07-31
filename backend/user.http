@@ -1,0 +1,52 @@
+@local=http://localhost:3000/users
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODYyODBmZDc5ZjNjYjdmNjM2NzhmOWUiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzUxMjg2Mzc3fQ.fuYvnwHt5m_rqVL4OmqKTkcGoVGXK1cE2Zl7LEg8icA
+
+POST {{local}}
+Content-Type: application/json
+
+{
+    "name": {
+        "first":"mor",
+        "last":"schneider"
+    },
+    "email":"mor@mor.com",
+    "password": "Mor1234567!",
+    "image":{
+
+    }
+}
+
+###
+POST {{local}}/sign-in
+Content-Type: application/json
+
+{
+    "email":"morch@m.com",
+    "password": "Mm123456!"
+}
+
+###
+GET {{local}}
+
+
+
+###
+GET {{local}}/686280fd79f3cb7f63678f9e
+x-auth-token: {{token}}
+
+###
+PUT {{local}}/686280fd79f3cb7f63678f9e
+Content-Type: application/json
+x-auth-token: {{token}}
+
+{
+     "name": {
+        "first":"Kofiko",
+        "last":"schneider"
+    },
+    "email":"mor@mor.com",
+    "password": "Mor1234567!",
+    "image":{
+
+    }
+}
