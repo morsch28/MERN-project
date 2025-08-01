@@ -5,6 +5,9 @@ import PageHeader from "../../components/common/PageHeader";
 
 function Home() {
   const { user } = useAuth();
+  if (!user) {
+    return <div>Loading user data</div>;
+  }
   const chosenChallenges = useUserChallenges(user._id);
   const someOfChallenges = chosenChallenges.slice(0, 3);
 

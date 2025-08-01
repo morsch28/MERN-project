@@ -3,9 +3,21 @@ import TypeWriter from "../components/TypeWriter";
 import welcomePageImage from "../images/challenges_logo.jpg";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
+import { useAuth } from "../context/auth.context";
 
 function WelcomePage() {
   const [singIn, setSignIn] = useState(true);
+  const { isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100 vw-100 bg-white">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

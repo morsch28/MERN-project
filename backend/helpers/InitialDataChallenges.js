@@ -185,10 +185,11 @@ const challenges = [
 ];
 
 async function initialChallenges() {
-  await Challenge.deleteMany();
-
-  challenges.forEach(async (challenge) => {
-    await new Challenge(challenge).save();
-  });
+  for (const challenge of challenges) {
+    const exist = await Challenge.exists({ _id: challenge._id });
+    if (!exist) {
+      await new Challenge(challenge).save();
+    }
+  }
 }
 export default initialChallenges;

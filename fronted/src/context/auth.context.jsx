@@ -6,6 +6,9 @@ authContext.displayName = "Auth";
 
 export function AuthProvider({ children }) {
   const [authData, setAuthData] = useState(userServices.getUserFromToken());
+  const tokenUser = userServices.getUserFromToken();
+  console.log("Initial authData from token:", tokenUser);
+
   const [user, setUser] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -26,6 +29,8 @@ export function AuthProvider({ children }) {
         }
       };
       loadUser();
+    } else {
+      setIsLoading(false);
     }
   }, [authData]);
 

@@ -6,7 +6,9 @@ async function getAllChallenges() {
 }
 
 async function addChallengeToList(id) {
-  const response = await httpServices.post(`/challenges/chooseChallenge/${id}`);
+  const response = await httpServices.post(
+    `/challenges/choose-challenge/${id}`
+  );
   return response;
 }
 

@@ -37,6 +37,9 @@ function logout() {
 function getUserFromToken() {
   try {
     const token = getJWT();
+    if (!token) {
+      return null;
+    }
     return jwtDecode(token);
   } catch (error) {
     console.log(error);

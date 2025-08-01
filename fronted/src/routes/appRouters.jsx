@@ -14,7 +14,7 @@ function AppRouters() {
     if (user) {
       userServices.refreshToken();
     }
-  }, [user]);
+  }, []);
 
   return (
     <Routes>
