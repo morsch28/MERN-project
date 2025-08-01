@@ -35,53 +35,32 @@ function logout() {
 }
 
 function getUserFromToken() {
-  try {
-    const token = getJWT();
-    if (!token) {
-      return null;
-    }
-    return jwtDecode(token);
-  } catch (error) {
-    console.log(error);
+  const token = getJWT();
+  if (!token) {
+    return null;
   }
+  return jwtDecode(token);
 }
 
 async function getAllUsers() {
-  try {
-    const response = await httpServices.get("/users");
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await httpServices.get("/users");
+  return response.data;
 }
 
 async function getUserById(id) {
-  try {
-    const response = await httpServices.get(`/users/${id}`);
-    console.log("response:", response);
-
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await httpServices.get(`/users/${id}`);
+  console.log("response:", response);
+  return response.data;
 }
 
 async function updateUser(id, user) {
-  try {
-    const response = await httpServices.put(`/users/${id}`, user);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await httpServices.put(`/users/${id}`, user);
+  return response.data;
 }
 
 async function deleteUser(id) {
-  try {
-    const response = await httpServices.delete(`/users/${id}`);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await httpServices.delete(`/users/${id}`);
+  return response.data;
 }
 
 const userServices = {

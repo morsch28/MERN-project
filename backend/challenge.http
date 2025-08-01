@@ -7,3 +7,7 @@ x-auth-token: {{token}}
 ###
 GET {{local}}/6887591459aadd5932f7f98c
 x-auth-token: {{token}}
+
+###
+GET {{local}}/all/fitness
+x-auth-token: {{token}}

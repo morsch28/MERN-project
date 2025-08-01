@@ -28,13 +28,8 @@ function NavbarLeftSide() {
           </ul>
         </li>
         <li className="nav-item text-nowrap">
-          <Link className="nav-link active" to="/all-challenges">
+          <Link className="nav-link active" to="/by-category">
             All Challenges
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link active" to="/users-list">
-            Travel
           </Link>
         </li>
         <form role="search" className="d-flex mx-5">

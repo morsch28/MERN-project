@@ -6,22 +6,27 @@ import { useAuth } from "../context/auth.context";
 import AllChallenges from "../pages/AllChallenges";
 import { useEffect } from "react";
 import userServices from "../services/userServices";
+import CategoryChallenges from "../components/challenges/CategoryChallenges";
 
 function AppRouters() {
-  const { user } = useAuth();
+  const { user, wasHereBefore } = useAuth();
 
   useEffect(() => {
     if (user) {
       userServices.refreshToken();
     }
-  }, []);
+  }, [user]);
 
   return (
     <Routes>
-      <Route path="/" element={user ? <Home /> : <WelcomePage />} />
+      <Route
+        path="/"
+        element={user || wasHereBefore ? <Home /> : <WelcomePage />}
+      />
       <Route path="/" element={<WelcomePage />} />
       <Route path="/home" element={<Home />} />
       <Route path="/workouts" element={<Workouts />} />
+      <Route path="/by-category" element={<CategoryChallenges />} />
       <Route path="all-challenges" element={<AllChallenges />} />
     </Routes>
   );

@@ -2,12 +2,23 @@ import CardsStatus from "./CardsStatus";
 import { useUserChallenges } from "../../hooks/useUserChallenges";
 import { useAuth } from "../../context/auth.context";
 import PageHeader from "../../components/common/PageHeader";
+import WelcomePage from "../../pages/WelcomePage";
 
 function Home() {
-  const { user } = useAuth();
-  if (!user) {
-    return <div>Loading user data</div>;
+  // const { user, wasHereBefore } = useAuth();
+  // if (!user) {
+  //   return <div>Loading user data</div>;
+  // }
+  const { isLoading, user, wasHereBefore } = useAuth();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
+  if (!user) {
+    console.log("user", user);
+    return <WelcomePage />;
+  }
+
   const chosenChallenges = useUserChallenges(user._id);
   const someOfChallenges = chosenChallenges.slice(0, 3);
 

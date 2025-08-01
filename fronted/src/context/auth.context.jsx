@@ -1,25 +1,22 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import userServices from "../services/userServices";
+import { useNavigate } from "react-router";
 
 export const authContext = createContext();
 authContext.displayName = "Auth";
 
 export function AuthProvider({ children }) {
   const [authData, setAuthData] = useState(userServices.getUserFromToken());
-  const tokenUser = userServices.getUserFromToken();
-  console.log("Initial authData from token:", tokenUser);
-
+  const [wasHereBefore, setWasHereBefore] = useState(false);
   const [user, setUser] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     userServices.refreshToken();
     if (authData) {
-      console.log("auth data :", authData);
       const loadUser = async () => {
         try {
           const userId = await userServices.getUserById(authData._id);
-          console.log("User from server:", userId);
           setUser(userId);
           return userId;
         } catch (error) {
@@ -37,20 +34,46 @@ export function AuthProvider({ children }) {
   const login = async (credential) => {
     try {
       const response = await userServices.signIn(credential);
+      setWasHereBefore(true);
       setAuthData(userServices.getUserFromToken());
       return response;
     } catch (error) {
-      throw error;
+      console.error(error);
+    }
+  };
+
+  const createUser = async (user) => {
+    try {
+      const response = await userServices.createUser(user);
+      if (response.status == 201) {
+        await login({ email: user.email, password: user.password });
+        return { status: true };
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
   const logout = () => {
     userServices.logout();
-    setUser(userServices.getUserFromToken());
+    setAuthData(null);
+    setUser(null);
+    setWasHereBefore(true);
+    // setUser(userServices.getUserFromToken());
   };
 
   return (
-    <authContext.Provider value={{ user, login, logout, authData, isLoading }}>
+    <authContext.Provider
+      value={{
+        user,
+        login,
+        logout,
+        authData,
+        isLoading,
+        createUser,
+        wasHereBefore,
+      }}
+    >
       {children}
     </authContext.Provider>
   );

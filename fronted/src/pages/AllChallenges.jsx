@@ -8,7 +8,9 @@ function AllChallenges() {
     const loadAllChallenges = async () => {
       try {
         const response = await challengesService.getAllChallenges();
+        console.log("response.data.length:", response.data.length);
         setChallenges(response.data);
+        console.log("response.data.length:", response.data.length);
         console.log("challenges", response.data);
       } catch (error) {
         console.log(error);
@@ -30,7 +32,7 @@ function AllChallenges() {
     <div className=" container challengesContainer">
       {challenges.length > 0 &&
         challenges.map((challenge) => (
-          <div className="card p-3" key={challenge._id}>
+          <div className="card p-2 justify-content-center" key={challenge._id}>
             <div className="d-flex justify-content-between">
               {challenge.category == "nutrition" && <i className="fs-1">🥗</i>}
               {challenge.category == "fitness" && <i className="fs-1">🏃‍♂️</i>}
@@ -54,9 +56,9 @@ function AllChallenges() {
               <h5 className="card-title">{challenge.title}</h5>
               <div>{challenge.description}</div>
             </div>
-            <div className="card-footer">
+            <div className="card-footer ">
               <button
-                className="btn btn-primary"
+                className="btn btn-primary p-1 "
                 onClick={() => handleAddChallenge(challenge._id)}
               >
                 Add Challenges<i className="bi bi-plus-lg"></i>

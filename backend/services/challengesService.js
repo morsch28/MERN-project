@@ -17,6 +17,7 @@ async function createChallenge(values, userIsAdmin) {
 //get all challenges
 async function getAllChallenges() {
   const allChallenges = await Challenge.find();
+  console.log("Number of challenges in DB:", allChallenges.length);
   if (!allChallenges) {
     return false;
   }

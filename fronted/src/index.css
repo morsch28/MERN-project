@@ -101,6 +101,16 @@ body,
   font-size: 20px;
 }
 
+.categoryShadow {
+  box-shadow: 0px 0px 25px 5px;
+}
+.imgCardCategory {
+  height: 300px;
+}
+.btnAllChallenges {
+  width: 25%;
+}
+
 @media screen and (max-width: 1024px) {
   .welcomeImage {
     width: 60%;
@@ -148,6 +158,28 @@ body,
   }
   .addChallenges {
     width: 60%;
+  }
+  .cardCategories {
+    flex-direction: column;
+  }
+  .categoryShadow {
+    width: 250px !important;
+    height: 285px !important;
+  }
+  .btnCategoryCards {
+    font-size: 60% !important;
+  }
+  .descCardsCategory {
+    font-size: 70% !important;
+  }
+  .imgCardCategory {
+    height: 182px;
+  }
+  .btn-warning {
+    width: 100%;
+  }
+  .challengesContainer {
+    grid-template-columns: repeat(2, auto);
   }
 }
 

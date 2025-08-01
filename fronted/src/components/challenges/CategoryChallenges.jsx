@@ -1,6 +1,7 @@
 import foodImg from "../../images/food.jpg";
 import mentalImg from "../../images/nature1.jpg";
 import fitnessImg from "../../images/fitness.jpg";
+import { useNavigate } from "react-router";
 
 const cardsByCategory = [
   {
@@ -21,26 +22,35 @@ const cardsByCategory = [
 ];
 
 function CategoryChallenges() {
+  const navigate = useNavigate();
+
   return (
-    <div className="d-flex align-items-center gap-3">
-      {cardsByCategory.map((card, index) => (
-        <div
-          className="card"
-          key={index}
-          style={{ width: "300px", height: "370px" }}
-        >
-          <img src="" alt="" className="h-50" />
-          <div className="card-body d-flex flex-column gap-1">
-            <h5 className="card-title">{card.title}</h5>
-            <p className="card-text">{card.description}</p>
-            <div className="card-footer d-flex justify-content-center">
-              <a href="#" className="btn btn-primary">
-                Button
-              </a>
+    <div className="d-flex align-items-center my-3 gap-4 flex-column">
+      <button
+        onClick={() => navigate("/all-challenges")}
+        className="btn btn-warning  p-2 fs-5 fw-bold border border-1 border-black btnAllChallenges"
+      >
+        All challenges
+      </button>
+      <div className="d-flex gap-4 cardCategories">
+        {cardsByCategory.map((card, index) => (
+          <div
+            className="card justify-content-center  categoryShadow"
+            key={index}
+            style={{ width: "350px", height: "450px" }}
+          >
+            <img src={card.image} alt="" className="imgCardCategory" />
+            <div className="card-body d-flex flex-column gap-1">
+              <p className="card-text descCardsCategory">{card.description}</p>
+              <div className="card-footer d-flex justify-content-center">
+                <button className="btn btn-primary p-2 btnCategoryCards">
+                  {card.title}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

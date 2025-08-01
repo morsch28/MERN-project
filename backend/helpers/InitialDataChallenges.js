@@ -186,7 +186,7 @@ const challenges = [
 
 async function initialChallenges() {
   for (const challenge of challenges) {
-    const exist = await Challenge.exists({ _id: challenge._id });
+    const exist = await Challenge.exists({ title: challenge.title });
     if (!exist) {
       await new Challenge(challenge).save();
     }

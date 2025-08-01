@@ -1,11 +1,9 @@
-import { Link } from "react-router";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../context/auth.context";
 
 function NavbarRightSide() {
-  const navigate = useNavigate();
-
   const { logout, user } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
