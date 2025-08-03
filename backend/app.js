@@ -19,7 +19,6 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(async () => {
     console.log("Connected to DB");
-    await Challenge.deleteMany();
     await initialChallenges();
     await initialQuizzes();
     app.listen(PORT, console.log(`listening on port ${PORT}`));

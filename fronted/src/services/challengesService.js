@@ -17,9 +17,15 @@ async function getAllUserChallenges(id) {
   return response;
 }
 
+// async function getChallengesByCategory(category) {
+//   const response = await httpServices.get(`/challenges/all/${category}`);
+//   return response;
+// }
+
 const challengeService = {
   getAllChallenges,
   addChallengeToList,
   getAllUserChallenges,
+  // getChallengesByCategory,
 };
 export default challengeService;

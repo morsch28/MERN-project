@@ -24,20 +24,6 @@ async function getAllChallenges() {
   return allChallenges;
 }
 
-async function getChallengesByCategory(categoryName) {
-  if (!categoryName) {
-    return false;
-  }
-  const challenges = await Challenge.find({
-    category: categoryName,
-  });
-
-  if (!challenges) {
-    return false;
-  }
-  return challenges;
-}
-
 async function getCompletedChallenges() {
   const allDoneChallenges = await UserChallenge.find({ status: "done" });
   if (!allDoneChallenges || allDoneChallenges.length == 0) {
@@ -48,7 +34,6 @@ async function getCompletedChallenges() {
 const challengesService = {
   createChallenge,
   getAllChallenges,
-  getChallengesByCategory,
   getCompletedChallenges,
 };
 export default challengesService;

@@ -9,27 +9,14 @@ function NavbarLeftSide() {
             Home
           </Link>
         </li>
-        <li className="nav-item dropdown">
-          <Link
-            className="nav-link active dropdown-toggle"
-            aria-disabled="true"
-            to="/workouts"
-            id="navbarDropDownMenuLink"
-          >
-            Workouts
-          </Link>
-          <ul className="dropdown-menu">
-            <li>
-              <Link className="dropdown-item">Articles</Link>
-            </li>
-            <li>
-              <Link className="dropdown-item">Training-Program</Link>
-            </li>
-          </ul>
-        </li>
         <li className="nav-item text-nowrap">
           <Link className="nav-link active" to="/by-category">
             All Challenges
+          </Link>
+        </li>
+        <li className="nav-item text-nowrap">
+          <Link className="nav-link active" to="/user-challenges/">
+            My Challenges
           </Link>
         </li>
         <form role="search" className="d-flex mx-5">

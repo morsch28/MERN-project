@@ -2,26 +2,30 @@ import foodImg from "../../images/food.jpg";
 import mentalImg from "../../images/nature1.jpg";
 import fitnessImg from "../../images/fitness.jpg";
 import { useNavigate } from "react-router";
+import challengesService from "../../services/challengesService";
 
 const cardsByCategory = [
   {
     title: "Nutrition Challenges",
     image: foodImg,
     description: "Healthy eating habits and meal planing",
+    category: "nutrition",
   },
   {
     title: "Mental Challenges",
     image: mentalImg,
     description: "Mindfulness,meditation and stress relief",
+    category: "mental",
   },
   {
     title: "Fitness Challenges",
     image: fitnessImg,
     description: "Exercise routines and physical activities",
+    category: "fitness",
   },
 ];
 
-function CategoryChallenges() {
+function ThreeCategoryCards() {
   const navigate = useNavigate();
 
   return (
@@ -43,7 +47,14 @@ function CategoryChallenges() {
             <div className="card-body d-flex flex-column gap-1">
               <p className="card-text descCardsCategory">{card.description}</p>
               <div className="card-footer d-flex justify-content-center">
-                <button className="btn btn-primary p-2 btnCategoryCards">
+                <button
+                  onClick={() =>
+                    navigate("/all-challenges", {
+                      state: { category: card.category },
+                    })
+                  }
+                  className="btn btn-primary p-2 btnThreeCategoryCards"
+                >
                   {card.title}
                 </button>
               </div>
@@ -55,4 +66,4 @@ function CategoryChallenges() {
   );
 }
 
-export default CategoryChallenges;
+export default ThreeCategoryCards;

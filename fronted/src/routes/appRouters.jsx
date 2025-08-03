@@ -3,10 +3,11 @@ import Workouts from "../pages/Workouts";
 import Home from "../pages/home/Home";
 import WelcomePage from "../pages/WelcomePage";
 import { useAuth } from "../context/auth.context";
-import AllChallenges from "../pages/AllChallenges";
 import { useEffect } from "react";
 import userServices from "../services/userServices";
-import CategoryChallenges from "../components/challenges/CategoryChallenges";
+import ThreeCategoryCards from "../components/challenges/ThreeCategoryCards";
+import AllChallenges from "../components/challenges/AllChallenges";
+import MyChallenges from "../pages/challenges/MyChallenges";
 
 function AppRouters() {
   const { user, wasHereBefore } = useAuth();
@@ -26,8 +27,9 @@ function AppRouters() {
       <Route path="/" element={<WelcomePage />} />
       <Route path="/home" element={<Home />} />
       <Route path="/workouts" element={<Workouts />} />
-      <Route path="/by-category" element={<CategoryChallenges />} />
+      <Route path="/by-category" element={<ThreeCategoryCards />} />
       <Route path="all-challenges" element={<AllChallenges />} />
+      <Route path="user-challenges" element={<MyChallenges />} />
     </Routes>
   );
 }

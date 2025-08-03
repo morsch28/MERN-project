@@ -110,6 +110,9 @@ body,
 .btnAllChallenges {
   width: 25%;
 }
+.myChallengesCards {
+  box-shadow: 0px 0px 35px 5px;
+}
 
 @media screen and (max-width: 1024px) {
   .welcomeImage {
@@ -157,7 +160,8 @@ body,
     flex-direction: column !important;
   }
   .addChallenges {
-    width: 60%;
+    width: 80%;
+    height: 38%;
   }
   .cardCategories {
     flex-direction: column;
@@ -166,7 +170,7 @@ body,
     width: 250px !important;
     height: 285px !important;
   }
-  .btnCategoryCards {
+  .btnThreeCategoryCards {
     font-size: 60% !important;
   }
   .descCardsCategory {
@@ -180,6 +184,9 @@ body,
   }
   .challengesContainer {
     grid-template-columns: repeat(2, auto);
+  }
+  .selectedCards {
+    height: 47% !important;
   }
 }
 

@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import challengesService from "../services/challengesService";
+import challengesService from "../../services/challengesService";
+import { useLocation } from "react-router";
 
 function AllChallenges() {
   const [challenges, setChallenges] = useState([]);
+  const location = useLocation();
+  const selectCategory = location.state?.category;
 
   useEffect(() => {
     const loadAllChallenges = async () => {
@@ -28,10 +31,14 @@ function AllChallenges() {
     }
   };
 
+  const filterChallenges = selectCategory
+    ? challenges.filter((c) => c.category == selectCategory)
+    : challenges;
+
   return (
     <div className=" container challengesContainer">
-      {challenges.length > 0 &&
-        challenges.map((challenge) => (
+      {filterChallenges.length > 0 &&
+        filterChallenges.map((challenge) => (
           <div className="card p-2 justify-content-center" key={challenge._id}>
             <div className="d-flex justify-content-between">
               {challenge.category == "nutrition" && <i className="fs-1">🥗</i>}

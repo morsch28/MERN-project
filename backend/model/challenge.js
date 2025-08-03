@@ -13,6 +13,7 @@ const challengeSchema = new mongoose.Schema({
   },
   title: {
     type: String,
+    unique: true,
   },
   description: {
     type: String,

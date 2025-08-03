@@ -189,6 +189,8 @@ async function initialChallenges() {
     const exist = await Challenge.exists({ title: challenge.title });
     if (!exist) {
       await new Challenge(challenge).save();
+    } else {
+      return;
     }
   }
 }
