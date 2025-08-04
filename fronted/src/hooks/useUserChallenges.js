@@ -4,17 +4,22 @@ import challengeService from "../services/challengesService";
 export function useUserChallenges(userId) {
   const [chosenChallenges, setChosenChallenges] = useState([]);
 
-  useEffect(() => {
+  const loadUserChallenges = async () => {
     if (!userId) {
       return;
     }
-    const loadUserChallenges = async () => {
+    try {
       const response = await challengeService.getAllUserChallenges(userId);
       console.log("response", response);
       setChosenChallenges(response.data);
-    };
+    } catch (error) {
+      console.log("Failed load challenges", error);
+    }
+  };
+
+  useEffect(() => {
     loadUserChallenges();
   }, [userId]);
 
-  return chosenChallenges;
+  return { chosenChallenges, loadUserChallenges };
 }

@@ -26,7 +26,12 @@ body,
 }
 
 .custom-main {
-  background: linear-gradient(to top right, #2ff2a1 30%, #7aedfc 60%);
+  /* background: linear-gradient(to top right, #2ff2a1 30%, #7aedfc 60%); */
+  background: linear-gradient(
+    to top right,
+    rgba(13, 110, 253, 0.25) 30%,
+    #7aedfc59 60%
+  );
 }
 
 .nav-item.dropdown:hover .dropdown-menu {
@@ -102,7 +107,7 @@ body,
 }
 
 .categoryShadow {
-  box-shadow: 0px 0px 25px 5px;
+  box-shadow: 0px 0px 10px 5px;
 }
 .imgCardCategory {
   height: 300px;
@@ -112,6 +117,12 @@ body,
 }
 .myChallengesCards {
   box-shadow: 0px 0px 35px 5px;
+}
+.allChallenges {
+  box-shadow: 0px 0px 10px 3px;
+}
+.userChallenges {
+  width: 25%;
 }
 
 @media screen and (max-width: 1024px) {
@@ -136,6 +147,9 @@ body,
   }
   .challengesContainer {
     grid-template-columns: repeat(3, auto);
+  }
+  .userChallenges {
+    width: 70%;
   }
 }
 
@@ -188,6 +202,9 @@ body,
   .selectedCards {
     height: 47% !important;
   }
+  .myChallengesCards {
+    width: 85% !important;
+  }
 }
 
 @media screen and (max-width: 426px) {
@@ -204,5 +221,9 @@ body,
   .h1-welcomePage {
     font-size: 0.9rem;
     margin-top: 14px;
+  }
+
+  .userChallenges {
+    width: 80%;
   }
 }

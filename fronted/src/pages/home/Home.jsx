@@ -2,9 +2,11 @@ import CardsStatus from "../../components/challenges/CardsStatus";
 import { useUserChallenges } from "../../hooks/useUserChallenges";
 import { useAuth } from "../../context/auth.context";
 import WelcomePage from "../../pages/WelcomePage";
+import { useNavigate } from "react-router";
 
 function Home() {
   const { isLoading, user } = useAuth();
+  const navigate = useNavigate();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -14,7 +16,7 @@ function Home() {
     return <WelcomePage />;
   }
 
-  const chosenChallenges = useUserChallenges(user._id);
+  const { chosenChallenges } = useUserChallenges(user._id);
   const someOfChallenges = chosenChallenges.slice(0, 3);
 
   return (
@@ -45,8 +47,8 @@ function Home() {
                     challenge.status == "pending"
                       ? "bg-warning-subtle text-warning  w-15 h-50 p-1  fs-5 fw-bold border rounded-3"
                       : challenge.status == "in-progress"
-                      ? "bg-info-subtle text-info  px-3 fs-5 fw-bold border rounded-3"
-                      : "bg-success-subtle text-success px-3 fs-5 fw-bold border rounded-3"
+                      ? "bg-info-subtle text-info  px-3 fs-5 h-50 fw-bold border rounded-3"
+                      : "bg-success-subtle text-success px-3 fs-5 h-50 fw-bold border rounded-3"
                   }
                 >
                   {challenge.status}
@@ -60,7 +62,10 @@ function Home() {
           <p className="fs-5">
             Discover new challenges to push your wellness journey forward.
           </p>
-          <button className="btn btn-primary px-3 fs-5">
+          <button
+            onClick={() => navigate("/all-challenges")}
+            className="btn btn-primary px-3 fs-5"
+          >
             Add challenges to list
           </button>
         </div>

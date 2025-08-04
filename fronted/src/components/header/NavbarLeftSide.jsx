@@ -10,7 +10,7 @@ function NavbarLeftSide() {
           </Link>
         </li>
         <li className="nav-item text-nowrap">
-          <Link className="nav-link active" to="/by-category">
+          <Link className="nav-link active" to="/all-challenges">
             All Challenges
           </Link>
         </li>

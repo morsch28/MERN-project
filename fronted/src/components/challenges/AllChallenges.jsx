@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import challengesService from "../../services/challengesService";
-import { useLocation } from "react-router";
+// import { useLocation } from "react-router";
 
 function AllChallenges() {
   const [challenges, setChallenges] = useState([]);
-  const location = useLocation();
-  const selectCategory = location.state?.category;
+  const [selectCategory, setSelectCategory] = useState("all");
+  // const location = useLocation();
+  // const selectCategory = location.state?.category;
 
   useEffect(() => {
     const loadAllChallenges = async () => {
@@ -31,48 +32,77 @@ function AllChallenges() {
     }
   };
 
-  const filterChallenges = selectCategory
-    ? challenges.filter((c) => c.category == selectCategory)
-    : challenges;
+  // const filterChallenges = selectCategory
+  //   ? challenges.filter((c) => c.category == selectCategory)
+  //   : challenges;
+
+  const filterChallenges =
+    selectCategory == "all"
+      ? challenges
+      : challenges.filter((c) => c.category == selectCategory);
 
   return (
-    <div className=" container challengesContainer">
-      {filterChallenges.length > 0 &&
-        filterChallenges.map((challenge) => (
-          <div className="card p-2 justify-content-center" key={challenge._id}>
-            <div className="d-flex justify-content-between">
-              {challenge.category == "nutrition" && <i className="fs-1">🥗</i>}
-              {challenge.category == "fitness" && <i className="fs-1">🏃‍♂️</i>}
-              {challenge.category == "mental" && <i className="fs-1">🧘‍♀️</i>}
-              <div className="d-flex flex-column gap-2">
-                <div
-                  className={
-                    challenge.difficulty == "easy"
-                      ? "bg-success-subtle text-success rounded-2 fw-bold p-1"
-                      : challenge.difficulty == "medium"
-                      ? "bg-warning-subtle text-warning rounded-2 fw-bold p-1"
-                      : "text-danger bg-danger-subtle rounded-2 fw-bold p-1"
-                  }
-                >
-                  {challenge.difficulty}
+    <div className="mt-3">
+      <div className="d-flex justify-content-center">
+        <div className="d-flex gap-3 justify-content-center rounded-2 border-1 p-2 border border-1 border-dark bg-white ">
+          {["all", "fitness", "mental", "nutrition"].map((cat) => (
+            <button
+              key={cat}
+              className={`${
+                selectCategory == cat ? "btn btn-info" : "btn btn-outline-dark"
+              } `}
+              onClick={() => setSelectCategory(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className=" container challengesContainer">
+        {filterChallenges.length > 0 &&
+          filterChallenges.map((challenge) => (
+            <div
+              className="card p-2 justify-content-center allChallenges gap-0"
+              key={challenge._id}
+            >
+              <div className="d-flex justify-content-between">
+                {challenge.category == "nutrition" && (
+                  <i className="fs-1">🥗</i>
+                )}
+                {challenge.category == "fitness" && <i className="fs-1">🏃‍♂️</i>}
+                {challenge.category == "mental" && <i className="fs-1">🧘‍♀️</i>}
+                <div className="d-flex flex-column gap-2">
+                  <div
+                    className={
+                      challenge.difficulty == "easy"
+                        ? "bg-success-subtle text-success rounded-2 fw-bold p-1"
+                        : challenge.difficulty == "medium"
+                        ? "bg-warning-subtle text-warning rounded-2 fw-bold p-1"
+                        : "text-danger bg-danger-subtle rounded-2 fw-bold p-1"
+                    }
+                  >
+                    {challenge.difficulty}
+                  </div>
+                  <div className="border p-1">
+                    {challenge.duration_days} days
+                  </div>
                 </div>
-                <div className="border p-1">{challenge.duration_days} days</div>
+              </div>
+              <div className="card-body">
+                <h5 className="card-title">{challenge.title}</h5>
+                <div>{challenge.description}</div>
+              </div>
+              <div className="card-footer ">
+                <button
+                  className="btn btn-primary p-1 "
+                  onClick={() => handleAddChallenge(challenge._id)}
+                >
+                  Add Challenges<i className="bi bi-plus-lg"></i>
+                </button>
               </div>
             </div>
-            <div className="card-body">
-              <h5 className="card-title">{challenge.title}</h5>
-              <div>{challenge.description}</div>
-            </div>
-            <div className="card-footer ">
-              <button
-                className="btn btn-primary p-1 "
-                onClick={() => handleAddChallenge(challenge._id)}
-              >
-                Add Challenges<i className="bi bi-plus-lg"></i>
-              </button>
-            </div>
-          </div>
-        ))}
+          ))}
+      </div>
     </div>
   );
 }

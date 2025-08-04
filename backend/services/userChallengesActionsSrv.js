@@ -14,19 +14,22 @@ async function getUserChallenges(idUserParam) {
   return challengesOfUser;
 }
 
-async function updateUserChallenge(userIdParam, values) {
-  if (!userIdParam || !values) {
+async function updateUserChallenge(challengeId, values, userId) {
+  if (!challengeId || !values || !userId) {
     return false;
   }
-  const challenge = await UserChallenge.findById(userIdParam);
+  const challenge = await UserChallenge.findById(challengeId);
   if (!challenge) {
     return false;
   }
-  if (String(challenge.userId) !== userIdParam) {
-    return res.status(401).send("Access denied");
+  if (String(challenge.userId) !== userId) {
+    return false;
+  }
+  if (values.status == "done") {
+    values.completedDate = new Date();
   }
   const challengeToUpdate = await UserChallenge.findByIdAndUpdate(
-    userIdParam,
+    challengeId,
     values,
     { new: true }
   );

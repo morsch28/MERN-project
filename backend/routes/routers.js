@@ -9,8 +9,8 @@ const router = express.Router();
 
 router.use("/users", authRoute);
 router.use("/challenges", challengesRoute);
-router.use("/challenges", userChallengesRoute);
-router.use("/challenges", userChallengesActionsRoute);
+router.use("/user-challenges", userChallengesRoute);
+router.use("/user-challenges/action", userChallengesActionsRoute);
 router.use("/quizzes", quizRoute);
 
 export default router;

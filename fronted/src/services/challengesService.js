@@ -7,25 +7,28 @@ async function getAllChallenges() {
 
 async function addChallengeToList(id) {
   const response = await httpServices.post(
-    `/challenges/choose-challenge/${id}`
+    `/user-challenges/choose-challenge/${id}`
   );
   return response;
 }
 
 async function getAllUserChallenges(id) {
-  const response = await httpServices.get(`challenges/${id}`);
+  const response = await httpServices.get(`/user-challenges/action/${id}`);
   return response;
 }
 
-// async function getChallengesByCategory(category) {
-//   const response = await httpServices.get(`/challenges/all/${category}`);
-//   return response;
-// }
+async function updateChallenge(id, updateData) {
+  const response = await httpServices.put(
+    `user-challenges/action/${id}`,
+    updateData
+  );
+  return response;
+}
 
 const challengeService = {
   getAllChallenges,
   addChallengeToList,
   getAllUserChallenges,
-  // getChallengesByCategory,
+  updateChallenge,
 };
 export default challengeService;
