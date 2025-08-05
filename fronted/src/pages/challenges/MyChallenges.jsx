@@ -3,12 +3,13 @@ import { useAuth } from "../../context/auth.context";
 import { useUserChallenges } from "../../hooks/useUserChallenges";
 import challengesService from "../../services/challengesService";
 import MyChallengesCards from "./MyChallengesCards";
+import OptionSelector from "../../components/OptionSelector";
 
 function MyChallenges() {
   const [challengesStatus, setChallengesStatus] = useState("pending");
   const { user } = useAuth();
-  const { chosenChallenges, loadUserChallenges } = useUserChallenges(user._id);
 
+  const { chosenChallenges, loadUserChallenges } = useUserChallenges(user?._id);
   const filterChallenges = chosenChallenges.filter(
     (c) => c.status == challengesStatus
   );
@@ -32,31 +33,15 @@ function MyChallenges() {
   return (
     <div className="container my-5  d-flex flex-column gap-3 text-center align-items-center bg-white p-4 myChallengesCards">
       <h1>The challenges you chose</h1>
-      <div className="d-flex gap-2 justify-content-center rounded-3 border border-1 p-2 border-dark">
-        {["pending", "in-progress", "done"].map((status) => (
-          <button
-            key={status}
-            className={`${
-              challengesStatus == status
-                ? "btn btn-info"
-                : "btn btn-outline-dark"
-            }`}
-            onClick={() => setChallengesStatus(status)}
-          >
-            {status}
-          </button>
-        ))}
-      </div>
-      <div className="d-flex flex-wrap gap-2 justify-content-center gap-2 w-100">
-        {filterChallenges.length > 0 &&
-          filterChallenges.map((challenge) => (
-            <MyChallengesCards
-              key={challenge.challengeId._id}
-              onUpdate={handleUpdate}
-              challenge={challenge}
-            />
-          ))}
-      </div>
+      <OptionSelector
+        options={["pending", "in-progress", "done"]}
+        onSelected={setChallengesStatus}
+        selected={challengesStatus}
+      />
+      <MyChallengesCards
+        challenges={filterChallenges}
+        onUpdate={handleUpdate}
+      />
     </div>
   );
 }

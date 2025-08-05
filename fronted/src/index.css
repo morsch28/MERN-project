@@ -5,8 +5,6 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  /* overflow-x: hidden;
-  overflow-y: hidden; */
 }
 
 .h1-welcomePage,
@@ -26,7 +24,6 @@ body,
 }
 
 .custom-main {
-  /* background: linear-gradient(to top right, #2ff2a1 30%, #7aedfc 60%); */
   background: linear-gradient(
     to top right,
     rgba(13, 110, 253, 0.25) 30%,
@@ -88,13 +85,23 @@ body,
 .addChallenges {
   box-shadow: 0px 0px 30px 2px;
 }
+
 .selectedChallenges {
   text-align: center;
-  padding: 15px;
-  max-height: 350px;
-  margin-top: 30px;
+  padding: 14px;
   overflow: auto;
-  box-shadow: 0px 0px 30px 3px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8.3px);
+  -webkit-backdrop-filter: blur(8.3px);
+  border: 1px solid rgba(255, 255, 255, 0.46);
+  max-width: 1280px;
+  width: 100%;
+}
+.selectedCards {
+  width: 100%;
+  padding: 6px;
 }
 
 .addChallenges {
@@ -116,13 +123,18 @@ body,
   width: 25%;
 }
 .myChallengesCards {
-  box-shadow: 0px 0px 35px 5px;
+  box-shadow: 0px 0px 10px 0px;
+  height: 100%;
+  padding: 30px;
 }
 .allChallenges {
   box-shadow: 0px 0px 10px 3px;
 }
 .userChallenges {
-  width: 25%;
+  width: 350px;
+}
+.btn-allChallenges {
+  width: 20%;
 }
 
 @media screen and (max-width: 1024px) {
@@ -136,9 +148,7 @@ body,
   .h1-welcomePage {
     font-size: 2rem;
   }
-  .selectedChallenges {
-    width: 90%;
-  }
+
   .cardsStatus-title {
     font-size: 12px;
   }
@@ -150,6 +160,9 @@ body,
   }
   .userChallenges {
     width: 70%;
+  }
+  .btn-allChallenges {
+    width: 25%;
   }
 }
 
@@ -170,8 +183,8 @@ body,
   .home-Challenges {
     flex-direction: column;
   }
-  .selectedCards {
-    flex-direction: column !important;
+  .selectedCardsContainer {
+    flex-direction: column;
   }
   .addChallenges {
     width: 80%;
@@ -205,6 +218,9 @@ body,
   .myChallengesCards {
     width: 85% !important;
   }
+  .btn-allChallenges {
+    width: 30%;
+  }
 }
 
 @media screen and (max-width: 426px) {
@@ -225,5 +241,8 @@ body,
 
   .userChallenges {
     width: 80%;
+  }
+  .btn-allChallenges {
+    width: 55%;
   }
 }

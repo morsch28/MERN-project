@@ -31,15 +31,19 @@ function CardsStatus() {
   ];
 
   return (
-    <div
-      className="d-flex  gap-3 container justify-content-center align-items-center"
-      style={{ height: "100px" }}
-    >
+    <div className="d-flex  gap-3 container justify-content-center align-items-center">
       {fourChallengesCard.map((challenge) => (
         <div
           key={challenge.title}
           className="card text-center d-flex justify-content-center align-items-center home-page-cards mt-2"
-          style={{ width: "8rem", height: "8rem", borderRadius: "20px" }}
+          style={{
+            maxWidth: "200px",
+            height: "auto",
+            gap: "6px",
+            borderRadius: "20px",
+            padding: "20px 0",
+            flex: 1,
+          }}
         >
           <div
             className={`${challenge.bgColor}  ${challenge.txColor} rounded-5 d-flex align-items-center justify-content-center fs-2`}
