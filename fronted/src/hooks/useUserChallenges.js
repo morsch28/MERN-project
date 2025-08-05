@@ -10,7 +10,6 @@ export function useUserChallenges(userId) {
     }
     try {
       const response = await challengeService.getAllUserChallenges(userId);
-      console.log("response", response);
       setChosenChallenges(response.data);
     } catch (error) {
       console.log("Failed load challenges", error);

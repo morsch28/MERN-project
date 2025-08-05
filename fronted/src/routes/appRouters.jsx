@@ -1,5 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import Workouts from "../pages/Workouts";
+import { Route, Routes } from "react-router-dom";
 import Home from "../pages/home/Home";
 import WelcomePage from "../pages/WelcomePage";
 import { useAuth } from "../context/auth.context";
@@ -25,7 +24,6 @@ function AppRouters() {
       />
       <Route path="/" element={<WelcomePage />} />
       <Route path="/home" element={<Home />} />
-      <Route path="/workouts" element={<Workouts />} />
       <Route path="all-challenges" element={<AllChallenges />} />
       <Route path="user-challenges" element={<MyChallenges />} />
     </Routes>

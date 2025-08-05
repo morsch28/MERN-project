@@ -49,7 +49,6 @@ async function getAllUsers() {
 
 async function getUserById(id) {
   const response = await httpServices.get(`/users/${id}`);
-  console.log("response:", response);
   return response.data;
 }
 
