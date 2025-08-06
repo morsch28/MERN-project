@@ -1,6 +1,5 @@
 import express from "express";
 import { authMdw } from "../middleWare/authMdw.js";
-import { userChallengeValidation } from "../model/userChallenge.js";
 import userChallengeService from "../services/userChallengesService.js";
 
 const router = express.Router();
@@ -16,8 +15,9 @@ router.post("/choose-challenge/:id", authMdw, async (req, res) => {
       req.user._id,
       challengeId
     );
-    if (!result) {
-      return res.status(400).send("something is wrong can't choose challenge");
+    console.log("chooseChallenge result:", result);
+    if (!result.status) {
+      return res.status(400).send(result.msg);
     }
     res.status(200).send(result);
   } catch (error) {
@@ -32,10 +32,14 @@ router.get("/progress-percent/:id", authMdw, async (req, res) => {
       return res.status(403).send("Access denied");
     }
     result = await userChallengeService.statusInPercent(req.params.id);
-    if (!result) {
-      return res.status(404).send("Not found challenge ");
+    if (!result.status) {
+      return res.status(404).send(result.msg);
     }
-    res.send({ status: result.status, progress: result + "%" });
+    res.send({
+      status: result.status,
+      progress: result.progress + "%",
+      data: result.data,
+    });
   } catch (error) {
     console.log(error);
   }

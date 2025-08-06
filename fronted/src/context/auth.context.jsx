@@ -7,7 +7,6 @@ authContext.displayName = "Auth";
 
 export function AuthProvider({ children }) {
   const [authData, setAuthData] = useState(userServices.getUserFromToken());
-  const [wasHereBefore, setWasHereBefore] = useState(false);
   const [user, setUser] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -34,7 +33,6 @@ export function AuthProvider({ children }) {
   const login = async (credential) => {
     try {
       const response = await userServices.signIn(credential);
-      setWasHereBefore(true);
       setAuthData(userServices.getUserFromToken());
       return response;
     } catch (error) {
@@ -58,7 +56,6 @@ export function AuthProvider({ children }) {
     userServices.logout();
     setAuthData(null);
     setUser(null);
-    setWasHereBefore(true);
     // setUser(userServices.getUserFromToken());
   };
 
@@ -71,7 +68,6 @@ export function AuthProvider({ children }) {
         authData,
         isLoading,
         createUser,
-        wasHereBefore,
       }}
     >
       {children}

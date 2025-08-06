@@ -1,6 +1,5 @@
 import express from "express";
 import { authMdw } from "../middleWare/authMdw.js";
-import { userChallengeValidation } from "../model/userChallenge.js";
 import userChallengeService from "../services/userChallengesService.js";
 import userChallengesActionSrv from "../services/userChallengesActionsSrv.js";
 
@@ -15,8 +14,8 @@ router.get("/done/:id", authMdw, async (req, res) => {
     const result = await userChallengeService.completedUserChallenges(
       req.params.id
     );
-    if (!result) {
-      return res.status(404).send("Not found user's completed challenges");
+    if (!result.status) {
+      return res.status(404).send(result.msg);
     }
     res.status(200).send(result);
   } catch (error) {
@@ -34,8 +33,8 @@ router.get("/:id", authMdw, async (req, res) => {
       req.params.id
     );
 
-    if (!result) {
-      return res.status(404).send("Not found user's challenges");
+    if (!result.status) {
+      return res.status(404).send(res.msg);
     }
     res.send(result);
   } catch (error) {
@@ -46,18 +45,16 @@ router.get("/:id", authMdw, async (req, res) => {
 //update user personal challenge(status,feedback,image)
 router.put("/:id", authMdw, async (req, res) => {
   try {
-    const { error } = userChallengeValidation.validate(req.body);
-    if (error) {
-      return res.status(400).send(error.details[0].message);
+    if (!req.body) {
+      return res.status(400).send("empty request no challenge to update");
     }
-
     const result = await userChallengesActionSrv.updateUserChallenge(
       req.params.id,
       req.body,
       req.user._id
     );
-    if (!result) {
-      return res.status(404).send("Not found challenge to update");
+    if (!result.status) {
+      return res.status(404).send(result.msg);
     }
     res.status(200).send(result);
   } catch (error) {
@@ -72,8 +69,8 @@ router.delete("/:id", authMdw, async (req, res) => {
       req.params.id,
       req.user._id
     );
-    if (!result) {
-      res.status(404).send("Not found challenge to delete");
+    if (!result.status) {
+      res.status(404).send(result.msg);
     }
     res.status(200).send(result);
   } catch (error) {

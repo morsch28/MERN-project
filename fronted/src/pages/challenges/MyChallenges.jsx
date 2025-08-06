@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../../context/auth.context";
 import { useUserChallenges } from "../../hooks/useUserChallenges";
 import challengesService from "../../services/challengesService";
-import MyChallengesCards from "./MyChallengesCards";
+import MyChallengesCards from "../../components/challenges/MyChallengesCards";
 import OptionSelector from "../../components/OptionSelector";
 
 function MyChallenges() {
@@ -10,9 +10,8 @@ function MyChallenges() {
   const { user } = useAuth();
 
   const { chosenChallenges, loadUserChallenges } = useUserChallenges(user?._id);
-  const filterChallenges = chosenChallenges.filter(
-    (c) => c.status == challengesStatus
-  );
+  const list = chosenChallenges?.data || [];
+  const filterChallenges = list.filter((c) => c.status == challengesStatus);
 
   const handleUpdate = async (id, currentStatus) => {
     try {

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 function Home() {
   const { isLoading, user } = useAuth();
   const navigate = useNavigate();
+  const { chosenChallenges } = useUserChallenges(user?._id);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -16,8 +17,8 @@ function Home() {
     return <WelcomePage />;
   }
 
-  const { chosenChallenges } = useUserChallenges(user._id);
-  const selectedChallenges = chosenChallenges.slice(0, 3);
+  const list = chosenChallenges?.data || [];
+  const selectedChallenges = list.slice(0, 3);
 
   return (
     <div className="d-flex flex-column gap-3 w-100 p-3 mt-1">

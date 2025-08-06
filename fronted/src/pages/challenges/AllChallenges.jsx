@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import challengesService from "../../services/challengesService";
-import AllChallengesCards from "./AllChallengesCards";
-import OptionSelector from "../OptionSelector";
+import AllChallengesCards from "../../components/challenges/AllChallengesCards";
+import OptionSelector from "../../components/OptionSelector";
 
 function AllChallenges() {
   const [challenges, setChallenges] = useState([]);
@@ -11,7 +11,8 @@ function AllChallenges() {
     const loadAllChallenges = async () => {
       try {
         const response = await challengesService.getAllChallenges();
-        setChallenges(response.data);
+        const list = response?.data?.data || [];
+        setChallenges(list);
       } catch (error) {
         console.log(error);
       }

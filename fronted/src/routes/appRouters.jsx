@@ -4,11 +4,11 @@ import WelcomePage from "../pages/WelcomePage";
 import { useAuth } from "../context/auth.context";
 import { useEffect } from "react";
 import userServices from "../services/userServices";
-import AllChallenges from "../components/challenges/AllChallenges";
+import AllChallenges from "../pages/challenges/AllChallenges";
 import MyChallenges from "../pages/challenges/MyChallenges";
 
 function AppRouters() {
-  const { user, wasHereBefore } = useAuth();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (user) {
@@ -18,10 +18,7 @@ function AppRouters() {
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={user || wasHereBefore ? <Home /> : <WelcomePage />}
-      />
+      <Route path="/" element={user ? <Home /> : <WelcomePage />} />
       <Route path="/" element={<WelcomePage />} />
       <Route path="/home" element={<Home />} />
       <Route path="all-challenges" element={<AllChallenges />} />

@@ -1,6 +1,5 @@
 import express from "express";
 import { authMdw } from "../middleWare/authMdw.js";
-import { challengeValidation } from "../model/challenge.js";
 import challengesService from "../services/challengesService.js";
 
 const router = express.Router();
@@ -8,16 +7,15 @@ const router = express.Router();
 //create a new challenge (only admin)
 router.post("/", authMdw, async (req, res) => {
   try {
-    const { error } = challengeValidation.validate(req.body);
-    if (error) {
-      return res.status(400).send(error.details[0].message);
+    if (!req.body) {
+      return res.status(400).send("request is empty no challenge to create");
     }
     const result = await challengesService.createChallenge(
       req.body,
       req.user.isAdmin
     );
-    if (!result) {
-      return res.status(400).send("Access denied or missing data");
+    if (!result.status) {
+      return res.status(400).send(result.msg);
     }
     res.status(201).send(result);
   } catch (error) {
@@ -29,8 +27,8 @@ router.post("/", authMdw, async (req, res) => {
 router.get("/", authMdw, async (req, res) => {
   try {
     const result = await challengesService.getAllChallenges();
-    if (!result) {
-      return res.status(404).send("Not found challenges");
+    if (!result.status) {
+      return res.status(404).send(result.msg);
     }
     res.status(200).send(result);
   } catch (error) {
@@ -42,8 +40,8 @@ router.get("/", authMdw, async (req, res) => {
 router.get("/community", authMdw, async (req, res) => {
   try {
     const result = await challengesService.getCompletedChallenges();
-    if (!result) {
-      return res.status(404).send("Not found completed challenges");
+    if (!result.status) {
+      return res.status(404).send(result.msg);
     }
     res.status(200).send(result);
   } catch (error) {

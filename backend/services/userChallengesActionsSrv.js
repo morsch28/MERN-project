@@ -1,29 +1,38 @@
 import { UserChallenge } from "../model/userChallenge.js";
+import { userChallengeValidation } from "../model/userChallenge.js";
 
 async function getUserChallenges(idUserParam) {
   if (!idUserParam) {
-    return false;
+    return { status: false, msg: "missing parameters" };
   }
   const challengesOfUser = await UserChallenge.find({
     userId: idUserParam,
   }).populate("challengeId");
 
   if (!challengesOfUser) {
-    return false;
+    return { status: false, msg: "not found user's challenges" };
   }
-  return challengesOfUser;
+  return {
+    status: true,
+    msg: "user's challenges successfully",
+    data: challengesOfUser,
+  };
 }
 
 async function updateUserChallenge(challengeId, values, userId) {
+  const { error } = userChallengeValidation.validate(values);
+  if (error) {
+    return { status: false, msg: "not valid data" };
+  }
   if (!challengeId || !values || !userId) {
-    return false;
+    return { status: false, msg: "missing parameters" };
   }
   const challenge = await UserChallenge.findById(challengeId);
   if (!challenge) {
-    return false;
+    return { status: false, msg: "Not found challenge to update" };
   }
   if (String(challenge.userId) !== userId) {
-    return false;
+    return { status: false, msg: "Unauthorize" };
   }
   if (values.status == "done") {
     values.completedDate = new Date();
@@ -33,25 +42,25 @@ async function updateUserChallenge(challengeId, values, userId) {
     values,
     { new: true }
   );
-  return challengeToUpdate;
+  return { status: true, msg: "Challenge updated", data: challengeToUpdate };
 }
 
 async function deleteUserChallenge(paramsId, idOfUser) {
   if (!paramsId || !idOfUser) {
-    return false;
+    return { status: false, msg: "missing params" };
   }
   const challenge = await UserChallenge.findById(paramsId);
   if (!challenge) {
-    return false;
+    return { status: false, msg: "not found challenge to delete" };
   }
   if (String(challenge.userId) != idOfUser) {
-    return false;
+    return { status: false, msg: "Unauthorize" };
   }
   const challengeToDelete = await UserChallenge.findByIdAndDelete(paramsId);
   if (!challengeToDelete) {
-    return false;
+    return { status: false, msg: "not found challenge to delete" };
   }
-  return challengeToDelete;
+  return { status: true, msg: "Challenge deleted", data: challengeToDelete };
 }
 
 const userChallengesActionSrv = {
