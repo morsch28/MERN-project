@@ -6,12 +6,12 @@ import mongoose from "mongoose";
 import initialChallenges from "./helpers/InitialDataChallenges.js";
 import cors from "cors";
 import initialQuizzes from "./helpers/initialDataQuizzes.js";
-import { Challenge } from "./model/challenge.js";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use("/uploads", express.static("uploads"));
 app.use(routers);
 
 const PORT = 3000;

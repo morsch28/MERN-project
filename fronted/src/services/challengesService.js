@@ -25,10 +25,20 @@ async function updateChallenge(id, updateData) {
   return response;
 }
 
+async function uploadImage(formData) {
+  const response = await httpServices.post("upload", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response;
+}
+
 const challengeService = {
   getAllChallenges,
   addChallengeToList,
   getAllUserChallenges,
   updateChallenge,
+  uploadImage,
 };
 export default challengeService;
