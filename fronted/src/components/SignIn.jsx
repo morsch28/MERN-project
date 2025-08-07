@@ -1,9 +1,9 @@
 import { useFormik } from "formik";
 import Input from "./common/Input";
-import PageHeader from "./common/PageHeader";
 import Joi from "joi";
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/auth.context";
+import feedbackService from "../services/feedbackService";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -38,11 +38,28 @@ function SignIn() {
       try {
         const response = await login(values);
         if (response.status == 200) {
-          console.log("Navigating to /home");
+          await feedbackService.showAlert({
+            title: "Done!",
+            text: "User was logged successfully, Welcome back!",
+            icon: "success",
+            timer: 2000,
+          });
           navigate("/home");
+        } else {
+          await feedbackService.showAlert({
+            title: "Ops ...!",
+            text: "you can't logged in",
+            icon: "error",
+            timer: 2000,
+          });
         }
       } catch (error) {
-        console.log(error);
+        await feedbackService.showAlert({
+          title: "Ops...!",
+          text: error?.response?.data || "you have server error",
+          icon: "error",
+          timer: 2000,
+        });
       }
     },
   });

@@ -1,14 +1,35 @@
 import challengesService from "../../services/challengesService";
 import CategoryIcons from "./CategoryIcons";
 import DifficultyBadge from "./DifficultyBadge";
+import feedbackService from "../../services/feedbackService";
 
 function AllChallengesCards({ challenge }) {
   const handleAddChallenge = async (id) => {
     try {
       const addChallenge = await challengesService.addChallengeToList(id);
+      if (addChallenge.status) {
+        await feedbackService.showAlert({
+          title: "Done!",
+          text: "Successfully added to the challenge database",
+          icon: "success",
+          timer: 2000,
+        });
+      } else {
+        await feedbackService.showAlert({
+          title: "Ops...!",
+          text: "can't add challenge to database",
+          icon: "error",
+          timer: 2000,
+        });
+      }
       return addChallenge;
     } catch (error) {
-      console.log(error);
+      await feedbackService.showAlert({
+        title: "Ops...!",
+        text: "server error",
+        icon: "error",
+        timer: 2000,
+      });
     }
   };
 

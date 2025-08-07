@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import userServices from "../services/userServices";
-import { useNavigate } from "react-router";
 
 export const authContext = createContext();
 authContext.displayName = "Auth";

@@ -1,11 +1,10 @@
 import { useFormik } from "formik";
 import Input from "./common/Input";
-import PageHeader from "./common/PageHeader";
 import Joi from "joi";
 import { normalizeUser } from "../user/normalizeUser";
-import userServices from "../services/userServices";
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/auth.context";
+import feedbackService from "../services/feedbackService";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -49,12 +48,28 @@ function SignUp() {
         const user = normalizeUser(values);
         const response = await createUser(user);
         if (response.status) {
+          await feedbackService.showAlert({
+            title: "Done!",
+            text: "User created successfully",
+            icon: "success",
+            timer: 2000,
+          });
           navigate("/home");
         } else {
-          //TODO: error message to user from response.message
+          await feedbackService.showAlert({
+            title: "Ops..!",
+            text: "Something is wrong can't create user",
+            icon: "error",
+            timer: 2000,
+          });
         }
       } catch (error) {
-        console.log(error);
+        await feedbackService.showAlert({
+          title: "Ops..!",
+          text: error.response?.data || "you have server error",
+          icon: "error",
+          timer: 2000,
+        });
       }
     },
   });

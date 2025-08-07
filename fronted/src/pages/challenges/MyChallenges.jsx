@@ -4,6 +4,7 @@ import { useUserChallenges } from "../../hooks/useUserChallenges";
 import challengesService from "../../services/challengesService";
 import MyChallengesCards from "../../components/challenges/MyChallengesCards";
 import OptionSelector from "../../components/OptionSelector";
+import feedbackService from "../../services/feedbackService";
 
 function MyChallenges() {
   const [challengesStatus, setChallengesStatus] = useState("pending");
@@ -22,10 +23,32 @@ function MyChallenges() {
       const response = await challengesService.updateChallenge(id, {
         status: nextStatus,
       });
+      if (response.status) {
+        if (currentStatus == "pending") {
+          const result = await feedbackService.showConfirm({
+            text: "Are you sure you want to start the challenge?",
+          });
+          if (!result.isConfirmed) {
+            return;
+          }
+        } else if (currentStatus == "in-progress") {
+          const result = await feedbackService.showConfirm({
+            text: "Are you sure you want to end the challenge?",
+          });
+          if (!result.isConfirmed) {
+            return;
+          }
+        }
+      }
       await loadUserChallenges();
       return response;
     } catch (error) {
-      console.error(error);
+      await feedbackService.showAlert({
+        title: "Ops..!",
+        text: "Server error",
+        icon: "error",
+        timer: 2000,
+      });
     }
   };
 

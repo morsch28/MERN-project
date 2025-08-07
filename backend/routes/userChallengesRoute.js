@@ -93,7 +93,7 @@ router.post("/choose-challenge/:id", authMdw, async (req, res) => {
     if (!result.status) {
       return res.status(400).send(result.msg);
     }
-    res.status(200).send(result);
+    res.status(200).send(result.data);
   } catch (error) {
     res.status(500).send(error.message);
   }

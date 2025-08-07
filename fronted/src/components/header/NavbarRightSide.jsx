@@ -1,11 +1,25 @@
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../context/auth.context";
+import feedbackService from "../../services/feedbackService";
 
 function NavbarRightSide() {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    const result = await feedbackService.showConfirm({
+      text: "Are you sure you want to logout?",
+    });
+    if (!result.isConfirmed) {
+      return;
+    } else {
+      await feedbackService.showAlert({
+        title: "Ok!",
+        text: "See you later friend",
+        icon: "success",
+        timer: 2000,
+      });
+    }
     logout();
     navigate("/home");
   };
