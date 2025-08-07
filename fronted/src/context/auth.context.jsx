@@ -44,9 +44,10 @@ export function AuthProvider({ children }) {
     try {
       const response = await userServices.createUser(user);
       if (response.status == 201) {
-        await login({ email: user.email, password: user.password });
+        setAuthData(userServices.getUserFromToken());
         return { status: true };
       }
+      return { status: false, msg: response.message };
     } catch (error) {
       console.error(error);
     }

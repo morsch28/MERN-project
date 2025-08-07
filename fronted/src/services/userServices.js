@@ -3,18 +3,16 @@ import { jwtDecode } from "jwt-decode";
 
 const TOKEN_KEY = "token";
 
-function createUser(user) {
-  return httpServices.post("/users", user);
+async function createUser(user) {
+  const response = await httpServices.post("/users", user);
+  setToken(response.data);
+  return response;
 }
 
 async function signIn(credential) {
-  try {
-    const response = await httpServices.post("/users/sign-in", credential);
-    setToken(response.data);
-    return response;
-  } catch (error) {
-    throw error;
-  }
+  const response = await httpServices.post("/users/sign-in", credential);
+  setToken(response.data);
+  return response;
 }
 
 function setToken(token) {
@@ -72,6 +70,7 @@ const userServices = {
   signIn,
   createUser,
   refreshToken,
+  setToken,
 };
 
 export default userServices;

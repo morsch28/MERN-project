@@ -3,6 +3,8 @@ import { useUserChallenges } from "../../hooks/useUserChallenges";
 import { useAuth } from "../../context/auth.context";
 import WelcomePage from "../../pages/WelcomePage";
 import { useNavigate } from "react-router";
+import CategoryIcons from "../../components/challenges/CategoryIcons";
+import StatusBadge from "../../components/challenges/StatusBadge";
 
 function Home() {
   const { isLoading, user } = useAuth();
@@ -13,7 +15,6 @@ function Home() {
     return <div>Loading...</div>;
   }
   if (!user) {
-    console.log("user", user);
     return <WelcomePage />;
   }
 
@@ -36,33 +37,12 @@ function Home() {
             {selectedChallenges.map((challenge, index) => (
               <div className="card selectedCards" key={index}>
                 <div className="d-flex justify-content-between ">
-                  {challenge.challengeId?.category == "nutrition" ? (
-                    <span className="fs-1">🥗</span>
-                  ) : challenge.challengeId?.category == "mental" ? (
-                    <span className="fs-1">🧘‍♀️</span>
-                  ) : (
-                    <span className="fs-1">🚴</span>
-                  )}
+                  <CategoryIcons category={challenge.challengeId.category} />
                   <div className="d-flex flex-column">
                     <h5 className="fw-bold">{challenge.challengeId?.title}</h5>
                     <p className="fs-5">{challenge.challengeId?.category}</p>
                   </div>
-                  <div
-                    className={`rounded-3 border fw-bold rounded-3 p-1 ${
-                      challenge.status == "pending"
-                        ? `"bg-warning-subtle text-warning"`
-                        : challenge.status == "in-progress"
-                        ? `bg-info-subtle text-info text-nowrap`
-                        : `bg-success-subtle text-success p-3`
-                    }`}
-                    style={{
-                      maxHeight: "40%",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    {challenge.status}
-                  </div>
+                  <StatusBadge status={challenge.status} />
                 </div>
               </div>
             ))}

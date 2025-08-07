@@ -9,7 +9,7 @@ import { useAuth } from "../context/auth.context";
 
 function SignUp() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { createUser } = useAuth();
 
   const { handleSubmit, errors, touched, isValid, getFieldProps } = useFormik({
     initialValues: {
@@ -47,10 +47,11 @@ function SignUp() {
     onSubmit: async (values) => {
       try {
         const user = normalizeUser(values);
-        const response = await userServices.createUser(user);
-        if (response.status == 201) {
-          await login({ email: values.email, password: values.password });
+        const response = await createUser(user);
+        if (response.status) {
           navigate("/home");
+        } else {
+          //TODO: error message to user from response.message
         }
       } catch (error) {
         console.log(error);

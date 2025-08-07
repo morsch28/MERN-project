@@ -1,3 +1,5 @@
+import CategoryIcons from "./CategoryIcons";
+
 function MyChallengesCards({ challenges, onUpdate }) {
   return (
     <div className="d-flex flex-wrap gap-3 justify-content-center gap-2 w-100">
@@ -8,18 +10,10 @@ function MyChallengesCards({ challenges, onUpdate }) {
             key={challenge._id}
           >
             <div className=" card-header bg-white border border-bottom-0 w-100 d-flex justify-content-between">
-              <button className="border-0 rounded-2 bg-dark-subtle">
+              <CategoryIcons category={challenge.challengeId.category} />
+              <button className="border border-1 p-2">
                 {challenge.challengeId.category}
               </button>
-              {challenge.challengeId.category == "nutrition" && (
-                <span className="fs-2">🥗</span>
-              )}
-              {challenge.challengeId.category == "mental" && (
-                <span className="fs-2">🧘‍♀️</span>
-              )}
-              {challenge.challengeId.category == "fitness" && (
-                <span className="fs-2">🚴</span>
-              )}
             </div>
             <h5 className="my-3 fw-bold fs-5">{challenge.challengeId.title}</h5>
             <div className="card-footer w-100 d-flex justify-content-center gap-3">

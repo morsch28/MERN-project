@@ -13,15 +13,12 @@ async function addChallengeToList(id) {
 }
 
 async function getAllUserChallenges(id) {
-  const response = await httpServices.get(`/user-challenges/action/${id}`);
+  const response = await httpServices.get(`/user-challenges/${id}`);
   return response;
 }
 
 async function updateChallenge(id, updateData) {
-  const response = await httpServices.put(
-    `user-challenges/action/${id}`,
-    updateData
-  );
+  const response = await httpServices.put(`user-challenges/${id}`, updateData);
   return response;
 }
 

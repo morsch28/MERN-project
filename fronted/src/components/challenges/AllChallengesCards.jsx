@@ -1,4 +1,6 @@
 import challengesService from "../../services/challengesService";
+import CategoryIcons from "./CategoryIcons";
+import DifficultyBadge from "./DifficultyBadge";
 
 function AllChallengesCards({ challenge }) {
   const handleAddChallenge = async (id) => {
@@ -11,29 +13,14 @@ function AllChallengesCards({ challenge }) {
   };
 
   return (
-    <div className="card p-2 justify-content-center allChallenges gap-0">
+    <div className="card pt-2  justify-content-center allChallenges gap-2">
       <div className="d-flex justify-content-between">
-        {challenge.category == "nutrition" ? (
-          <i className="fs-1">🥗</i>
-        ) : challenge.category == "fitness" ? (
-          <i className="fs-1">🏃‍♂️</i>
-        ) : (
-          <i className="fs-1">🧘‍♀️</i>
-        )}
-
-        <div className="d-flex flex-column gap-2">
-          <div
-            className={`p-1 fw-bold rounded-2 ${
-              challenge.difficulty === "easy"
-                ? "bg-success-subtle text-success"
-                : challenge.difficulty === "medium"
-                ? "bg-warning-subtle text-warning"
-                : "text-danger bg-danger-subtle"
-            }`}
-          >
-            {challenge.difficulty}
+        <div className="card-header d-flex w-100 justify-content-between bg-transparent  border-bottom-0">
+          <CategoryIcons category={challenge.category} />
+          <div className="d-flex flex-column gap-2">
+            <DifficultyBadge difficulty={challenge.difficulty} />
+            <div className="border p-1">{challenge.duration_days} days</div>
           </div>
-          <div className="border p-1">{challenge.duration_days} days</div>
         </div>
       </div>
       <div className="card-body">
@@ -42,7 +29,7 @@ function AllChallengesCards({ challenge }) {
       </div>
       <div className="card-footer ">
         <button
-          className="btn btn-primary p-1 "
+          className="btn btn-primary  "
           onClick={() => handleAddChallenge(challenge._id)}
         >
           Add Challenges<i className="bi bi-plus-lg"></i>
