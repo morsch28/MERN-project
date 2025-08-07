@@ -137,6 +137,18 @@ body,
   width: 20%;
 }
 
+.upload-label {
+  border: 4px dashed black;
+  border-radius: 8px;
+  padding: 30px;
+  width: 100%;
+  cursor: pointer;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+.upload-label:hover {
+  border-color: green;
+}
+
 @media screen and (max-width: 1024px) {
   .welcomeImage {
     width: 60%;

@@ -63,10 +63,10 @@ async function deleteUserChallenge(paramsId, idOfUser) {
   return { status: true, msg: "Challenge deleted", data: challengeToDelete };
 }
 
-const userChallengesActionSrv = {
+const userChallengesActionsService = {
   getUserChallenges,
   updateUserChallenge,
   deleteUserChallenge,
 };
 
-export default userChallengesActionSrv;
+export default userChallengesActionsService;

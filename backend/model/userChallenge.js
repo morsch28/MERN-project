@@ -48,9 +48,9 @@ const userChallengeValidation = Joi.object({
   feedback: Joi.object({
     text: Joi.string().max(1024).allow("").optional(),
     image: Joi.object({
-      url: Joi.string().min(14).allow("").optional().uri(),
+      url: Joi.string().allow("").optional(),
       alt: Joi.string().min(2).max(256).allow("").optional(),
-    }),
+    }).optional(),
   }),
 });
 

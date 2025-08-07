@@ -18,7 +18,7 @@ async function getAllUserChallenges(id) {
 }
 
 async function updateChallenge(id, updateData) {
-  const response = await httpServices.put(`user-challenges/${id}`, updateData);
+  const response = await httpServices.put(`/user-challenges/${id}`, updateData);
   return response;
 }
 

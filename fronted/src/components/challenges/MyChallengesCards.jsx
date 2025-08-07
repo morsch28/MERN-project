@@ -1,6 +1,24 @@
 import CategoryIcons from "./CategoryIcons";
+import { useState } from "react";
+import FeedbackModal from "./FeedbackModal";
 
-function MyChallengesCards({ challenges, onUpdate }) {
+function MyChallengesCards({ challenges, onUpdate, reloadChallenges }) {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedChallengeId, setSelectedChallengeId] = useState(null);
+  const [selectedChallengeTitle, setSelectedChallengeTitle] = useState("");
+
+  const handleShow = (challengeId, title) => {
+    setSelectedChallengeId(challengeId);
+    setSelectedChallengeTitle(title);
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+    setSelectedChallengeId(null);
+    setSelectedChallengeTitle("");
+  };
+
   return (
     <div className="d-flex flex-wrap gap-3 justify-content-center gap-2 w-100">
       {challenges.length > 0 &&
@@ -15,7 +33,29 @@ function MyChallengesCards({ challenges, onUpdate }) {
                 {challenge.challengeId.category}
               </button>
             </div>
-            <h5 className="my-3 fw-bold fs-5">{challenge.challengeId.title}</h5>
+            <div className="card-body">
+              <h5 className="my-3 fw-bold fs-5">
+                {challenge.challengeId.title}
+              </h5>
+              {challenge.feedback && (
+                <div>
+                  {challenge.feedback.text && (
+                    <p>
+                      <strong>Feedback: </strong>
+                      {challenge.feedback.text}
+                    </p>
+                  )}
+                  {challenge.feedback.image?.url && (
+                    <img
+                      src={`http://localhost:3000${challenge.feedback.image.url}`}
+                      alt={challenge.feedback.image.alt}
+                      className="img-fluid rounded border"
+                      style={{ maxHeight: "200px", objectFit: "cover" }}
+                    />
+                  )}
+                </div>
+              )}
+            </div>
             <div className="card-footer w-100 d-flex justify-content-center gap-3">
               {challenge.status == "pending" && (
                 <button
@@ -28,7 +68,12 @@ function MyChallengesCards({ challenges, onUpdate }) {
               )}
               {challenge.status == "in-progress" && (
                 <>
-                  <button className="btn btn-outline-dark">
+                  <button
+                    className="btn btn-outline-dark"
+                    onClick={() =>
+                      handleShow(challenge._id, challenge.challengeId.title)
+                    }
+                  >
                     Log <i className="bi bi-pencil-square"></i>
                   </button>
                   <button
@@ -53,6 +98,13 @@ function MyChallengesCards({ challenges, onUpdate }) {
             </div>
           </div>
         ))}
+
+      <FeedbackModal
+        onShow={showModal}
+        onClose={handleClose}
+        challengeId={selectedChallengeId}
+        challengeTitle={selectedChallengeTitle}
+      />
     </div>
   );
 }

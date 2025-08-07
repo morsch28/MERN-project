@@ -63,6 +63,7 @@ function MyChallenges() {
       <MyChallengesCards
         challenges={filterChallenges}
         onUpdate={handleUpdate}
+        reloadChallenges={loadUserChallenges}
       />
     </div>
   );

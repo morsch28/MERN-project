@@ -1,12 +1,12 @@
 import { useFormik } from "formik";
 import Joi from "joi";
 import challengesService from "../../services/challengesService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function FeedbackForm({ challengeId }) {
+function FeedbackForm({ challengeId, setSubmit, onSuccess }) {
   const [file, setFile] = useState(null);
 
-  const { handleSubmit, getFieldProps } = useFormik({
+  const { handleSubmit, getFieldProps, resetForm } = useFormik({
     initialValues: {
       feedback: {
         text: "",
@@ -42,7 +42,8 @@ function FeedbackForm({ challengeId }) {
           const formData = new FormData();
           formData.append("image", file);
           const res = await challengesService.uploadImage(formData);
-          imageUrl = res.filePath;
+          console.log("upload result", res);
+          imageUrl = res.data.filePath;
         }
         const feedbackData = {
           feedback: {
@@ -57,30 +58,51 @@ function FeedbackForm({ challengeId }) {
           challengeId,
           feedbackData
         );
+        if (response.status) {
+          resetForm();
+          onSuccess?.();
+        }
         return response;
       } catch (error) {
         console.error(error);
       }
     },
   });
+
+  useEffect(() => {
+    if (setSubmit) {
+      setSubmit(handleSubmit);
+    }
+  }, [setSubmit, handleSubmit]);
+
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Document your progress</h1>
-      <div className="d-flex flex-column">
-        <label>How was your experience?</label>
-        <input type="text" {...getFieldProps("feedback.text")} />
-      </div>
-      <div className="d-flex flex-column">
-        <label>Add Photo</label>
+    <form
+      onSubmit={handleSubmit}
+      className="d-flex flex-column w-100 align-items-center gap-3"
+    >
+      <div className="d-flex flex-column w-100">
+        <label className="mb-2 fs-5">How was your experience?</label>
         <input
+          type="text"
+          {...getFieldProps("feedback.text")}
+          className="border border-dark"
+          style={{ height: "150px" }}
+        />
+      </div>
+      <div className="d-flex flex-column align-items-center w-100">
+        <label
+          htmlFor="image-upload"
+          className="upload-label text-center d-flex flex-column"
+        >
+          <i className="bi bi-image fs-1"></i>Click here to upload an image
+        </label>
+        <input
+          id="image-upload"
           type="file"
           accept="image/*"
           onChange={(e) => setFile(e.target.files[0])}
+          style={{ display: "none" }}
         />
-      </div>
-      <div className="d-flex">
-        <button type="submit">Save Progress</button>
-        <button type="button">Cancel</button>
       </div>
     </form>
   );
