@@ -2,16 +2,24 @@ import { useFormik } from "formik";
 import Joi from "joi";
 import challengesService from "../../services/challengesService";
 import { useEffect, useState } from "react";
+import feedbackService from "../../services/feedbackService";
 
-function FeedbackForm({ challengeId, setSubmit, onSuccess }) {
+function FeedbackForm({ challengeId, onSuccess, initialFeedback = {} }) {
   const [file, setFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState(initialFeedback?.image?.url || "");
+
+  useEffect(() => {
+    if (initialFeedback?.image?.url) {
+      setImageUrl(initialFeedback.image.url);
+    }
+  }, [initialFeedback]);
 
   const { handleSubmit, getFieldProps, resetForm } = useFormik({
     initialValues: {
       feedback: {
-        text: "",
+        text: initialFeedback?.text || "",
         image: {
-          alt: "",
+          alt: initialFeedback?.alt || "",
         },
       },
     },
@@ -36,20 +44,20 @@ function FeedbackForm({ challengeId, setSubmit, onSuccess }) {
     },
     onSubmit: async (values) => {
       try {
-        let imageUrl = "";
+        let currentImageUrl = imageUrl;
 
         if (file) {
           const formData = new FormData();
           formData.append("image", file);
           const res = await challengesService.uploadImage(formData);
           console.log("upload result", res);
-          imageUrl = res.data.filePath;
+          currentImageUrl = res.data.filePath;
         }
         const feedbackData = {
           feedback: {
             text: values.feedback.text,
             image: {
-              url: imageUrl,
+              url: currentImageUrl,
               alt: values.feedback.image.alt,
             },
           },
@@ -69,21 +77,24 @@ function FeedbackForm({ challengeId, setSubmit, onSuccess }) {
     },
   });
 
-  useEffect(() => {
-    if (setSubmit) {
-      setSubmit(handleSubmit);
+  const handleSave = async (e) => {
+    e.preventDefault();
+    const result = await feedbackService.showConfirm({
+      text: "Are you sure you want to save feedback for this challenge?",
+    });
+    if (result.isConfirmed) {
+      handleSubmit();
     }
-  }, [setSubmit, handleSubmit]);
+  };
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handleSave}
       className="d-flex flex-column w-100 align-items-center gap-3"
     >
       <div className="d-flex flex-column w-100">
         <label className="mb-2 fs-5">How was your experience?</label>
-        <input
-          type="text"
+        <textarea
           {...getFieldProps("feedback.text")}
           className="border border-dark"
           style={{ height: "150px" }}
@@ -94,7 +105,21 @@ function FeedbackForm({ challengeId, setSubmit, onSuccess }) {
           htmlFor="image-upload"
           className="upload-label text-center d-flex flex-column"
         >
-          <i className="bi bi-image fs-1"></i>Click here to upload an image
+          {imageUrl ? (
+            <img
+              src={`http://localhost:3000${imageUrl}`}
+              alt={initialFeedback?.image?.alt || "Uploaded feedback"}
+              style={{
+                maxWidth: "100%",
+                objectFit: "cover",
+              }}
+            />
+          ) : (
+            <>
+              <i className="bi bi-image fs-1"></i>
+              Click here to upload an image
+            </>
+          )}
         </label>
         <input
           id="image-upload"
@@ -103,6 +128,18 @@ function FeedbackForm({ challengeId, setSubmit, onSuccess }) {
           onChange={(e) => setFile(e.target.files[0])}
           style={{ display: "none" }}
         />
+      </div>
+      <div className="d-flex gap-2">
+        <button
+          type="button"
+          className="text-danger border-danger fs-5 btn"
+          onClick={onSuccess}
+        >
+          Cancel
+        </button>
+        <button type="submit" className="btn bg-black text-white fs-5">
+          Save progress
+        </button>
       </div>
     </form>
   );

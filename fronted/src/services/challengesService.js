@@ -22,6 +22,11 @@ async function updateChallenge(id, updateData) {
   return response;
 }
 
+async function deleteUserChallenge(id) {
+  const response = await httpServices.delete(`/user-challenge/${id}`);
+  return response;
+}
+
 async function uploadImage(formData) {
   const response = await httpServices.post("upload", formData, {
     headers: {
@@ -37,5 +42,6 @@ const challengeService = {
   getAllUserChallenges,
   updateChallenge,
   uploadImage,
+  deleteUserChallenge,
 };
 export default challengeService;

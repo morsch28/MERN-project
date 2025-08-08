@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../../context/auth.context";
 import { useUserChallenges } from "../../hooks/useUserChallenges";
 import challengesService from "../../services/challengesService";
-import MyChallengesCards from "../../components/challenges/MyChallengesCards";
+import MyChallengesManager from "../../components/challenges/MyChallengesManager";
 import OptionSelector from "../../components/OptionSelector";
 import feedbackService from "../../services/feedbackService";
 
@@ -53,14 +53,14 @@ function MyChallenges() {
   };
 
   return (
-    <div className="container my-5  d-flex flex-column gap-3 text-center align-items-center bg-white p-4 myChallengesCards">
+    <div className="container my-5  d-flex flex-column gap-3 text-center align-items-center bg-white p-4 MyChallengesManager">
       <h1>The challenges you chose</h1>
       <OptionSelector
         options={["pending", "in-progress", "done"]}
         onSelected={setChallengesStatus}
         selected={challengesStatus}
       />
-      <MyChallengesCards
+      <MyChallengesManager
         challenges={filterChallenges}
         onUpdate={handleUpdate}
         reloadChallenges={loadUserChallenges}

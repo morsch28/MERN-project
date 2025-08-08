@@ -1,5 +1,5 @@
 import challengesService from "../../services/challengesService";
-import CategoryIcons from "./CategoryIcons";
+import CategoryIcons from "../common/CategoryIcons";
 import DifficultyBadge from "./DifficultyBadge";
 import feedbackService from "../../services/feedbackService";
 

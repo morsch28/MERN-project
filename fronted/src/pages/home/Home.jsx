@@ -3,7 +3,7 @@ import { useUserChallenges } from "../../hooks/useUserChallenges";
 import { useAuth } from "../../context/auth.context";
 import WelcomePage from "../../pages/WelcomePage";
 import { useNavigate } from "react-router";
-import CategoryIcons from "../../components/challenges/CategoryIcons";
+import CategoryIcons from "../../components/common/CategoryIcons";
 import StatusBadge from "../../components/challenges/StatusBadge";
 
 function Home() {
