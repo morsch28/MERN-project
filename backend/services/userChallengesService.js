@@ -33,17 +33,47 @@ async function completedUserChallenges(paramsId) {
     userId: paramsId,
     status: "done",
   });
-  if (!completedChallenges) {
+  if (completedChallenges.length === 0) {
     return { status: false, msg: "not found the completed user challenges" };
   }
   return {
     status: true,
     msg: "done loaded all user completes challenges",
-    date: completedChallenges,
+    data: completedChallenges,
   };
 }
 
+function getDaysNumberOfChallenge(startDate, status, totalDays) {
+  if (!startDate || status === "pending") {
+    return 0;
+  }
+  const date = new Date(startDate);
+  const startMidnight = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate()
+  );
+
+  const now = new Date();
+  const nowMidnight = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate()
+  );
+  const diffMs = nowMidnight - startMidnight;
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  let day = diffDays + 1;
+  if (typeof totalDays === "number" && totalDays > 0) {
+    day = Math.min(day, totalDays);
+  }
+  return Math.max(day, 0);
+}
+
 async function statusInPercent(paramsId) {
+  if (!paramsId) {
+    return { status: false, msg: "missing parameters" };
+  }
   const currChallenge = await UserChallenge.findById(paramsId);
   if (!currChallenge) {
     return { status: false, msg: "not found challenge" };
@@ -52,17 +82,35 @@ async function statusInPercent(paramsId) {
   if (!challenge) {
     return { status: false, msg: "not found challenge" };
   }
-
-  const start = new Date(currChallenge.startDate);
-  const today = new Date();
-  const diffDays = Math.floor((today - start) / (1000 * 60 * 60 * 24));
   const totalDays = challenge.duration_days;
+  const daysNumber = getDaysNumberOfChallenge(
+    currChallenge.startDate,
+    currChallenge.status,
+    totalDays
+  );
   const progress =
-    currChallenge.status == "done"
+    currChallenge.status === "done"
       ? 100
-      : Math.min(Math.round((diffDays / totalDays) * 100), 100);
+      : totalDays && totalDays > 0
+      ? Math.min(Math.round((daysNumber / totalDays) * 100), 100)
+      : 0;
 
-  return { status: true, progress: progress, data: currChallenge.status };
+  // const start = new Date(currChallenge.startDate);
+  // const today = new Date();
+  // const diffDays = Math.floor((today - start) / (1000 * 60 * 60 * 24));
+  // const totalDays = challenge.duration_days;
+  // const progress =
+  //   currChallenge.status == "done"
+  //     ? 100
+  //     : Math.min(Math.round((diffDays / totalDays) * 100), 100);
+
+  return {
+    status: true,
+    progress: progress,
+    data: currChallenge.status,
+    daysNumber,
+    totalDays,
+  };
 }
 
 const userChallengeService = {

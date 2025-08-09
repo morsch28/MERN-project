@@ -22,6 +22,7 @@ function MyChallengesManager({ challenges, onUpdate, reloadChallenges }) {
         onShow={handleShow}
         onUpdate={onUpdate}
         challenges={challenges}
+        reloadChallenges={reloadChallenges}
       />
       <ChallengeFeedbackModal
         onShow={showModal}

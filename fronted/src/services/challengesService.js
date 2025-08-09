@@ -23,7 +23,7 @@ async function updateChallenge(id, updateData) {
 }
 
 async function deleteUserChallenge(id) {
-  const response = await httpServices.delete(`/user-challenge/${id}`);
+  const response = await httpServices.delete(`/user-challenges/${id}`);
   return response;
 }
 

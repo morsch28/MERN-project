@@ -1,7 +1,7 @@
 import CategoryIcons from "../common/CategoryIcons";
 import ChallengesStatusButtons from "./ChallengesStatusButtons";
 
-function MyChallengesList({ challenges, onUpdate, onShow }) {
+function MyChallengesList({ challenges, onUpdate, onShow, reloadChallenges }) {
   return (
     <div className="d-flex flex-wrap gap-3 justify-content-center gap-2 w-100">
       {challenges.length > 0 &&
@@ -55,6 +55,7 @@ function MyChallengesList({ challenges, onUpdate, onShow }) {
                 challenge={challenge}
                 onShow={() => onShow(challenge)}
                 onUpdate={onUpdate}
+                reloadChallenges={reloadChallenges}
               />
             </div>
           </div>

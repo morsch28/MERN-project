@@ -34,6 +34,11 @@ async function updateUserChallenge(challengeId, values, userId) {
   if (String(challenge.userId) !== userId) {
     return { status: false, msg: "Unauthorize" };
   }
+  if (challenge.status == "pending" && values.status == "in-progress") {
+    if (!challenge.startDate) {
+      values.startDate = new Date();
+    }
+  }
   if (values.status == "done") {
     values.completedDate = new Date();
   }
