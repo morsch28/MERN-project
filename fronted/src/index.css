@@ -149,6 +149,42 @@ body,
   border-color: green;
 }
 
+/* עיצוב האחוזון */
+.c-progress {
+  width: 90px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+  position: relative;
+}
+
+.c-progress::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(#22c55e calc(var(--p) * 1%), #e9ecef 0);
+  /* המסכה נמצאת כאן במקום ב־.c-progress */
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(50% - 10px),
+    #000 calc(50% - 10px)
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(50% - -8px),
+    #000 calc(50% - 10px)
+  );
+  z-index: 0;
+}
+
+.c-progress > span {
+  position: relative; /* שהטקסט יהיה מעל הטבעת */
+  z-index: 1;
+}
+
 @media screen and (max-width: 1024px) {
   .welcomeImage {
     width: 60%;

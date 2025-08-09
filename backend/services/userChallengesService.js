@@ -95,15 +95,6 @@ async function statusInPercent(paramsId) {
       ? Math.min(Math.round((daysNumber / totalDays) * 100), 100)
       : 0;
 
-  // const start = new Date(currChallenge.startDate);
-  // const today = new Date();
-  // const diffDays = Math.floor((today - start) / (1000 * 60 * 60 * 24));
-  // const totalDays = challenge.duration_days;
-  // const progress =
-  //   currChallenge.status == "done"
-  //     ? 100
-  //     : Math.min(Math.round((diffDays / totalDays) * 100), 100);
-
   return {
     status: true,
     progress: progress,

@@ -1,5 +1,6 @@
 import CategoryIcons from "../common/CategoryIcons";
 import ChallengesStatusButtons from "./ChallengesStatusButtons";
+import ChallengeProgress from "./ChallengeProgress";
 
 function MyChallengesList({ challenges, onUpdate, onShow, reloadChallenges }) {
   return (
@@ -18,9 +19,14 @@ function MyChallengesList({ challenges, onUpdate, onShow, reloadChallenges }) {
               <h5 className="my-3 fw-bold fs-5">
                 {challenge.challengeId.title}
               </h5>
-              <button className="border border-1 p-2">
-                {challenge.challengeId.category}
-              </button>
+              <div className="d-flex flex-column align-items center">
+                <div className="progress-sm">
+                  <ChallengeProgress
+                    key={`${challenge._id}-${challenge.status}`}
+                    userChallengeId={challenge._id}
+                  />
+                </div>
+              </div>
             </div>
             <div className="card-body w-100 d-flex flex-column">
               {challenge.feedback && (

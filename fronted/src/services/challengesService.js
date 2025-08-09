@@ -27,6 +27,13 @@ async function deleteUserChallenge(id) {
   return response;
 }
 
+async function getUserProgress(id) {
+  const response = await httpServices.get(
+    `/user-challenges/progress-percent/${id}`
+  );
+  return response;
+}
+
 async function uploadImage(formData) {
   const response = await httpServices.post("upload", formData, {
     headers: {
@@ -43,5 +50,6 @@ const challengeService = {
   updateChallenge,
   uploadImage,
   deleteUserChallenge,
+  getUserProgress,
 };
 export default challengeService;

@@ -34,7 +34,7 @@ router.get("/:id", authMdw, async (req, res) => {
     );
 
     if (!result.status) {
-      return res.status(404).send(res.msg);
+      return res.status(404).send(result.msg);
     }
     res.send(result);
   } catch (error) {
@@ -70,7 +70,7 @@ router.delete("/:id", authMdw, async (req, res) => {
       req.user._id
     );
     if (!result.status) {
-      res.status(404).send(result.msg);
+      return res.status(404).send(result.msg);
     }
     res.status(200).send(result);
   } catch (error) {
@@ -102,20 +102,18 @@ router.post("/choose-challenge/:id", authMdw, async (req, res) => {
 //user progress status in percentage
 router.get("/progress-percent/:id", authMdw, async (req, res) => {
   try {
-    if (req.user._id != req.params.id) {
-      return res.status(403).send("Access denied");
-    }
-    result = await userChallengeService.statusInPercent(req.params.id);
+    const result = await userChallengeService.statusInPercent(req.params.id);
     if (!result.status) {
       return res.status(404).send(result.msg);
     }
-    res.send({
+    res.status(200).send({
       status: result.status,
-      progress: result.progress + "%",
-      data: result.data,
+      progress: result.progress,
+      daysNumber: result.daysNumber,
+      totalDays: result.totalDays,
     });
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error.message);
   }
 });
 
