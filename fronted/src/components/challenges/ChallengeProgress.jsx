@@ -7,21 +7,16 @@ function ChallengeProgress({ userChallengeId }) {
 
   useEffect(() => {
     const loadProgress = async () => {
-      console.log("laodProgress");
       try {
         const response = await challengesService.getUserProgress(
           userChallengeId
         );
-        console.log("progress res", response.data);
         if (response.data.status) {
-          const p = Math.max(
-            0,
-            Math.min(100, Number(response.data.progress ?? 0))
-          );
+          const p = Math.max(0, Math.min(100, response.data.progress));
           setProgress(p);
           setDays({
-            n: response.data.daysNumber ?? 0,
-            total: response.data.totalDays ?? 0,
+            n: response.data.daysNumber,
+            total: response.data.totalDays,
           });
         }
       } catch (error) {
@@ -36,7 +31,7 @@ function ChallengeProgress({ userChallengeId }) {
       <div className="c-progress" style={{ "--p": progress }}>
         <span>{progress}%</span>
       </div>
-      <div className="c-days">
+      <div className="c-days text-nowrap">
         days {days.n} of {days.total}
       </div>
     </div>

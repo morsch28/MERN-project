@@ -64,7 +64,7 @@ function ChallengesStatusButtons({
             <i className="bi bi-play fs-5"></i>
           </button>
           <button
-            onClick={() => onUpdate(_id, status)}
+            onClick={() => handleDelete(_id)}
             className="btn text-danger border border-danger fs-5"
           >
             <i className="bi bi-trash3"></i>

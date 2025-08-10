@@ -4,16 +4,16 @@ import ChallengeProgress from "./ChallengeProgress";
 
 function MyChallengesList({ challenges, onUpdate, onShow, reloadChallenges }) {
   return (
-    <div className="d-flex flex-wrap gap-3 justify-content-center gap-2 w-100">
+    <div className="d-flex flex-wrap gap-3 justify-content-center w-100">
       {challenges.length > 0 &&
         challenges.map((challenge) => (
           <div
-            className="card justify-content-center align-items-center border-3  userChallenges"
+            className="card justify-content-center align-items-center border-3 userChallenges"
             key={challenge._id}
           >
             <div
-              className=" card-header bg-white border border-bottom-0  d-flex justify-content-between align-items-center"
-              style={{ width: "100%", maxHeight: "40%" }}
+              className=" card-header bg-white border border-bottom-0 w-100 gap-2 d-flex justify-content-between align-items-center"
+              // style={{ width: "100%", maxHeight: "40%" }}
             >
               <CategoryIcons category={challenge.challengeId.category} />
               <h5 className="my-3 fw-bold fs-5">
@@ -22,7 +22,7 @@ function MyChallengesList({ challenges, onUpdate, onShow, reloadChallenges }) {
               <div className="d-flex flex-column align-items center">
                 <div className="progress-sm">
                   <ChallengeProgress
-                    key={`${challenge._id}-${challenge.status}`}
+                    // key={`${challenge._id}-${challenge.status}`}
                     userChallengeId={challenge._id}
                   />
                 </div>
@@ -31,24 +31,23 @@ function MyChallengesList({ challenges, onUpdate, onShow, reloadChallenges }) {
             <div className="card-body w-100 d-flex flex-column">
               {challenge.feedback && (
                 <div>
-                  <div>
-                    {challenge.feedback.image?.url && (
-                      <img
-                        src={`http://localhost:3000${challenge.feedback.image.url}`}
-                        alt={challenge.feedback.image.alt}
-                        className="img-fluid rounded border"
-                        style={{
-                          maxHeight: "180px",
-                          objectFit: "cover",
-                          width: "100%",
-                        }}
-                      />
-                    )}
-                  </div>
-                  <div className="mt-3 bg-body-secondary p-1">
+                  {challenge.feedback.image?.url && (
+                    <img
+                      src={`http://localhost:3000${challenge.feedback.image.url}`}
+                      alt={challenge.feedback.image.alt}
+                      className="img-fluid rounded border"
+                      style={{
+                        height: "180px",
+                        objectFit: "cover",
+                        width: "100%",
+                      }}
+                    />
+                  )}
+
+                  <div className="mt-3 bg-body-secondary ">
                     {challenge.feedback.text && (
                       <p className="d-flex justify-content-center gap-2">
-                        <strong>Feedback: </strong>
+                        {/* <strong>Feedback: </strong> */}
                         {challenge.feedback.text}
                       </p>
                     )}
