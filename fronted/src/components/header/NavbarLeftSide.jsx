@@ -19,6 +19,11 @@ function NavbarLeftSide() {
             My Challenges
           </Link>
         </li>
+        <li className="nav-item text-nowrap">
+          <Link className="nav-link active" to="/community-feed">
+            Community
+          </Link>
+        </li>
         <form role="search" className="d-flex mx-5">
           <input
             className="form-control"

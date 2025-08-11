@@ -5,10 +5,13 @@ import { normalizeUser } from "../user/normalizeUser";
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/auth.context";
 import feedbackService from "../services/feedbackService";
+import { useState } from "react";
+import challengeService from "../services/challengesService";
 
 function SignUp() {
   const navigate = useNavigate();
   const { createUser } = useAuth();
+  const [file, setFile] = useState();
 
   const { handleSubmit, errors, touched, isValid, getFieldProps } = useFormik({
     initialValues: {
@@ -45,7 +48,23 @@ function SignUp() {
     },
     onSubmit: async (values) => {
       try {
-        const user = normalizeUser(values);
+        let imageUrl = values.url || "";
+        let imageAlt = values.alt || "";
+
+        if (file) {
+          const form = new FormData();
+          form.append("image", file);
+          form.append("alt", imageAlt);
+          const res = await challengeService.uploadImage(form);
+          if (res.status) {
+            imageAlt = res.data.alt;
+            imageUrl = res.data.filePath;
+          } else {
+            console.log("error can't upload image");
+          }
+        }
+
+        const user = normalizeUser({ ...values, url: imageUrl, alt: imageAlt });
         const response = await createUser(user);
         if (response.status) {
           await feedbackService.showAlert({
@@ -104,16 +123,24 @@ function SignUp() {
         />
       </div>
       <div className="d-flex w-75">
-        <Input
-          placeholder="Image Url"
-          {...getFieldProps("url")}
-          error={touched.url && errors.url}
+        <input
+          type="file"
+          accept="image/*"
+          className="form-control border border-black border-1"
+          onChange={(e) => setFile(e.target.files?.[0] || null)}
         />
-        <Input
-          placeholder="Image Alt"
-          {...getFieldProps("alt")}
-          error={touched.alt && errors.alt}
-        />
+        {file && (
+          <img
+            src={URL.createObjectURL(file)}
+            alt="preview"
+            style={{
+              width: "60px",
+              height: "60px",
+              objectFit: "cover",
+              borderRadius: "50%",
+            }}
+          />
+        )}
       </div>
       <button
         type="submit"

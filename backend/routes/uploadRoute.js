@@ -26,6 +26,7 @@ router.post("/", upload.single("image"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ msg: "No file uploaded" });
   }
+
   res.json({
     msg: "Image uploaded successfully",
     filename: req.file.filename,

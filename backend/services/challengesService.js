@@ -9,7 +9,7 @@ async function createChallenge(values, userIsAdmin) {
     return { status: false, msg: "not valid data" };
   }
   if (!userIsAdmin) {
-    return { status: false, mag: "UnAuthorize" };
+    return { status: false, msg: "UnAuthorize" };
   }
   const newChallenge = new Challenge(values);
   await newChallenge.save();
@@ -41,7 +41,7 @@ async function getCompletedChallenges() {
   return {
     status: true,
     msg: "successfully get all completes challenges",
-    date: allDoneChallenges,
+    data: allDoneChallenges,
   };
 }
 

@@ -44,8 +44,8 @@ async function updateUserChallenge(challengeId, values, userId) {
   }
   const challengeToUpdate = await UserChallenge.findByIdAndUpdate(
     challengeId,
-    values,
-    { new: true }
+    { $set: values },
+    { new: true, runValidators: true, omitUndefined: true }
   );
   return { status: true, msg: "Challenge updated", data: challengeToUpdate };
 }

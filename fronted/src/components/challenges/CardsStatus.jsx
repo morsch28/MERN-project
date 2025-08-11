@@ -1,30 +1,49 @@
+import { useUserChallenges } from "../../hooks/useUserChallenges";
+import { useAuth } from "../../context/auth.context";
+
 function CardsStatus() {
+  const { user } = useAuth();
+
+  const { chosenChallenges } = useUserChallenges(user?._id);
+  const list = chosenChallenges?.data || [];
+
+  const pendingChallenges = list.filter(
+    (challenge) => challenge.status == "pending"
+  );
+  const inProgressChallenges = list.filter(
+    (challenge) => challenge.status == "in-progress"
+  );
+
+  const completedChallenges = list.filter(
+    (challenge) => challenge.status == "done"
+  );
+
   const fourChallengesCard = [
     {
       title: "completed",
       icon: "bi bi-trophy",
-      count: 0,
+      count: completedChallenges.length,
       bgColor: "bg-success-subtle",
       txColor: "text-success",
     },
     {
       title: "in-progress",
       icon: "bi bi-life-preserver",
-      count: 0,
+      count: inProgressChallenges.length,
       bgColor: "bg-primary-subtle",
       txColor: "text-primary",
     },
     {
       title: "pending",
       icon: "bi bi-calendar",
-      count: 0,
+      count: pendingChallenges.length,
       bgColor: "bg-warning-subtle",
       txColor: "text-warning",
     },
     {
       title: "total",
       icon: "bi bi-stars",
-      count: 0,
+      count: list.length,
       bgColor: "bg-danger-subtle",
       txColor: "text-danger",
     },

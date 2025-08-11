@@ -1,10 +1,21 @@
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../context/auth.context";
 import feedbackService from "../../services/feedbackService";
+import { useEffect } from "react";
+import WelcomePage from "../../pages/WelcomePage";
 
 function NavbarRightSide() {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
+
+  if (!user) {
+    return <WelcomePage />;
+  }
+
+  const DEFAULT_IMAGE =
+    "https://cdn-icons-png.flaticon.com/512/2922/2922510.png";
+
+  const USER_IMAGE = `http://localhost:3000${user.image.url}`;
 
   const handleLogout = async () => {
     const result = await feedbackService.showConfirm({
@@ -23,19 +34,20 @@ function NavbarRightSide() {
     logout();
     navigate("/home");
   };
+
   return (
     <div className="collapse navbar-collapse">
       <div className="dropdown">
         <img
-          src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png"
+          src={USER_IMAGE ? USER_IMAGE : DEFAULT_IMAGE}
           className="rounded-circle bg-primary"
-          width="50"
-          height="50"
+          width="65"
+          height="65"
           role="button"
           id="userDropdown"
           data-bs-toggle="dropdown"
           aria-expanded="false"
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", objectFit: "cover" }}
         />
         <ul
           className="dropdown-menu dropdown-menu-end"

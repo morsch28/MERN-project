@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import userServices from "../services/userServices";
 import AllChallenges from "../pages/challenges/AllChallenges";
 import MyChallenges from "../pages/challenges/MyChallenges";
+import Community from "../components/community/Community";
 
 function AppRouters() {
   const { user } = useAuth();
@@ -23,6 +24,7 @@ function AppRouters() {
       <Route path="/home" element={<Home />} />
       <Route path="all-challenges" element={<AllChallenges />} />
       <Route path="user-challenges" element={<MyChallenges />} />
+      <Route path="community-feed" element={<Community />} />
     </Routes>
   );
 }
