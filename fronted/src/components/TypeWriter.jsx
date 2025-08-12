@@ -8,7 +8,7 @@ function TypeWriter({ text, speed = 100 }) {
     const interval = setInterval(() => {
       setDisplayText((prev) => prev + text[index]);
       index++;
-      if (index >= text.length) {
+      if (index > text.length - 1) {
         clearInterval(interval);
       }
     }, speed);
@@ -20,7 +20,7 @@ function TypeWriter({ text, speed = 100 }) {
   return (
     <p
       className="p-welcomePage text-wrap welcomeText"
-      style={{ whiteSpace: "pre-line" }}
+      style={{ whiteSpace: "pre-line", height: "205px" }}
     >
       {displayText}
     </p>

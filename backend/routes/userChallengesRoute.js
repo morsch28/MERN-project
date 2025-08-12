@@ -100,21 +100,21 @@ router.post("/choose-challenge/:id", authMdw, async (req, res) => {
 });
 
 //user progress status in percentage
-router.get("/progress-percent/:id", authMdw, async (req, res) => {
-  try {
-    const result = await userChallengeService.statusInPercent(req.params.id);
-    if (!result.status) {
-      return res.status(404).send(result.msg);
-    }
-    res.status(200).send({
-      status: result.status,
-      progress: result.progress,
-      daysNumber: result.daysNumber,
-      totalDays: result.totalDays,
-    });
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-});
+// router.get("/progress-percent/:id", authMdw, async (req, res) => {
+//   try {
+//     const result = await userChallengeService.statusInPercent(req.params.id);
+//     if (!result.status) {
+//       return res.status(404).send(result.msg);
+//     }
+//     res.status(200).send({
+//       status: result.status,
+//       progress: result.progress,
+//       daysNumber: result.daysNumber,
+//       totalDays: result.totalDays,
+//     });
+//   } catch (error) {
+//     res.status(500).send(error.message);
+//   }
+// });
 
 export default router;

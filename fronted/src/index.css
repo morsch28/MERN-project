@@ -12,7 +12,7 @@ body,
   font-family: Raleway;
 }
 .h1-welcomePage {
-  font-size: 3.2rem;
+  font-size: 2.7rem;
   border-bottom: 3px solid black;
 }
 .btn-welcomePage:hover {
@@ -70,6 +70,8 @@ body,
     #f6ffaf 40%,
     #fdbbf5e0 65%
   ) !important;
+  width: 75%;
+  height: 80%;
 }
 
 .challengesContainer {
@@ -184,6 +186,16 @@ body,
   position: relative; /* שהטקסט יהיה מעל הטבעת */
   z-index: 1;
 }
+.signInForm {
+  height: 265px !important;
+}
+.signUpForm {
+  height: 265px !important;
+}
+
+.isChosen {
+  border: 3px solid red !important;
+}
 
 @media screen and (max-width: 1024px) {
   .welcomeImage {
@@ -209,12 +221,16 @@ body,
   .btn-allChallenges {
     width: 25%;
   }
+  .signIn {
+    width: 90%;
+  }
 }
 
 @media screen and (max-width: 768px) {
   .h1-welcomePage {
     font-size: 1.7rem;
   }
+
   .btnTwoStar {
     font-size: 0.8rem !important;
   }

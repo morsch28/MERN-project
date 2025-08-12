@@ -16,4 +16,12 @@ router.get("/", authMdw, async (req, res) => {
   }
 });
 
+router.post("/comment", authMdw, (req, res) => {});
+
+router.put("/comment/:id", authMdw, (req, res) => {});
+
+router.delete("/comment/:id", authMdw, (req, res) => {});
+
+router.post("/like", authMdw, (req, res) => {});
+
 export default router;

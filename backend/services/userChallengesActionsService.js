@@ -1,21 +1,70 @@
 import { UserChallenge } from "../model/userChallenge.js";
 import { userChallengeValidation } from "../model/userChallenge.js";
 
+function getDaysNumberOfChallenge(startDate, status, totalDays) {
+  if (!startDate || status === "pending") {
+    return 0;
+  }
+  const date = new Date(startDate);
+  const startMidnight = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate()
+  );
+
+  const now = new Date();
+  const nowMidnight = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate()
+  );
+  const diffMs = nowMidnight - startMidnight;
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  let day = diffDays + 1;
+  if (typeof totalDays === "number" && totalDays > 0) {
+    day = Math.min(day, totalDays);
+  }
+  return Math.max(day, 0);
+}
+
 async function getUserChallenges(idUserParam) {
   if (!idUserParam) {
     return { status: false, msg: "missing parameters" };
   }
   const challengesOfUser = await UserChallenge.find({
     userId: idUserParam,
-  }).populate("challengeId");
+  })
+    .populate("challengeId")
+    .lean();
 
   if (!challengesOfUser) {
     return { status: false, msg: "not found user's challenges" };
   }
+  const data = challengesOfUser.map((challenge) => {
+    const totalDays = challenge.challengeId?.duration_days;
+    const daysNumber = getDaysNumberOfChallenge(
+      challenge.startDate,
+      challenge.status,
+      totalDays
+    );
+    const progress =
+      challenge.status === "done"
+        ? 100
+        : totalDays > 0
+        ? Math.min(Math.round((daysNumber / totalDays) * 100), 100)
+        : 0;
+    return {
+      ...challenge,
+      totalDays,
+      daysNumber,
+      progress,
+    };
+  });
   return {
     status: true,
     msg: "user's challenges successfully",
-    data: challengesOfUser,
+    data: data,
   };
 }
 

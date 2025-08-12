@@ -1,7 +1,5 @@
-// import Community from "../model/Community";
 import { UserChallenge } from "../model/userChallenge.js";
 // import Community from "../model/Community";
-// import { date } from "joi";
 
 async function getCommunityFeed() {
   const feed = await UserChallenge.find({ status: "done" })

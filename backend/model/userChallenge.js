@@ -33,6 +33,34 @@ const userChallengeSchema = new mongoose.Schema({
   completedDate: {
     type: Date,
   },
+  likes: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    default: [],
+  },
+  shares: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    default: [],
+  },
+  comments: {
+    type: [
+      {
+        userId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
+        text: {
+          type: String,
+          maxlength: 256,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    default: [],
+  },
 });
 
 const UserChallenge = mongoose.model(
@@ -54,4 +82,6 @@ const userChallengeValidation = Joi.object({
   }),
 });
 
-export { UserChallenge, userChallengeValidation };
+const commentsValidation = Joi.string().max(256);
+
+export { UserChallenge, userChallengeValidation, commentsValidation };

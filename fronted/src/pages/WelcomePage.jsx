@@ -28,7 +28,7 @@ function WelcomePage() {
             text={`Welcome to my website - your gateway to a healthier and more balanced life.\nDiscover personalized challenges to improve your fitness, nutrition, sleep quality,\n and embed healthy habits into your daily routine.\n Join our community and start your journey toward meaningful change today.`}
           />
         </div>
-        <div className="d-flex flex-column w-75 align-items-center gap-3  border-3 welcomePageToForm">
+        <div className="d-flex flex-column w-50 align-items-center gap-1  border-3 welcomePageToForm">
           <h1 className=" h1-welcomePage">Mor(e) Wellness & LifeStyle</h1>
           <div className="bg-dark-subtle  d-flex align-items-center justify-content-center p-2 gap-2 divStartBtn">
             <button
@@ -52,23 +52,17 @@ function WelcomePage() {
               Get Started
             </button>
           </div>
-          {singIn ? (
-            <div className="d-flex flex-column w-50 mt-4 align-items-center gap-2 justify-content-center text-center signIn">
-              <h2 className="fs-1">Welcome Back!</h2>
-              <p className="fs-4">
-                sign-in to continue your challenges journey
-              </p>
-              <SignIn />
-            </div>
-          ) : (
-            <div className="d-flex flex-column  align-items-center gap-4  signUp">
-              <h2 className="fs-1">Start your journey</h2>
-              <p className="fs-4">
-                create your account and begin transforming your life
-              </p>
-              <SignUp />
-            </div>
-          )}
+          <div className="d-flex flex-column mt-4 align-items-center gap-4 justify-content-center text-center signIn p-3 rounded-3">
+            <h2 className="fs-1">
+              {singIn ? "Welcome Back!" : "Start your journey"}
+            </h2>
+            <p className="fs-4">
+              {singIn
+                ? "sign-in to continue your challenges journey"
+                : "create your account and begin transforming your life"}
+            </p>
+            {singIn ? <SignIn /> : <SignUp />}
+          </div>
         </div>
       </div>
     </>

@@ -78,9 +78,7 @@ function ChallengesStatusButtons({
             onClick={() => onShow(challenge)}
           >
             {feedback ? "Update Log" : "Log"}{" "}
-            <button>
-              <i className="bi bi-pencil-square"></i>
-            </button>
+            <i className="bi bi-pencil-square"></i>
           </button>
           <button
             className="btn btn-success  fs-5 text-nowrap"

@@ -11,10 +11,7 @@ function MyChallengesList({ challenges, onUpdate, onShow, reloadChallenges }) {
             className="card justify-content-center align-items-center border-3 userChallenges"
             key={challenge._id}
           >
-            <div
-              className=" card-header bg-white border border-bottom-0 w-100 gap-2 d-flex justify-content-between align-items-center"
-              // style={{ width: "100%", maxHeight: "40%" }}
-            >
+            <div className=" card-header bg-white border border-bottom-0 w-100 gap-2 d-flex justify-content-between align-items-center">
               <CategoryIcons category={challenge.challengeId.category} />
               <h5 className="my-3 fw-bold fs-5">
                 {challenge.challengeId.title}
@@ -22,8 +19,9 @@ function MyChallengesList({ challenges, onUpdate, onShow, reloadChallenges }) {
               <div className="d-flex flex-column align-items center">
                 <div className="progress-sm">
                   <ChallengeProgress
-                    // key={`${challenge._id}-${challenge.status}`}
-                    userChallengeId={challenge._id}
+                    progress={challenge.progress}
+                    totalDays={challenge.totalDays}
+                    daysNumber={challenge.daysNumber}
                   />
                 </div>
               </div>
@@ -47,7 +45,6 @@ function MyChallengesList({ challenges, onUpdate, onShow, reloadChallenges }) {
                   <div className="mt-3 bg-body-secondary ">
                     {challenge.feedback.text && (
                       <p className="d-flex justify-content-center gap-2">
-                        {/* <strong>Feedback: </strong> */}
                         {challenge.feedback.text}
                       </p>
                     )}

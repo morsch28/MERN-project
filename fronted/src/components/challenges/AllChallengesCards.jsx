@@ -2,8 +2,14 @@ import challengesService from "../../services/challengesService";
 import CategoryIcons from "../common/CategoryIcons";
 import DifficultyBadge from "./DifficultyBadge";
 import feedbackService from "../../services/feedbackService";
+import { useUserChallenges } from "../../hooks/useUserChallenges";
+import StatusBadge from "./StatusBadge";
 
-function AllChallengesCards({ challenge }) {
+function AllChallengesCards({ challenge, isChosen, onAdd, status }) {
+  // console.log("status", status);
+  // const { chosenChallenges } = useUserChallenges();
+  // console.log(chosenChallenges);
+
   const handleAddChallenge = async (id) => {
     try {
       const addChallenge = await challengesService.addChallengeToList(id);
@@ -14,6 +20,7 @@ function AllChallengesCards({ challenge }) {
           icon: "success",
           timer: 2000,
         });
+        await onAdd();
       } else {
         await feedbackService.showAlert({
           title: "Ops...!",
@@ -34,7 +41,11 @@ function AllChallengesCards({ challenge }) {
   };
 
   return (
-    <div className="card pt-2  justify-content-center allChallenges gap-2">
+    <div
+      className={`card pt-2  justify-content-center allChallenges gap-2 ${
+        isChosen ? "isChosen" : ""
+      }`}
+    >
       <div className="d-flex justify-content-between">
         <div className="card-header d-flex w-100 justify-content-between bg-transparent  border-bottom-0">
           <CategoryIcons category={challenge.category} />
@@ -49,12 +60,16 @@ function AllChallengesCards({ challenge }) {
         <div>{challenge.description}</div>
       </div>
       <div className="card-footer ">
-        <button
-          className="btn btn-primary  "
-          onClick={() => handleAddChallenge(challenge._id)}
-        >
-          Add Challenges<i className="bi bi-plus-lg"></i>
-        </button>
+        {isChosen ? (
+          <button>{status}</button>
+        ) : (
+          <button
+            className="btn btn-primary  "
+            onClick={() => handleAddChallenge(challenge._id)}
+          >
+            Add Challenge<i className="bi bi-plus-lg"></i>
+          </button>
+        )}
       </div>
     </div>
   );

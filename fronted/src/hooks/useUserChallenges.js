@@ -10,9 +10,9 @@ export function useUserChallenges(userId) {
     }
     try {
       const response = await challengeService.getAllUserChallenges(userId);
-      console.log("challenge user", response.data);
+      console.log("challenge user", response.data.data);
 
-      setChosenChallenges(response.data);
+      setChosenChallenges(response?.data);
     } catch (error) {
       console.log("Failed load challenges", error);
     }

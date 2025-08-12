@@ -67,7 +67,7 @@ function SignIn() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="d-flex flex-column justify-content-center align-items-center gap-4 w-100"
+      className="d-flex flex-column justify-content-center align-items-center gap-4 signInForm"
     >
       <Input
         placeholder="Email"
@@ -82,7 +82,7 @@ function SignIn() {
 
       <button
         type="submit"
-        className="btn btn-primary w-25 p-2 fs-5 mb-3"
+        className="btn btn-primary p-2 fs-5 mb-3"
         disabled={!isValid}
       >
         Submit
