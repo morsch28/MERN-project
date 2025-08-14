@@ -1,15 +1,16 @@
 import CardsStatus from "../../components/challenges/CardsStatus";
-import { useUserChallenges } from "../../hooks/useUserChallenges";
 import { useAuth } from "../../context/auth.context";
-import WelcomePage from "../../pages/WelcomePage";
+import WelcomePage from "../WelcomePage";
 import { useNavigate } from "react-router";
 import CategoryIcons from "../../components/common/CategoryIcons";
 import StatusBadge from "../../components/challenges/StatusBadge";
+import { ROUTES } from "../../routes/routes";
+import { useMyChallenges } from "../../context/challenges.context";
 
-function Home() {
+function HomePage() {
   const { isLoading, user } = useAuth();
   const navigate = useNavigate();
-  const { chosenChallenges } = useUserChallenges(user?._id);
+  const { myChallenges } = useMyChallenges();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -18,7 +19,7 @@ function Home() {
     return <WelcomePage />;
   }
 
-  const list = chosenChallenges?.data || [];
+  const list = myChallenges?.data || [];
   const selectedChallenges = list.slice(0, 3);
 
   return (
@@ -26,13 +27,15 @@ function Home() {
       <CardsStatus />
       <div className="d-flex gap-5 justify-content-center mt-2 mb-3 align-items-center home-Challenges">
         <div className="d-flex flex flex-column gap-2 selectedChallenges ">
-          <button
-            onClick={() => navigate("/all-challenges")}
-            className="btn btn-primary px-3 fs-5 btn-allChallenges"
-          >
-            All challenges
-          </button>
-          <h1 style={{ fontSize: "30px" }}>Selected Challenges</h1>
+          <div className="d-flex justify-content-center">
+            <button
+              onClick={() => navigate(ROUTES.ALL_CHALLENGES)}
+              className="btn btn-primary px-2 fs-5 position-fixed start-0 top-0 mt-2 mx-3"
+            >
+              All challenges
+            </button>
+            <h1 style={{ fontSize: "30px" }}>Selected Challenges</h1>
+          </div>
           <div className="d-flex gap-3 selectedCardsContainer">
             {selectedChallenges.map((challenge, index) => (
               <div className="card selectedCards" key={index}>
@@ -53,4 +56,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;

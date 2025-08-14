@@ -8,12 +8,15 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/auth.context.jsx";
+import { ChallengesProvider } from "./context/challenges.context.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <ChallengesProvider>
+          <App />
+        </ChallengesProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>

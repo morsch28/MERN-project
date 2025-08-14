@@ -5,7 +5,15 @@ async function getCompletedChallenges() {
   return response;
 }
 
+async function addCommentToChallenge(id, text) {
+  const response = await httpServices.post(`/community/comment/${id}`, {
+    text,
+  });
+  return response;
+}
+
 const communityService = {
   getCompletedChallenges,
+  addCommentToChallenge,
 };
 export default communityService;

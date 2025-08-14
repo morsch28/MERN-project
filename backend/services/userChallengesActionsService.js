@@ -29,6 +29,8 @@ function getDaysNumberOfChallenge(startDate, status, totalDays) {
 }
 
 async function getUserChallenges(idUserParam) {
+  console.log("user param", idUserParam);
+
   if (!idUserParam) {
     return { status: false, msg: "missing parameters" };
   }

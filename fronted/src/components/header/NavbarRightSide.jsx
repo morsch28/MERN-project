@@ -3,6 +3,7 @@ import { useAuth } from "../../context/auth.context";
 import feedbackService from "../../services/feedbackService";
 import { useEffect } from "react";
 import WelcomePage from "../../pages/WelcomePage";
+import { ROUTES } from "../../routes/routes";
 
 function NavbarRightSide() {
   const { logout, user } = useAuth();
@@ -32,7 +33,7 @@ function NavbarRightSide() {
       });
     }
     logout();
-    navigate("/home");
+    navigate(ROUTES.HOME);
   };
 
   return (
@@ -56,7 +57,10 @@ function NavbarRightSide() {
         >
           {user ? (
             <li className=" fs-5 d-flex flex-column fw-bold">
-              <Link className="dropdown-item text-primary" to="/user-info">
+              <Link
+                className="dropdown-item text-primary"
+                to={ROUTES.USER_INFO}
+              >
                 User Info
               </Link>
               <button
@@ -69,7 +73,7 @@ function NavbarRightSide() {
             </li>
           ) : (
             <li>
-              <Link className="dropdown-item text-primary" to="/sign-in">
+              <Link className="dropdown-item text-primary" to={ROUTES.SIGN_IN}>
                 Login
               </Link>
             </li>

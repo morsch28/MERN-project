@@ -1,17 +1,16 @@
 import { useState } from "react";
-import { useAuth } from "../../context/auth.context";
-import { useUserChallenges } from "../../hooks/useUserChallenges";
 import challengesService from "../../services/challengesService";
 import MyChallengesManager from "../../components/challenges/MyChallengesManager";
 import OptionSelector from "../../components/OptionSelector";
 import feedbackService from "../../services/feedbackService";
+import { useMyChallenges } from "../../context/challenges.context";
 
-function MyChallenges() {
+function MyChallengesPage() {
   const [challengesStatus, setChallengesStatus] = useState("pending");
-  const { user } = useAuth();
 
-  const { chosenChallenges, loadUserChallenges } = useUserChallenges(user?._id);
-  const list = chosenChallenges?.data || [];
+  const { myChallenges, loadUserChallenges } = useMyChallenges();
+
+  const list = myChallenges?.data || [];
   const filterChallenges = list.filter((c) => c.status == challengesStatus);
 
   const handleUpdate = async (id, currentStatus) => {
@@ -69,4 +68,4 @@ function MyChallenges() {
   );
 }
 
-export default MyChallenges;
+export default MyChallengesPage;

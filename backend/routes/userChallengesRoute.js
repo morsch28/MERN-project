@@ -26,9 +26,6 @@ router.get("/done/:id", authMdw, async (req, res) => {
 //the all user selected challenges
 router.get("/:id", authMdw, async (req, res) => {
   try {
-    if (!req.user.isAdmin && req.user._id !== req.params.id) {
-      return res.status(401).send("Access denied");
-    }
     const result = await userChallengesActionsService.getUserChallenges(
       req.params.id
     );

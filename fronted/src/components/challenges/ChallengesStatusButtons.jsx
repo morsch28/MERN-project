@@ -1,5 +1,4 @@
 import challengeService from "../../services/challengesService";
-import { useUserChallenges } from "../../hooks/useUserChallenges";
 import feedbackService from "../../services/feedbackService";
 
 function ChallengesStatusButtons({

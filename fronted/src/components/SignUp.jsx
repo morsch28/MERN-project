@@ -7,6 +7,7 @@ import { useAuth } from "../context/auth.context";
 import feedbackService from "../services/feedbackService";
 import { useState } from "react";
 import challengeService from "../services/challengesService";
+import { ROUTES } from "../routes/routes";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ function SignUp() {
             icon: "success",
             timer: 2000,
           });
-          navigate("/home");
+          navigate(ROUTES.HOME);
         } else {
           await feedbackService.showAlert({
             title: "Ops..!",

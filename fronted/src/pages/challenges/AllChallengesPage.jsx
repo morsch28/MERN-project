@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import challengesService from "../../services/challengesService";
-import AllChallengesCards from "../../components/challenges/AllChallengesCards";
+import AllChallengesCard from "../../components/challenges/AllChallengesCard";
 import OptionSelector from "../../components/OptionSelector";
-import { useAuth } from "../../context/auth.context";
-import { useUserChallenges } from "../../hooks/useUserChallenges";
+import { useMyChallenges } from "../../context/challenges.context";
 
-function AllChallenges() {
+function AllChallengesPage() {
   const [challenges, setChallenges] = useState([]);
   const [selectCategory, setSelectCategory] = useState("all");
-  const { user } = useAuth();
-  const { chosenChallenges, loadUserChallenges } = useUserChallenges(user._id);
+
+  const { myChallenges, loadUserChallenges } = useMyChallenges();
 
   useEffect(() => {
     const loadAllChallenges = async () => {
@@ -29,10 +28,10 @@ function AllChallenges() {
       ? challenges
       : challenges.filter((c) => c.category == selectCategory);
 
-  console.log("all card", chosenChallenges);
+  console.log("all card", myChallenges);
 
   const getStatus = (id) => {
-    for (const chosen of chosenChallenges?.data) {
+    for (const chosen of myChallenges?.data) {
       if (chosen.challengeId?._id === id) {
         return chosen.status;
       }
@@ -49,21 +48,15 @@ function AllChallenges() {
           selected={selectCategory}
         />
       </div>
-      {chosenChallenges.data && (
+      {myChallenges.data && (
         <div className=" container challengesContainer">
           {filterChallenges.length > 0 &&
             filterChallenges.map((challenge) => {
               let status = getStatus(challenge._id);
               return (
-                <AllChallengesCards
+                <AllChallengesCard
                   key={challenge._id}
                   challenge={challenge}
-                  isChosen={chosenChallenges.data.some((ch) => {
-                    if (ch.challengeId._id == challenge._id) {
-                      return true;
-                    }
-                    return false;
-                  })}
                   onAdd={loadUserChallenges}
                   status={status}
                 />
@@ -75,4 +68,4 @@ function AllChallenges() {
   );
 }
 
-export default AllChallenges;
+export default AllChallengesPage;

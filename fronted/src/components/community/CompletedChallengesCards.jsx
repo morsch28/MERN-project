@@ -1,8 +1,18 @@
-import { useEffect, useState } from "react";
-import communityService from "../../services/communityService";
+import { useState } from "react";
+import CommentsModal from "./CommentsModal";
 
-function Community() {
-  const [completedChallenges, setCompletedChallenges] = useState([]);
+function CompletedChallengesCards({ challenges, addComment }) {
+  const [show, setShow] = useState(false);
+  const [activate, setActivate] = useState(null);
+
+  const openModal = (challenge) => {
+    setActivate(challenge);
+    setShow(true);
+  };
+  const closeModal = () => {
+    setShow(false);
+    setActivate(null);
+  };
 
   const nameToUpperCase = (name) => {
     return name
@@ -13,28 +23,9 @@ function Community() {
       .slice(0, 2);
   };
 
-  useEffect(() => {
-    const loadCompletedChallenges = async () => {
-      try {
-        const response = await communityService.getCompletedChallenges();
-        console.log("data", response.data);
-        console.log("data data", response.data.data);
-
-        setCompletedChallenges(response.data);
-
-        return response.data;
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    loadCompletedChallenges();
-  }, []);
-
-  const completed = completedChallenges.slice(0, 6);
-
   return (
-    <div className="d-flex  w-50 gap-2  h-75 mt-4 flex-column">
-      {completed.map((challenge) => {
+    <div className="d-flex  w-50 gap-2 mt-4 flex-column mb-4">
+      {challenges.map((challenge) => {
         const firstName = challenge.userId?.name?.first;
         const lastName = challenge.userId?.name?.last;
         const fullName = `${firstName} ${lastName}`;
@@ -49,9 +40,11 @@ function Community() {
         const imagePath = challenge.userId?.image?.url;
         const imageUrl = imagePath ? `http://localhost:3000${imagePath}` : null;
 
+        const allComments = challenge.comments?.length;
+
         return (
           <div className="card text-center w-100" key={challenge._id}>
-            <div className="card-header d-flex justify-content-between">
+            <div className="card-header d-flex justify-content-between border border-0 bg-transparent">
               <div className="d-flex gap-2">
                 {imageUrl ? (
                   <img
@@ -86,31 +79,51 @@ function Community() {
                 </div>
               </div>
               <div
-                className={`p-2 h-25 ${
+                className={`p-2 h-75 ${
                   challenge.challengeId?.category === "nutrition"
-                    ? "bg-success-subtle text-success"
+                    ? "bg-success-subtle text-success border border-success"
                     : challenge.challengeId?.category === "mental"
-                    ? "bg-info-subtle text-info"
-                    : "bg-warning-subtle text-warning"
+                    ? "bg-info-subtle text-info border border-info"
+                    : "bg-warning-subtle text-warning border-border-warning"
                 }`}
               >
                 {challenge.challengeId?.category}
               </div>
             </div>
-            <div className="card-body d-flex flex-column align-items-center">
-              <h5 className="card-title">{challenge.challengeId.title}</h5>
+            <div className="card-body d-flex flex-column align-items-center p-3 gap-2">
+              <h5 className="card-title fs-4">{challenge.challengeId.title}</h5>
               {challenge.feedback && (
-                <p className="card-text bg-body-secondary p-1 rounded-2 w-75">
+                <p
+                  className="card-text bg-body-secondary p-2 rounded-2 w-75"
+                  style={{ fontSize: "17px" }}
+                >
                   {challenge.feedback?.text}
                 </p>
               )}
             </div>
-            <div className="card-footer text-body-secondary">2 days ago</div>
+            <div className="card-footer text-body-secondary border border-0 bg-transparent p-3 d-flex ">
+              <button
+                onClick={() => openModal(challenge)}
+                className="border border-0 bg-transparent fs-5 gap-2 d-flex justify-content-start mx-3"
+              >
+                Comment {allComments ? `(${allComments})` : ""}
+                <i className="bi bi-chat"></i>
+              </button>
+              <button className="border border-0 bg-transparent fs-5 gap-2 d-flex justify-content-start mx-3">
+                I liked it <i className="bi bi-heart"></i>
+              </button>
+            </div>
           </div>
         );
       })}
+      <CommentsModal
+        show={show}
+        onClose={closeModal}
+        challenge={activate}
+        onAddComment={addComment}
+      />
     </div>
   );
 }
 
-export default Community;
+export default CompletedChallengesCards;

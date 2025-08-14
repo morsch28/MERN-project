@@ -1,11 +1,8 @@
-import { useUserChallenges } from "../../hooks/useUserChallenges";
-import { useAuth } from "../../context/auth.context";
+import { useMyChallenges } from "../../context/challenges.context";
 
 function CardsStatus() {
-  const { user } = useAuth();
-
-  const { chosenChallenges } = useUserChallenges(user?._id);
-  const list = chosenChallenges?.data || [];
+  const { myChallenges } = useMyChallenges();
+  const list = myChallenges?.data || [];
 
   const pendingChallenges = list.filter(
     (challenge) => challenge.status == "pending"

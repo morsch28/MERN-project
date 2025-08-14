@@ -16,7 +16,24 @@ router.get("/", authMdw, async (req, res) => {
   }
 });
 
-router.post("/comment", authMdw, (req, res) => {});
+router.post("/comment/:id", authMdw, async (req, res) => {
+  try {
+    const userId = req.user?._id;
+    const userChallengeId = req.params.id;
+    const { text } = req.body;
+    const response = await communityService.addComment(
+      userChallengeId,
+      userId,
+      text
+    );
+    if (!response.status) {
+      return res.status(400).send(response.msg);
+    }
+    return res.status(201).send(response.data);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 router.put("/comment/:id", authMdw, (req, res) => {});
 

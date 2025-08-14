@@ -1,12 +1,13 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "../pages/home/Home";
+import HomePage from "../pages/home/HomePage";
 import WelcomePage from "../pages/WelcomePage";
 import { useAuth } from "../context/auth.context";
 import { useEffect } from "react";
 import userServices from "../services/userServices";
-import AllChallenges from "../pages/challenges/AllChallenges";
-import MyChallenges from "../pages/challenges/MyChallenges";
-import Community from "../components/community/Community";
+import AllChallengesPage from "../pages/challenges/AllChallengesPage";
+import MyChallengesPage from "../pages/challenges/MyChallengesPage";
+import CommunityPage from "../pages/community/CommunityPage";
+import { ROUTES } from "./routes";
 
 function AppRouters() {
   const { user } = useAuth();
@@ -19,12 +20,15 @@ function AppRouters() {
 
   return (
     <Routes>
-      <Route path="/" element={user ? <Home /> : <WelcomePage />} />
-      <Route path="/" element={<WelcomePage />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="all-challenges" element={<AllChallenges />} />
-      <Route path="user-challenges" element={<MyChallenges />} />
-      <Route path="community-feed" element={<Community />} />
+      <Route
+        path={ROUTES.WELCOME}
+        element={user ? <HomePage /> : <WelcomePage />}
+      />
+      <Route path={ROUTES.WELCOME} element={<WelcomePage />} />
+      <Route path={ROUTES.HOME} element={<HomePage />} />
+      <Route path={ROUTES.ALL_CHALLENGES} element={<AllChallengesPage />} />
+      <Route path={ROUTES.USER_CHALLENGES} element={<MyChallengesPage />} />
+      <Route path={ROUTES.COMMUNITY} element={<CommunityPage />} />
     </Routes>
   );
 }

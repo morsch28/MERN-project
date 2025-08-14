@@ -20,7 +20,7 @@ body,
 }
 
 .home-page-cards:hover {
-  transform: scale(0.9);
+  transform: scale(1.05);
 }
 
 .custom-main {
@@ -193,8 +193,14 @@ body,
   height: 265px !important;
 }
 
-.isChosen {
-  border: 3px solid red !important;
+.is-chosen-pending {
+  border: 5px solid #fec007 !important;
+}
+.is-chosen-in-progress {
+  border: 5px solid #0d6efc !important;
+}
+.is-chosen-done {
+  border: 5px solid #198654 !important;
 }
 
 @media screen and (max-width: 1024px) {

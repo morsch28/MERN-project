@@ -2,14 +2,8 @@ import challengesService from "../../services/challengesService";
 import CategoryIcons from "../common/CategoryIcons";
 import DifficultyBadge from "./DifficultyBadge";
 import feedbackService from "../../services/feedbackService";
-import { useUserChallenges } from "../../hooks/useUserChallenges";
-import StatusBadge from "./StatusBadge";
 
-function AllChallengesCards({ challenge, isChosen, onAdd, status }) {
-  // console.log("status", status);
-  // const { chosenChallenges } = useUserChallenges();
-  // console.log(chosenChallenges);
-
+function AllChallengesCard({ challenge, onAdd, status }) {
   const handleAddChallenge = async (id) => {
     try {
       const addChallenge = await challengesService.addChallengeToList(id);
@@ -43,7 +37,7 @@ function AllChallengesCards({ challenge, isChosen, onAdd, status }) {
   return (
     <div
       className={`card pt-2  justify-content-center allChallenges gap-2 ${
-        isChosen ? "isChosen" : ""
+        status && `is-chosen-${status}`
       }`}
     >
       <div className="d-flex justify-content-between">
@@ -60,8 +54,10 @@ function AllChallengesCards({ challenge, isChosen, onAdd, status }) {
         <div>{challenge.description}</div>
       </div>
       <div className="card-footer ">
-        {isChosen ? (
-          <button>{status}</button>
+        {status ? (
+          <button className="btn btn-secondary" disabled>
+            {status}
+          </button>
         ) : (
           <button
             className="btn btn-primary  "
@@ -75,4 +71,4 @@ function AllChallengesCards({ challenge, isChosen, onAdd, status }) {
   );
 }
 
-export default AllChallengesCards;
+export default AllChallengesCard;

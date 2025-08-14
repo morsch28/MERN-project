@@ -4,6 +4,7 @@ import Joi from "joi";
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/auth.context";
 import feedbackService from "../services/feedbackService";
+import { ROUTES } from "../routes/routes";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ function SignIn() {
             icon: "success",
             timer: 2000,
           });
-          navigate("/home");
+          navigate(ROUTES.HOME);
         } else {
           await feedbackService.showAlert({
             title: "Ops ...!",
