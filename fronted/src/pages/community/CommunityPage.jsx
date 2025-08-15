@@ -9,11 +9,9 @@ function CommunityPage() {
     const loadCompletedChallenges = async () => {
       try {
         const response = await communityService.getCompletedChallenges();
-        console.log("data", response.data);
-        console.log("data data", response.data.data);
-
-        setCompletedChallenges(response.data);
-
+        const list = response.data;
+        console.log("list", list);
+        setCompletedChallenges(list);
         return response.data;
       } catch (error) {
         console.log(error);
@@ -22,26 +20,29 @@ function CommunityPage() {
     loadCompletedChallenges();
   }, []);
 
-  const handleAddComment = async (challengeId, text) => {
+  const handleAddComment = async (id, commentText) => {
     try {
       const response = await communityService.addCommentToChallenge(
-        challengeId,
-        text
+        id,
+        commentText
       );
-      if (response.data?.status) {
-        const newComment = response.data.data;
-        setCompletedChallenges((prev) => {
-          prev.map((challenge) =>
-            challenge._id == challengeId
-              ? { ...challenge, comments: [...challenge.comments, newComment] }
-              : challenge
-          );
-        });
-        console.log(response);
-        return response;
-      }
+      if (response.status == 201) {
+        const newComment = response.data;
+        setCompletedChallenges((prev) =>
+          prev.map((challenge) => {
+            return challenge?._id == id
+              ? {
+                  ...challenge,
+                  comments: [...(challenge.comments || []), newComment],
+                }
+              : challenge;
+          })
+        );
 
-      return response;
+        return response;
+      } else {
+        console.log("add comment failed");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -52,7 +53,7 @@ function CommunityPage() {
   return (
     <CompletedChallengesCards
       challenges={completed}
-      addComment={handleAddComment}
+      onAddComment={handleAddComment}
     />
   );
 }

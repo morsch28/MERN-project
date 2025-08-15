@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CommentsModal from "./CommentsModal";
 
-function CompletedChallengesCards({ challenges, addComment }) {
+function CompletedChallengesCards({ challenges, onAddComment }) {
   const [show, setShow] = useState(false);
   const [activate, setActivate] = useState(null);
 
@@ -14,6 +14,18 @@ function CompletedChallengesCards({ challenges, addComment }) {
     setActivate(null);
   };
 
+  useEffect(() => {
+    if (!activate?._id) {
+      return;
+    }
+    const updated = challenges.find(
+      (challenge) => challenge?._id === activate._id
+    );
+    if (updated) {
+      setActivate(updated);
+    }
+  }, [challenges, activate?._id]);
+
   const nameToUpperCase = (name) => {
     return name
       .split(" ")
@@ -25,25 +37,25 @@ function CompletedChallengesCards({ challenges, addComment }) {
 
   return (
     <div className="d-flex  w-50 gap-2 mt-4 flex-column mb-4">
-      {challenges.map((challenge) => {
-        const firstName = challenge.userId?.name?.first;
-        const lastName = challenge.userId?.name?.last;
+      {challenges.map((challenge, index) => {
+        const firstName = challenge?.userId?.name?.first || "";
+        const lastName = challenge?.userId?.name?.last || "";
         const fullName = `${firstName} ${lastName}`;
         const userName = nameToUpperCase(fullName);
-        const date = new Date(challenge.completedDate);
+        const date = new Date(challenge?.completedDate);
         const formatDate = date.toLocaleDateString("en-US", {
           month: "long",
           day: "numeric",
           year: "numeric",
         });
 
-        const imagePath = challenge.userId?.image?.url;
+        const imagePath = challenge?.userId?.image?.url || "";
         const imageUrl = imagePath ? `http://localhost:3000${imagePath}` : null;
 
-        const allComments = challenge.comments?.length;
+        const allComments = challenge?.comments?.length;
 
         return (
-          <div className="card text-center w-100" key={challenge._id}>
+          <div className="card text-center w-100" key={index}>
             <div className="card-header d-flex justify-content-between border border-0 bg-transparent">
               <div className="d-flex gap-2">
                 {imageUrl ? (
@@ -80,24 +92,26 @@ function CompletedChallengesCards({ challenges, addComment }) {
               </div>
               <div
                 className={`p-2 h-75 ${
-                  challenge.challengeId?.category === "nutrition"
+                  challenge?.challengeId?.category === "nutrition"
                     ? "bg-success-subtle text-success border border-success"
-                    : challenge.challengeId?.category === "mental"
+                    : challenge?.challengeId?.category === "mental"
                     ? "bg-info-subtle text-info border border-info"
                     : "bg-warning-subtle text-warning border-border-warning"
                 }`}
               >
-                {challenge.challengeId?.category}
+                {challenge?.challengeId?.category}
               </div>
             </div>
             <div className="card-body d-flex flex-column align-items-center p-3 gap-2">
-              <h5 className="card-title fs-4">{challenge.challengeId.title}</h5>
-              {challenge.feedback && (
+              <h5 className="card-title fs-4">
+                {challenge?.challengeId.title}
+              </h5>
+              {challenge?.feedback && (
                 <p
                   className="card-text bg-body-secondary p-2 rounded-2 w-75"
                   style={{ fontSize: "17px" }}
                 >
-                  {challenge.feedback?.text}
+                  {challenge?.feedback?.text}
                 </p>
               )}
             </div>
@@ -120,7 +134,7 @@ function CompletedChallengesCards({ challenges, addComment }) {
         show={show}
         onClose={closeModal}
         challenge={activate}
-        onAddComment={addComment}
+        onAddComment={onAddComment}
       />
     </div>
   );

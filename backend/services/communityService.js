@@ -5,9 +5,10 @@ import { UserChallenge, commentsValidation } from "../model/userChallenge.js";
 async function getCommunityFeed() {
   const feed = await UserChallenge.find({ status: "done" })
     .sort({ completedDate: -1, _id: -1 })
-    .select("userId challengeId feedback completedDate createdAt")
+    .select("userId challengeId feedback completedDate createdAt comments")
     .populate("userId", "name image")
     .populate("challengeId", "title category")
+    .populate("comments.userId", "name image")
     .lean();
   if (!feed) {
     return { status: false, msg: "Can't find completed challenges" };
