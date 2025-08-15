@@ -83,7 +83,7 @@ function CommentsModal({ show, onClose, challenge, onAddComment }) {
                   <div>{fullName}</div>
                   <div key={comment._id}>{comment.text}</div>
                 </div>
-                <div className="d-flex gap-2 mx-5">
+                <div className="d-flex gap-2 ms-auto">
                   <button>
                     <i className="bi bi-trash3"></i>
                   </button>
