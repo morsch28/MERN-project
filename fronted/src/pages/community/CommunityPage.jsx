@@ -10,7 +10,7 @@ function CommunityPage() {
       try {
         const response = await communityService.getCompletedChallenges();
         const list = response.data;
-        console.log("list", list);
+
         setCompletedChallenges(list);
         return response.data;
       } catch (error) {

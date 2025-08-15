@@ -35,53 +35,68 @@ function CompletedChallengesCards({ challenges, onAddComment }) {
       .slice(0, 2);
   };
 
+  const prepareChallengesData = (challenge) => {
+    const firstName = challenge?.userId?.name?.first || "";
+    const lastName = challenge?.userId?.name?.last || "";
+    const userName = `${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`;
+    const date = new Date(challenge?.completedDate);
+    const formatDate = date.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+
+    const imagePath = challenge?.userId?.image?.url || "";
+    const imageUrl = imagePath ? `http://localhost:3000${imagePath}` : null;
+    const challengeCategory = challenge?.challengeId?.category;
+    const challengeTitle = challenge?.challengeId.title;
+    const feedback = challenge?.feedback;
+    const challengeFeedback = feedback?.text;
+
+    const allComments = challenge?.comments?.length;
+    return {
+      firstName,
+      userName,
+      imageUrl,
+      formatDate,
+      allComments,
+      challengeCategory,
+      challengeTitle,
+      feedback,
+      challengeFeedback,
+    };
+  };
+
+  const getCategoryClasses = (challenge) => {
+    return challenge?.challengeId?.category === "nutrition"
+      ? "bg-success-subtle text-success border border-success"
+      : challenge?.challengeId?.category === "mental"
+      ? "bg-info-subtle text-info border border-info"
+      : "bg-warning-subtle text-warning border-border-warning";
+  };
+
   return (
     <div className="d-flex  w-50 gap-2 mt-4 flex-column mb-4">
       {challenges.map((challenge, index) => {
-        const firstName = challenge?.userId?.name?.first || "";
-        const lastName = challenge?.userId?.name?.last || "";
-        const fullName = `${firstName} ${lastName}`;
-        const userName = nameToUpperCase(fullName);
-        const date = new Date(challenge?.completedDate);
-        const formatDate = date.toLocaleDateString("en-US", {
-          month: "long",
-          day: "numeric",
-          year: "numeric",
-        });
-
-        const imagePath = challenge?.userId?.image?.url || "";
-        const imageUrl = imagePath ? `http://localhost:3000${imagePath}` : null;
-
-        const allComments = challenge?.comments?.length;
-
+        const {
+          firstName,
+          userName,
+          imageUrl,
+          formatDate,
+          allComments,
+          challengeCategory,
+          challengeTitle,
+          feedback,
+          challengeFeedback,
+        } = prepareChallengesData(challenge);
         return (
           <div className="card text-center w-100" key={index}>
             <div className="card-header d-flex justify-content-between border border-0 bg-transparent">
               <div className="d-flex gap-2">
                 {imageUrl ? (
-                  <img
-                    src={imageUrl}
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                    }}
-                  />
+                  <img className="img-CommunityCards01" src={imageUrl} />
                 ) : (
-                  <div
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "50%",
-                      backgroundColor: "blue",
-                      color: "white",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      fontSize: "1.2rem",
-                    }}
-                  >
+                  <div className="userName-upperCaseImg d-flex justify-content-center align-items-center">
                     {userName}
                   </div>
                 )}
@@ -90,28 +105,18 @@ function CompletedChallengesCards({ challenges, onAddComment }) {
                   <div>Complete Challenge - {formatDate}</div>
                 </div>
               </div>
-              <div
-                className={`p-2 h-75 ${
-                  challenge?.challengeId?.category === "nutrition"
-                    ? "bg-success-subtle text-success border border-success"
-                    : challenge?.challengeId?.category === "mental"
-                    ? "bg-info-subtle text-info border border-info"
-                    : "bg-warning-subtle text-warning border-border-warning"
-                }`}
-              >
-                {challenge?.challengeId?.category}
+              <div className={`p-2 h-75 ${getCategoryClasses(challenge)}`}>
+                {challengeCategory}
               </div>
             </div>
             <div className="card-body d-flex flex-column align-items-center p-3 gap-2">
-              <h5 className="card-title fs-4">
-                {challenge?.challengeId.title}
-              </h5>
-              {challenge?.feedback && (
+              <h5 className="card-title fs-4">{challengeTitle}</h5>
+              {feedback && (
                 <p
                   className="card-text bg-body-secondary p-2 rounded-2 w-75"
                   style={{ fontSize: "17px" }}
                 >
-                  {challenge?.feedback?.text}
+                  {challengeFeedback}
                 </p>
               )}
             </div>

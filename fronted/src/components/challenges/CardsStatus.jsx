@@ -17,28 +17,28 @@ function CardsStatus() {
 
   const fourChallengesCard = [
     {
-      title: "completed",
+      title: "Completed",
       icon: "bi bi-trophy",
       count: completedChallenges.length,
       bgColor: "bg-success-subtle",
       txColor: "text-success",
     },
     {
-      title: "in-progress",
+      title: "In-Progress",
       icon: "bi bi-life-preserver",
       count: inProgressChallenges.length,
       bgColor: "bg-primary-subtle",
       txColor: "text-primary",
     },
     {
-      title: "pending",
+      title: "Pending",
       icon: "bi bi-calendar",
       count: pendingChallenges.length,
       bgColor: "bg-warning-subtle",
       txColor: "text-warning",
     },
     {
-      title: "total",
+      title: "Total",
       icon: "bi bi-stars",
       count: list.length,
       bgColor: "bg-danger-subtle",
