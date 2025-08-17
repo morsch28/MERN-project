@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import CommentsModal from "./CommentsModal";
 
-function CompletedChallengesCards({ challenges, onAddComment }) {
+function CompletedChallengesCards({
+  challenges,
+  onAddComment,
+  onDeleteComment,
+}) {
   const [show, setShow] = useState(false);
   const [activate, setActivate] = useState(null);
 
@@ -25,15 +29,6 @@ function CompletedChallengesCards({ challenges, onAddComment }) {
       setActivate(updated);
     }
   }, [challenges, activate?._id]);
-
-  const nameToUpperCase = (name) => {
-    return name
-      .split(" ")
-      .filter(Boolean) // מסיר רווחים מיותרים
-      .map((word) => word[0]?.toUpperCase() || "")
-      .join("")
-      .slice(0, 2);
-  };
 
   const prepareChallengesData = (challenge) => {
     const firstName = challenge?.userId?.name?.first || "";
@@ -140,6 +135,7 @@ function CompletedChallengesCards({ challenges, onAddComment }) {
         onClose={closeModal}
         challenge={activate}
         onAddComment={onAddComment}
+        onDeleteComment={onDeleteComment}
       />
     </div>
   );

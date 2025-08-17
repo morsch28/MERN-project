@@ -47,6 +47,28 @@ function CommunityPage() {
       console.log(error);
     }
   };
+  const handleDelete = async (challengeId, commentId) => {
+    try {
+      const response = await communityService.deleteComment(commentId);
+      if (response.status == 200) {
+        setCompletedChallenges((prev) =>
+          prev.map((challenge) => {
+            return challenge._id == challengeId
+              ? {
+                  ...challenge,
+                  comments: challenge.comments.filter(
+                    (comment) => comment._id !== commentId
+                  ),
+                }
+              : challenge;
+          })
+        );
+      }
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const completed = completedChallenges.slice(0, 6);
 
@@ -54,6 +76,7 @@ function CommunityPage() {
     <CompletedChallengesCards
       challenges={completed}
       onAddComment={handleAddComment}
+      onDeleteComment={handleDelete}
     />
   );
 }

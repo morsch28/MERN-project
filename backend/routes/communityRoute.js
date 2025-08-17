@@ -35,9 +35,35 @@ router.post("/comment/:id", authMdw, async (req, res) => {
   }
 });
 
-router.put("/comment/:id", authMdw, (req, res) => {});
+router.put("/comment/:id", authMdw, async (req, res) => {
+  try {
+    const commentId = req.params.id;
+    const { newComment } = req.body;
+    const response = await communityService.updateComment(
+      commentId,
+      newComment
+    );
+    if (!response.status) {
+      return res.status(400).send(response.msg);
+    }
+    res.status(200).send(response.data);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
-router.delete("/comment/:id", authMdw, (req, res) => {});
+router.delete("/comment/:id", authMdw, async (req, res) => {
+  try {
+    const commentId = req.params.id;
+    const response = await communityService.deleteComment(commentId);
+    if (!response.status) {
+      return res.status(400).send(response.msg);
+    }
+    res.status(200).send(response.data);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 router.post("/like", authMdw, (req, res) => {});
 

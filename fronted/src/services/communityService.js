@@ -11,9 +11,21 @@ async function addCommentToChallenge(id, text) {
   });
   return response;
 }
+async function deleteComment(id) {
+  const response = await httpServices.delete(`/community/comment/${id}`);
+  return response;
+}
+async function updateComment(commentId, newText) {
+  const response = await httpServices.put(`/community/comment/${commentId}`, {
+    newComment: newText,
+  });
+  return response;
+}
 
 const communityService = {
   getCompletedChallenges,
   addCommentToChallenge,
+  deleteComment,
+  updateComment,
 };
 export default communityService;

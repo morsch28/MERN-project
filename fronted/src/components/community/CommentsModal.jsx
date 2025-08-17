@@ -1,16 +1,27 @@
 import { Modal, Button, Form } from "react-bootstrap";
 import communityService from "../../services/communityService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import CommentsList from "./CommentsList";
 
-function CommentsModal({ show, onClose, challenge, onAddComment }) {
+function CommentsModal({
+  show,
+  onClose,
+  challenge,
+  onAddComment,
+  onDeleteComment,
+}) {
   const [text, setText] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [challengeComments, setChallengeComments] = useState([]);
+  const [commentToEdit, setCommentToEdit] = useState(null);
+
+  useEffect(() => {
+    setChallengeComments(challenge?.comments || []);
+  }, [challenge]);
 
   if (!challenge) {
     return null;
   }
-  const comments = challenge.comments || [];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,9 +32,7 @@ function CommentsModal({ show, onClose, challenge, onAddComment }) {
     setSubmitting(true);
     try {
       const response = await onAddComment?.(challenge._id, commentData);
-      if (response) {
-        console.log("its good", response);
-      }
+      return response;
     } catch (error) {
       console.log(error);
     } finally {
@@ -31,11 +40,41 @@ function CommentsModal({ show, onClose, challenge, onAddComment }) {
     }
   };
 
-  const buildImageUrl = (path) => {
-    if (!path) {
-      return null;
+  const startEdit = (commentId) => {
+    const element = document.getElementById(`update-${commentId}`);
+    if (!element) {
+      return;
     }
-    return `http://localhost:3000${path}`;
+    setCommentToEdit(commentId);
+    element.contentEditable = true;
+    element.focus();
+    element.style.outline = "1px solid black";
+  };
+
+  const saveEdit = async (commentId) => {
+    const element = document.getElementById(`update-${commentId}`);
+    if (!element) {
+      return;
+    }
+    const newText = element.innerText.trim();
+    try {
+      const response = await communityService.updateComment(commentId, newText);
+      if (response.status == 200) {
+        if (challenge?.comments) {
+          const index = challenge.comments.findIndex(
+            (c) => c?._id === commentId
+          );
+          if (index > -1) {
+            challenge.comments[index].text = newText;
+          }
+        }
+        element.contentEditable = false;
+        element.style.outline = "none";
+        setCommentToEdit(null);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -44,57 +83,15 @@ function CommentsModal({ show, onClose, challenge, onAddComment }) {
         <Modal.Title>Comments</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div
-          className="d-flex flex-column gap-2"
-          style={{ maxHeight: 300, overflowY: "auto" }}
-        >
-          {console.log("challenge comments ", challenge)}
-          {comments.length == 0 && <div>No Comment Yet</div>}
-          {comments.map((comment) => {
-            const user = comment?.userId;
-            const userImg = buildImageUrl(user?.image?.url);
-            const fullName = `${user?.name?.first} ${user?.name?.last}`;
+        <CommentsList
+          comments={challengeComments}
+          onSave={saveEdit}
+          onStart={startEdit}
+          onDelete={onDeleteComment}
+          commentToEdit={commentToEdit}
+          challenge={challenge}
+        />
 
-            return (
-              <div className="d-flex gap-2 border border-bottom p-2 align-items-center">
-                {userImg ? (
-                  <img
-                    src={userImg}
-                    alt={fullName}
-                    style={{
-                      width: "35px",
-                      height: "35px",
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                    }}
-                  />
-                ) : (
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png"
-                    style={{
-                      width: "35px",
-                      height: "35px",
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                    }}
-                  />
-                )}
-                <div className="d-flex flex-column">
-                  <div>{fullName}</div>
-                  <div key={comment._id}>{comment.text}</div>
-                </div>
-                <div className="d-flex gap-2 ms-auto">
-                  <button>
-                    <i className="bi bi-trash3"></i>
-                  </button>
-                  <button>
-                    <i className="bi bi-pencil"></i>
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
         <Form onSubmit={handleSubmit}>
           <div className="d-flex gap-2">
             <Form.Control

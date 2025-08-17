@@ -21,41 +21,81 @@ async function getCommunityFeed() {
 }
 
 async function addComment(userChallengeId, userId, text) {
-  try {
-    if (!userChallengeId || !userId || !text) {
-      return { status: false, msg: "missing parameters" };
-    }
-    const { error } = commentsValidation.validate(text);
-    if (error) {
-      return { status: false, msg: error.details[0].message };
-    }
-    const currentChallenge = await UserChallenge.findById(userChallengeId);
-    if (!currentChallenge) {
-      return { status: false, msg: "can't found challenge to add comment" };
-    }
-    currentChallenge.comments.push({
-      userId: userId,
-      text: text.trim(),
-    });
-
-    await currentChallenge.save();
-
-    const newComment =
-      currentChallenge.comments[currentChallenge.comments.length - 1];
-
-    return {
-      status: true,
-      msg: "comment created successfully",
-      data: newComment,
-    };
-  } catch (error) {
-    return { status: false, msg: error.message };
+  if (!userChallengeId || !userId || !text) {
+    return { status: false, msg: "missing parameters" };
   }
+  const { error } = commentsValidation.validate(text);
+  if (error) {
+    return { status: false, msg: error.details[0].message };
+  }
+  const currentChallenge = await UserChallenge.findById(userChallengeId);
+  if (!currentChallenge) {
+    return { status: false, msg: "can't found challenge to add comment" };
+  }
+  currentChallenge.comments.push({
+    userId: userId,
+    text: text.trim(),
+  });
+
+  await currentChallenge.save();
+
+  const newComment =
+    currentChallenge.comments[currentChallenge.comments.length - 1];
+
+  return {
+    status: true,
+    msg: "comment created successfully",
+    data: newComment,
+  };
+}
+
+async function deleteComment(commentId) {
+  if (!commentId) {
+    return { status: false, msg: "missing parameters" };
+  }
+  const commentToUpdate = await UserChallenge.findOneAndUpdate(
+    {
+      "comments._id": commentId,
+    },
+    { $pull: { comments: { _id: commentId } } },
+    { new: true }
+  );
+  if (!commentToUpdate) {
+    return { status: false, msg: "comment to delete not found" };
+  }
+  return {
+    status: true,
+    msg: "comment deleted successfully",
+    data: commentToUpdate,
+  };
+}
+
+async function updateComment(commentId, newComment) {
+  if (!commentId || !newComment) {
+    return { status: false, msg: "missing parameters" };
+  }
+  const commentToUpdate = await UserChallenge.findOneAndUpdate(
+    {
+      "comments._id": commentId,
+    },
+    { $set: { "comments.$.text": newComment } },
+    { new: true }
+  );
+  if (!commentToUpdate) {
+    return { status: false, msg: "comment to update not found" };
+  }
+  return {
+    status: true,
+    msg: "updated comment successfully",
+    data: commentToUpdate,
+  };
 }
 
 const communityService = {
   getCommunityFeed,
   addComment,
+  deleteComment,
+  updateComment,
 };
 
 export default communityService;
