@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import CommentsModal from "./CommentsModal";
 import CompletedChallenge from "./CompletedChallenge";
-import { getCommunityChallenge } from "../../utils/getCommunityChallenge.js";
 
 function CompletedChallenges({ challenges, onAddComment, onDeleteComment }) {
   const [show, setShow] = useState(false);
@@ -17,26 +16,26 @@ function CompletedChallenges({ challenges, onAddComment, onDeleteComment }) {
   };
 
   useEffect(() => {
-    if (!activate?._id) {
+    if (!activate?.id) {
       return;
     }
     const updated = challenges.find(
-      (challenge) => challenge?._id === activate._id
+      (challenge) => challenge?.id === activate.id
     );
     if (updated) {
       setActivate(updated);
     }
-  }, [challenges, activate?._id]);
+  }, [challenges, activate?.id]);
 
   return (
     <div className="d-flex  w-50 gap-2 mt-4 flex-column mb-4">
-      {challenges.map((challenge, index) => {
+      {challenges.map((challenge, index) => (
         <CompletedChallenge
-          challenge={getCommunityChallenge(challenge)}
+          challenge={challenge}
           onOpenModal={openModal}
           key={index}
-        />;
-      })}
+        />
+      ))}
       <CommentsModal
         show={show}
         onClose={closeModal}

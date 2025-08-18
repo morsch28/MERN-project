@@ -35,7 +35,7 @@ function CompletedChallenge({ challenge, onOpenModal }) {
           onClick={() => onOpenModal(challenge)}
           className="border border-0 bg-transparent fs-5 gap-2 d-flex justify-content-start mx-3"
         >
-          Comment {challenge?.allComments ? `(${challenge?.allComments})` : ""}
+          Comment {challenge?.comments ? `(${challenge?.comments.length})` : ""}
           <i className="bi bi-chat"></i>
         </button>
         <button className="border border-0 bg-transparent fs-5 gap-2 d-flex justify-content-start mx-3">

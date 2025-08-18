@@ -7,6 +7,7 @@ const getCategoryClasses = (challenge) => {
 };
 
 export const getCommunityChallenge = (challenge) => {
+  const id = challenge?._id;
   const firstName = challenge?.userId?.name?.first || "";
   const lastName = challenge?.userId?.name?.last || "";
   const userName = `${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`;
@@ -23,14 +24,14 @@ export const getCommunityChallenge = (challenge) => {
   const title = challenge?.challengeId.title;
   const feedback = challenge?.feedback?.text;
   const classes = getCategoryClasses(challenge);
-
-  const allComments = challenge?.comments?.length;
+  const comments = challenge?.comments;
   return {
+    id,
     firstName,
     userName,
     imageUrl,
     formatDate,
-    allComments,
+    comments,
     category,
     title,
     feedback,

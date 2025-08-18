@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import communityService from "../../services/communityService";
 import CompletedChallenges from "../../components/community/CompletedChallenges";
 import feedbackService from "../../services/feedbackService";
+import { getCommunityChallenge } from "../../utils/getCommunityChallenge";
 
 function CommunityPage() {
   const [completedChallenges, setCompletedChallenges] = useState([]);
@@ -10,10 +11,12 @@ function CommunityPage() {
     const loadCompletedChallenges = async () => {
       try {
         const response = await communityService.getCompletedChallenges();
-        const list = response.data;
-
-        setCompletedChallenges(list);
-        return response.data;
+        if (response) {
+          setCompletedChallenges(response.data);
+        }
+        else{
+          // TODO: error | warning -> no challnges at all
+        }
       } catch (error) {
         console.log(error);
       }
@@ -97,7 +100,9 @@ function CommunityPage() {
     }
   };
 
-  const completed = completedChallenges.slice(0, 6);
+  const completed = completedChallenges
+    .slice(0, 6)
+    .map((challenge) => getCommunityChallenge(challenge));
 
   return (
     <CompletedChallenges
