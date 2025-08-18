@@ -12,9 +12,10 @@ function CommunityPage() {
       try {
         const response = await communityService.getCompletedChallenges();
         if (response) {
-          setCompletedChallenges(response.data);
-        }
-        else{
+          setCompletedChallenges(
+            response.data.map((challenge) => getCommunityChallenge(challenge))
+          );
+        } else {
           // TODO: error | warning -> no challnges at all
         }
       } catch (error) {
@@ -38,12 +39,11 @@ function CommunityPage() {
           const newComment = response.data;
           setCompletedChallenges((prev) =>
             prev.map((challenge) => {
-              return challenge?._id == id
-                ? {
-                    ...challenge,
-                    comments: [...(challenge.comments || []), newComment],
-                  }
-                : challenge;
+              if (challenge?.id == id) {
+                console.log("test");
+                challenge.comments.push(newComment);
+              }
+              return challenge;
             })
           );
         }
@@ -100,13 +100,9 @@ function CommunityPage() {
     }
   };
 
-  const completed = completedChallenges
-    .slice(0, 6)
-    .map((challenge) => getCommunityChallenge(challenge));
-
   return (
     <CompletedChallenges
-      challenges={completed}
+      challenges={completedChallenges}
       onAddComment={handleAddComment}
       onDeleteComment={handleDelete}
     />

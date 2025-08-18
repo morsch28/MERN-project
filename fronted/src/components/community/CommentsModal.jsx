@@ -32,7 +32,7 @@ function CommentsModal({
     }
     setSubmitting(true);
     try {
-      const response = await onAddComment?.(challenge._id, commentData);
+      const response = await onAddComment?.(challenge.id, commentData);
       return response;
     } catch (error) {
       console.log(error);
