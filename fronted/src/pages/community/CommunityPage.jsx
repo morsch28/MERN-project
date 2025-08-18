@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import communityService from "../../services/communityService";
-import CompletedChallengesCards from "../../components/community/CompletedChallengesCards";
+import CompletedChallenges from "../../components/community/CompletedChallenges";
 import feedbackService from "../../services/feedbackService";
 
 function CommunityPage() {
@@ -100,7 +100,7 @@ function CommunityPage() {
   const completed = completedChallenges.slice(0, 6);
 
   return (
-    <CompletedChallengesCards
+    <CompletedChallenges
       challenges={completed}
       onAddComment={handleAddComment}
       onDeleteComment={handleDelete}
