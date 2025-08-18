@@ -29,25 +29,11 @@ function CommentsList({
             className="d-flex gap-2 border border-bottom p-2 align-items-center"
           >
             {userImg ? (
-              <img
-                src={userImg}
-                alt={fullName}
-                style={{
-                  width: "35px",
-                  height: "35px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                }}
-              />
+              <img src={userImg} alt={fullName} className="comment-userImg" />
             ) : (
               <img
                 src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png"
-                style={{
-                  width: "35px",
-                  height: "35px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                }}
+                className="comment-img"
               />
             )}
             <div className="d-flex flex-column">
@@ -68,7 +54,10 @@ function CommentsList({
               </button>
               {/* save button */}
               {commentToEdit == comment._id && (
-                <button onClick={() => onSave(comment._id)}>
+                <button
+                  onClick={() => onSave(comment._id)}
+                  className="border border-success text-success"
+                >
                   <i className="bi bi-box-arrow-down"></i>
                 </button>
               )}

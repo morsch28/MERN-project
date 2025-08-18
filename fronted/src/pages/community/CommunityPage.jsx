@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import communityService from "../../services/communityService";
 import CompletedChallengesCards from "../../components/community/CompletedChallengesCards";
+import feedbackService from "../../services/feedbackService";
 
 function CommunityPage() {
   const [completedChallenges, setCompletedChallenges] = useState([]);
@@ -27,46 +28,72 @@ function CommunityPage() {
         commentText
       );
       if (response.status == 201) {
-        const newComment = response.data;
-        setCompletedChallenges((prev) =>
-          prev.map((challenge) => {
-            return challenge?._id == id
-              ? {
-                  ...challenge,
-                  comments: [...(challenge.comments || []), newComment],
-                }
-              : challenge;
-          })
-        );
-
-        return response;
+        const result = await feedbackService.showConfirm({
+          text: "Are you sure you want to comment on the challenge?",
+        });
+        if (result.isConfirmed) {
+          const newComment = response.data;
+          setCompletedChallenges((prev) =>
+            prev.map((challenge) => {
+              return challenge?._id == id
+                ? {
+                    ...challenge,
+                    comments: [...(challenge.comments || []), newComment],
+                  }
+                : challenge;
+            })
+          );
+        }
       } else {
-        console.log("add comment failed");
+        await feedbackService.showAlert({
+          title: "Ops..!",
+          text: `${response.message}`,
+          timer: 2000,
+        });
       }
     } catch (error) {
-      console.log(error);
+      await feedbackService.showAlert({
+        title: "Ops...!",
+        text: "Server error",
+        timer: 2000,
+      });
     }
   };
   const handleDelete = async (challengeId, commentId) => {
     try {
       const response = await communityService.deleteComment(commentId);
       if (response.status == 200) {
-        setCompletedChallenges((prev) =>
-          prev.map((challenge) => {
-            return challenge._id == challengeId
-              ? {
-                  ...challenge,
-                  comments: challenge.comments.filter(
-                    (comment) => comment._id !== commentId
-                  ),
-                }
-              : challenge;
-          })
-        );
+        const result = await feedbackService.showConfirm({
+          text: "Are you sure you want delete this comment?",
+        });
+        if (result.isConfirmed) {
+          setCompletedChallenges((prev) =>
+            prev.map((challenge) => {
+              return challenge._id == challengeId
+                ? {
+                    ...challenge,
+                    comments: challenge.comments.filter(
+                      (comment) => comment._id !== commentId
+                    ),
+                  }
+                : challenge;
+            })
+          );
+        }
+      } else {
+        await feedbackService.showAlert({
+          title: "Ops..!",
+          text: response.message,
+          timer: 2000,
+        });
       }
       return response;
     } catch (error) {
-      console.log(error);
+      await feedbackService.showAlert({
+        title: "Ops..!",
+        text: "Server Error",
+        timer: 2000,
+      });
     }
   };
 

@@ -2,6 +2,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import communityService from "../../services/communityService";
 import { useEffect, useState } from "react";
 import CommentsList from "./CommentsList";
+import feedbackService from "../../services/feedbackService";
 
 function CommentsModal({
   show,
@@ -60,20 +61,37 @@ function CommentsModal({
     try {
       const response = await communityService.updateComment(commentId, newText);
       if (response.status == 200) {
-        if (challenge?.comments) {
-          const index = challenge.comments.findIndex(
-            (c) => c?._id === commentId
-          );
-          if (index > -1) {
-            challenge.comments[index].text = newText;
+        const result = await feedbackService.showConfirm({
+          text: "Are you sure you want to edit the comment?",
+        });
+        if (result.isConfirmed) {
+          if (challenge?.comments) {
+            const index = challenge.comments.findIndex(
+              (c) => c?._id === commentId
+            );
+            if (index > -1) {
+              challenge.comments[index].text = newText;
+            }
           }
+          element.contentEditable = false;
+          element.style.outline = "none";
+          setCommentToEdit(null);
         }
-        element.contentEditable = false;
-        element.style.outline = "none";
-        setCommentToEdit(null);
+      } else {
+        await feedbackService.showAlert({
+          title: "Ops..!",
+          text: response.message,
+          icon: "error",
+          timer: 2000,
+        });
       }
     } catch (error) {
-      console.log(error);
+      await feedbackService.showAlert({
+        title: "Ops..!",
+        text: "Server error",
+        icon: "error",
+        timer: 2000,
+      });
     }
   };
 
