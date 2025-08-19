@@ -6,4 +6,5 @@ export const ROUTES = {
   COMMUNITY: "/community-feed",
   USER_INFO: "/user-info",
   SIGN_IN: "sign-in",
+  TRIVIA: "trivia",
 };
