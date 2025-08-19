@@ -249,7 +249,7 @@ body,
   gap: 0;
 }
 .trivia-deck > .trivia-cards:nth-child(1) {
-  transform: translate(1px, 14px) rotate(-16deg);
+  transform: rotate(0deg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -279,7 +279,7 @@ body,
   justify-content: center;
 }
 .trivia-deck > .trivia-cards:nth-child(6) {
-  transform: translate(-55px, -21px) rotate(10.5deg);
+  transform: translate(-55px, -26px) rotate(9.5deg);
   display: flex;
   align-items: center;
   justify-content: center;
