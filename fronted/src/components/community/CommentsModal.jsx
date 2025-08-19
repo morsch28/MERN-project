@@ -1,6 +1,6 @@
 import { Modal, Button, Form } from "react-bootstrap";
 import communityService from "../../services/communityService";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CommentsList from "./CommentsList";
 import feedbackService from "../../services/feedbackService";
 
@@ -13,12 +13,7 @@ function CommentsModal({
 }) {
   const [text, setText] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [challengeComments, setChallengeComments] = useState([]);
   const [commentToEdit, setCommentToEdit] = useState(null);
-
-  useEffect(() => {
-    setChallengeComments(challenge?.comments || []);
-  }, [challenge]);
 
   if (!challenge) {
     return null;
@@ -32,7 +27,11 @@ function CommentsModal({
     }
     setSubmitting(true);
     try {
-      const response = await onAddComment?.(challenge._id, commentData);
+      const response = await onAddComment?.(challenge.id, commentData);
+      if (response) {
+        console.log("response text", response);
+        setText("");
+      }
       return response;
     } catch (error) {
       console.log(error);
@@ -102,7 +101,7 @@ function CommentsModal({
       </Modal.Header>
       <Modal.Body>
         <CommentsList
-          comments={challengeComments}
+          comments={challenge?.comments || []}
           onSave={saveEdit}
           onStart={startEdit}
           onDelete={onDeleteComment}

@@ -43,7 +43,7 @@ function CommentsList({
             <div className="d-flex gap-2 ms-auto">
               {/* delete button */}
               <button
-                onClick={() => onDelete(challenge._id, comment._id)}
+                onClick={() => onDelete(challenge.id, comment._id)}
                 className="border border-danger text-danger"
               >
                 <i className="bi bi-trash3"></i>

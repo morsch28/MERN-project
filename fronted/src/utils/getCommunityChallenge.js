@@ -3,7 +3,7 @@ const getCategoryClasses = (challenge) => {
     ? "bg-success-subtle text-success border border-success"
     : challenge?.challengeId?.category === "mental"
     ? "bg-info-subtle text-info border border-info"
-    : "bg-warning-subtle text-warning border-border-warning";
+    : "bg-warning-subtle text-warning border border-warning";
 };
 
 export const getCommunityChallenge = (challenge) => {
@@ -21,7 +21,7 @@ export const getCommunityChallenge = (challenge) => {
   const imagePath = challenge?.userId?.image?.url || "";
   const imageUrl = imagePath ? `http://localhost:3000${imagePath}` : null;
   const category = challenge?.challengeId?.category;
-  const title = challenge?.challengeId.title;
+  const title = challenge?.challengeId?.title;
   const feedback = challenge?.feedback?.text;
   const classes = getCategoryClasses(challenge);
   const comments = challenge?.comments;

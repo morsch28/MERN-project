@@ -13,8 +13,7 @@ function CommunityPage() {
         const response = await communityService.getCompletedChallenges();
         if (response) {
           setCompletedChallenges(response.data);
-        }
-        else{
+        } else {
           // TODO: error | warning -> no challnges at all
         }
       } catch (error) {
@@ -47,6 +46,7 @@ function CommunityPage() {
             })
           );
         }
+        return response;
       } else {
         await feedbackService.showAlert({
           title: "Ops..!",
