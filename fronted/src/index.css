@@ -225,14 +225,14 @@ body,
   object-fit: cover;
 }
 .trivia-cards {
-  top: 270px;
-  left: 0;
-  width: 170px;
-  height: 250px;
+  width: 250px;
+  height: 350px;
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   text-align: center;
+  /* position: relative;
+  top: 0; */
 }
 .trivia-cards:hover {
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
@@ -245,41 +245,39 @@ body,
 .trivia-deck {
   display: flex;
   align-items: center;
-  flex-wrap: nowrap;
-  gap: 0;
 }
 .trivia-deck > .trivia-cards:nth-child(1) {
-  transform: rotate(0deg);
+  transform: translate(440px, -35px) rotate(-1.5deg);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .trivia-deck > .trivia-cards:nth-child(2) {
-  transform: translate(-13px, -28px) rotate(-11.5deg);
+  transform: translate(240px, -38px) rotate(-0.5deg);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .trivia-deck > .trivia-cards:nth-child(3) {
-  transform: translate(-24px, -52px) rotate(-6.5deg);
+  transform: translate(40px, -40px) rotate(0deg);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .trivia-deck > .trivia-cards:nth-child(4) {
-  transform: translate(-36px, -61px) rotate(0.5deg);
+  transform: translate(-160px, -42px) rotate(0.5deg);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .trivia-deck > .trivia-cards:nth-child(5) {
-  transform: translate(-46px, -47px) rotate(6.5deg);
+  transform: translate(-360px, -42px) rotate(1deg);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .trivia-deck > .trivia-cards:nth-child(6) {
-  transform: translate(-55px, -26px) rotate(9.5deg);
+  transform: translate(-560px, -38px) rotate(1.5deg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -369,6 +367,25 @@ body,
   }
   .btn-allChallenges {
     width: 30%;
+  }
+  .trivia-deck {
+    margin-top: 10px;
+    flex-direction: column;
+  }
+  .trivia-deck > .trivia-cards:nth-child(2) {
+    transform: translate(-13px, -230px) rotate(-0deg);
+  }
+  .trivia-deck > .trivia-cards:nth-child(3) {
+    transform: translate(-24px, -460px) rotate(-0deg);
+  }
+  .trivia-deck > .trivia-cards:nth-child(4) {
+    transform: translate(-36px, -690px) rotate(-0deg);
+  }
+  .trivia-deck > .trivia-cards:nth-child(5) {
+    transform: translate(-51px, -920px) rotate(-0deg);
+  }
+  .trivia-deck > .trivia-cards:nth-child(6) {
+    transform: translate(-68px, -1150px) rotate(-0deg);
   }
 }
 

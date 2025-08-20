@@ -4,7 +4,7 @@ import NavbarRightSide from "./NavbarRightSide";
 function Navbar() {
   return (
     <nav
-      className="navbar navbar-expand-md navbar text-dark bg-body-secondary "
+      className="navbar navbar-expand-lg navbar text-dark bg-body-secondary "
       aria-label="Fourth navbar example"
     >
       <div className="container fs-5">
