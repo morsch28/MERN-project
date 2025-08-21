@@ -1,74 +1,52 @@
 import { useEffect, useState } from "react";
 import quizzesService from "../../services/quizzesService";
 import TriviaModal from "../../components/trivia/TriviaModal";
-import { Prev } from "react-bootstrap/esm/PageItem";
 
 function TriviaPage() {
-  const [randomQuestion, setRandomQuestion] = useState(null);
   const [isShowModal, setIsShowModal] = useState(false);
-  //24 questions
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardsTotal, setCardsTotal] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [wrongAnswers, setWrongAnswers] = useState(0);
+  const [cardsToShow, setCardsToShow] = useState(6);
 
-  const COUNT = 6;
-  const Total = 24;
-
-  const showModal = () => {
+  const showModal = (id) => {
+    setQuestions((prev) => prev.filter((que) => que._id !== id));
     setIsShowModal(true);
   };
-  const closeModal = () => {
+  const closeModal = (status) => {
+    setCardsToShow((prev) => prev - 1);
+    // if status == true => setCorrectAnswers(prev => prev + 1)
+    // else  status == false => setWrongAnswers(prev => prev + 1)
     setIsShowModal(false);
   };
 
-  const loadRandomQuestion = async () => {
-    try {
-      const response = await quizzesService.getAllQuestion();
-      const newQuestion = response?.data.question;
-      setRandomQuestion(newQuestion);
-      return response.data;
-    } catch (error) {
-      console.log("can't load question", error);
-    }
-  };
-
   useEffect(() => {
-    loadRandomQuestion();
-  }, []);
-
-  const createQuestionsArr = () => {
-    if (!randomQuestion) {
-      return;
-    }
-    if (questions?.length > 0) {
-      const exist = questions.some(
-        (question) => question?._id == randomQuestion?._id
-      );
-      if (!exist) {
-        setQuestions((prev) => [...prev, randomQuestion]);
+    const loadAllQuestions = async () => {
+      try {
+        const response = await quizzesService.getAllQuestions();
+        if (!response || !response.data?.length) {
+          // TODO: no cards to show
+        }
+        setQuestions(response.data?.questions);
+        setCardsTotal(questions?.length);
+      } catch (error) {
+        console.log("can't load question", error);
       }
-    } else {
-      setQuestions([randomQuestion]);
-    }
-  };
+    };
+    loadAllQuestions();
+  }, [questions?.length]);
 
-  useEffect(() => {
-    createQuestionsArr();
-  }, [randomQuestion]);
-
-  useEffect(() => {
-    if (questions.length < Total) {
-      loadRandomQuestion();
-    }
-  }, [questions.length]);
-
-  const renderCards = (count) => {
+  const renderCards = () => {
+    const shuffled = questions.sort(() => Math.random() - 0.5).slice(0, 6);
     const questionArr = [];
-    for (let i = 0; i < count; i++) {
+    for (const question in shuffled) {
       questionArr.push(
         <div
-          key={i}
+          key={question._id}
           className="bg-black border border-white trivia-cards border-2 d-flex flex-column text-white fs-4 fw-bold"
-          onClick={showModal}
+          onClick={showModal(question._id)}
         >
           <span className="card-mark">?</span>
           Trivia
@@ -81,7 +59,14 @@ function TriviaPage() {
   return (
     <div className="container my-2 d-flex justify-content-center">
       <div className="trivia-deck">
-        {COUNT > 0 ? renderCards(COUNT) : <div>No Cards to show</div>}
+        <div
+          key={question._id}
+          className="bg-black border border-white trivia-cards border-2 d-flex flex-column text-white fs-4 fw-bold"
+          onClick={showModal(question._id)}
+        >
+          <span className="card-mark">?</span>
+          Trivia
+        </div>
       </div>
       <TriviaModal
         onShow={isShowModal}

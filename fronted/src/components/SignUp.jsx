@@ -84,9 +84,11 @@ function SignUp() {
           });
         }
       } catch (error) {
+        console.log(error?.response);
+        const msg = error.response?.data;
         await feedbackService.showAlert({
           title: "Ops..!",
-          text: error.response?.data || "you have server error",
+          text: msg || "you have server error",
           icon: "error",
           timer: 2000,
         });

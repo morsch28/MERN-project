@@ -30,26 +30,18 @@ export function AuthProvider({ children }) {
   }, [authData]);
 
   const login = async (credential) => {
-    try {
-      const response = await userServices.signIn(credential);
-      setAuthData(userServices.getUserFromToken());
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
+    const response = await userServices.signIn(credential);
+    setAuthData(userServices.getUserFromToken());
+    return response;
   };
 
   const createUser = async (user) => {
-    try {
-      const response = await userServices.createUser(user);
-      if (response.status == 201) {
-        setAuthData(userServices.getUserFromToken());
-        return { status: true };
-      }
-      return { status: false, msg: response.message };
-    } catch (error) {
-      console.error(error);
+    const response = await userServices.createUser(user);
+    if (response.status == 201) {
+      setAuthData(userServices.getUserFromToken());
+      return { status: true };
     }
+    return { status: false, msg: response.message };
   };
 
   const logout = () => {
