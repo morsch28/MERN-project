@@ -4,27 +4,42 @@ import TriviaModal from "../../components/trivia/TriviaModal";
 import { Prev } from "react-bootstrap/esm/PageItem";
 
 function TriviaPage() {
-  const [randomQuestion, setRandomQuestion] = useState(null);
-  const [isShowModal, setIsShowModal] = useState(false);
-  //24 questions
-  const [questions, setQuestions] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
   const COUNT = 6;
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [questions, setQuestions] = useState([]);
+  const [deckOfCards, setDeckOfCards] = useState([]);
+  const [correctIndex, setCorrectIndex] = useState(null);
+  const [wrongIndex, setWrongIndex] = useState(null);
+  const [numberOfCards, setNumberOfCards] = useState(COUNT);
+  const [questionId, setQuestionId] = useState([]);
+
   const Total = 24;
+
+  const shuffle = (arr) => {
+    return arr
+      ?.slice()
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 6);
+  };
 
   const showModal = () => {
     setIsShowModal(true);
+    setCorrectIndex(null);
+    setWrongIndex(null);
   };
   const closeModal = () => {
     setIsShowModal(false);
+    setCorrectIndex(null);
+    setWrongIndex(null);
   };
 
-  const loadRandomQuestion = async () => {
+  const getAllQuestions = async () => {
     try {
-      const response = await quizzesService.getAllQuestion();
-      const newQuestion = response?.data.question;
-      setRandomQuestion(newQuestion);
+      const response = await quizzesService.getAllQuestions();
+      const shuffledCards = shuffle(response?.data);
+      // setQuestions(response?.data);
+      setDeckOfCards(shuffledCards);
+      setCorrectIndex(null);
       return response.data;
     } catch (error) {
       console.log("can't load question", error);
@@ -32,34 +47,48 @@ function TriviaPage() {
   };
 
   useEffect(() => {
-    loadRandomQuestion();
+    getAllQuestions();
   }, []);
 
-  const createQuestionsArr = () => {
-    if (!randomQuestion) {
-      return;
-    }
-    if (questions?.length > 0) {
-      const exist = questions.some(
-        (question) => question?._id == randomQuestion?._id
-      );
-      if (!exist) {
-        setQuestions((prev) => [...prev, randomQuestion]);
+  const handleAnswer = async (questionId, index) => {
+    try {
+      const response = await quizzesService.getCorrectAnswer(questionId);
+      const answer = response?.data;
+      if (answer == index) {
+        setCorrectIndex(index);
+        setNumberOfCards((prev) => Math.max(prev - 1, 0));
+        setDeckOfCards((prev) => {
+          const nextDeck = prev.filter(
+            (question) => question._id != questionId
+          );
+          if (nextDeck.length == 0) {
+            closeModal();
+          } else {
+            setCorrectIndex(null);
+            setWrongIndex(null);
+          }
+          return nextDeck;
+        });
+      } else {
+        setWrongIndex(index);
+        setTimeout(() => {
+          setDeckOfCards((prev) => {
+            if (prev.length <= 1) {
+              return prev;
+            }
+            const shuffled = shuffle(prev);
+            setCorrectIndex(null);
+            setWrongIndex(null);
+            return shuffled;
+          });
+          closeModal();
+        }, 1000);
       }
-    } else {
-      setQuestions([randomQuestion]);
+      console.log(response);
+    } catch (error) {
+      console.log("cant get correct answer", error);
     }
   };
-
-  useEffect(() => {
-    createQuestionsArr();
-  }, [randomQuestion]);
-
-  useEffect(() => {
-    if (questions.length < Total) {
-      loadRandomQuestion();
-    }
-  }, [questions.length]);
 
   const renderCards = (count) => {
     const questionArr = [];
@@ -78,15 +107,24 @@ function TriviaPage() {
     return questionArr;
   };
 
+  const currentQuestion = deckOfCards[0];
+
   return (
     <div className="container my-2 d-flex justify-content-center">
       <div className="trivia-deck">
-        {COUNT > 0 ? renderCards(COUNT) : <div>No Cards to show</div>}
+        {numberOfCards > 0 ? (
+          renderCards(numberOfCards)
+        ) : (
+          <div>No Cards to show</div>
+        )}
       </div>
       <TriviaModal
         onShow={isShowModal}
         onClose={closeModal}
-        question={questions[0]}
+        question={currentQuestion}
+        onAnswer={handleAnswer}
+        correct={correctIndex}
+        wrong={wrongIndex}
       />
     </div>
   );
