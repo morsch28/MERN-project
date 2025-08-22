@@ -231,9 +231,12 @@ body,
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   text-align: center;
-  /* position: relative;
-  top: 0; */
+  position: absolute;
+  border: 6px solid #fff;
+  box-sizing: border-box;
+  box-shadow: inset 0 0 10px 12px #fff7fb;
 }
+
 .trivia-cards:hover {
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
@@ -245,39 +248,41 @@ body,
 .trivia-deck {
   display: flex;
   align-items: center;
+  position: relative;
+  justify-content: start;
 }
 .trivia-deck > .trivia-cards:nth-child(1) {
-  transform: translate(440px, -35px) rotate(-1.5deg);
+  transform: translate(40px, -2px) rotate(46deg);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .trivia-deck > .trivia-cards:nth-child(2) {
-  transform: translate(240px, -38px) rotate(-0.5deg);
+  transform: translate(-41px, -40px) rotate(28deg);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .trivia-deck > .trivia-cards:nth-child(3) {
-  transform: translate(40px, -40px) rotate(0deg);
+  transform: translate(-135px, -53px) rotate(12deg);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .trivia-deck > .trivia-cards:nth-child(4) {
-  transform: translate(-160px, -42px) rotate(0.5deg);
+  transform: translate(-229px, -45px) rotate(-6deg);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .trivia-deck > .trivia-cards:nth-child(5) {
-  transform: translate(-360px, -42px) rotate(1deg);
+  transform: translate(-314px, -18px) rotate(-18deg);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .trivia-deck > .trivia-cards:nth-child(6) {
-  transform: translate(-560px, -38px) rotate(1.5deg);
+  transform: translate(-373px, 18px) rotate(-25deg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -368,9 +373,18 @@ body,
   .btn-allChallenges {
     width: 30%;
   }
+  .trivia-cards {
+    position: static;
+    width: 200px;
+    height: 280px;
+  }
   .trivia-deck {
     margin-top: 10px;
     flex-direction: column;
+    position: static;
+  }
+  .trivia-deck > .trivia-cards:nth-child(1) {
+    transform: translate(-2px, 32px) rotate(0deg);
   }
   .trivia-deck > .trivia-cards:nth-child(2) {
     transform: translate(-13px, -230px) rotate(-0deg);

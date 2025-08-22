@@ -57,18 +57,21 @@ function TriviaPage() {
       if (answer == index) {
         setCorrectIndex(index);
         setNumberOfCards((prev) => Math.max(prev - 1, 0));
-        setDeckOfCards((prev) => {
-          const nextDeck = prev.filter(
-            (question) => question._id != questionId
-          );
-          if (nextDeck.length == 0) {
-            closeModal();
-          } else {
-            setCorrectIndex(null);
-            setWrongIndex(null);
-          }
-          return nextDeck;
-        });
+        setTimeout(() => {
+          setDeckOfCards((prev) => {
+            const nextDeck = prev.filter(
+              (question) => question._id != questionId
+            );
+            if (nextDeck.length == 0) {
+              closeModal();
+            } else {
+              setCorrectIndex(null);
+              setWrongIndex(null);
+            }
+            return nextDeck;
+          });
+          closeModal();
+        }, 1000);
       } else {
         setWrongIndex(index);
         setTimeout(() => {
@@ -96,7 +99,7 @@ function TriviaPage() {
       questionArr.push(
         <div
           key={i}
-          className="bg-black border border-white trivia-cards border-2 d-flex flex-column text-white fs-4 fw-bold"
+          className="bg-black  trivia-cards border-2 d-flex flex-column text-white fs-4 fw-bold"
           onClick={showModal}
         >
           <span className="card-mark">?</span>
