@@ -38,13 +38,14 @@ function CommunityPage() {
         if (result.isConfirmed) {
           const newComment = response.data;
           setCompletedChallenges((prev) =>
-            prev.map((challenge) => {
-              if (challenge?.id == id) {
-                console.log("test");
-                challenge.comments.push(newComment);
-              }
-              return challenge;
-            })
+            prev.map((challenge) =>
+              challenge.id == id
+                ? {
+                    ...challenge,
+                    comments: [...challenge.comments, newComment],
+                  }
+                : challenge
+            )
           );
         }
         return response;
@@ -73,7 +74,7 @@ function CommunityPage() {
         if (result.isConfirmed) {
           setCompletedChallenges((prev) =>
             prev.map((challenge) => {
-              return challenge._id == challengeId
+              return challenge.id == challengeId
                 ? {
                     ...challenge,
                     comments: challenge.comments.filter(
