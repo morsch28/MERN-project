@@ -25,10 +25,7 @@ function TriviaPage() {
     setCorrectIndex(null);
     setWrongIndex(null);
   };
-  const closeModal = (status) => {
-    setCardsToShow((prev) => prev - 1);
-    // if status == true => setCorrectAnswers(prev => prev + 1)
-    // else  status == false => setWrongAnswers(prev => prev + 1)
+  const closeModal = () => {
     setIsShowModal(false);
     setCorrectIndex(null);
     setWrongIndex(null);
