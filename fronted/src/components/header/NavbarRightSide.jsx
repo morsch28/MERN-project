@@ -40,7 +40,7 @@ function NavbarRightSide() {
     <div className="collapse navbar-collapse">
       <div className="dropdown">
         <img
-          src={USER_IMAGE ? USER_IMAGE : DEFAULT_IMAGE}
+          src={user.image.url ? USER_IMAGE : DEFAULT_IMAGE}
           className="rounded-circle bg-primary"
           width="65"
           height="65"

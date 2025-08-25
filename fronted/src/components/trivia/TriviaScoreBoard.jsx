@@ -12,7 +12,7 @@ function TriviaScoreBoard({ correct, total, answered, cardsInDeck }) {
       <TriviaStatusCards
         title="Answered Questions"
         main={answered}
-        sub={`Out of ${total} questions`}
+        sub={`Out of ${total}`}
       />
       <TriviaStatusCards
         title="Cards in deck"
