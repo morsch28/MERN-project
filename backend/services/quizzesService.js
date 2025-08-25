@@ -1,27 +1,28 @@
 import Quiz from "../model/quiz.js";
 
 async function getAllQuestions() {
-  const questions = await Quiz.find().select("_id question answers");
+  const questions = await Quiz.find().select("question answers");
+
   return {
     status: true,
     msg: "return question successfully",
-    data: { questions },
+    data: questions,
   };
 }
 
 async function getCorrectAnswer(questionId) {
   if (!questionId) {
-    return { status: false, msg: "Cant find question" };
+    return { status: false, msg: "missing parameters" };
   }
-  const question = await Quiz.findById(questionId);
+  const question = await Quiz.findById(questionId).select("correctAnswer");
   if (!question) {
-    return { status: false, msg: "not found question" };
+    return { status: false, msg: "question not found" };
   }
   const correct = question.correctAnswer;
 
   return {
     status: true,
-    msg: "get correct answer",
+    msg: "return correct answer successfully",
     data: correct,
   };
 }

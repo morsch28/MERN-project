@@ -1,20 +1,17 @@
 import httpServices from "./httpServices.js";
 
 async function getAllQuestions() {
-  const response = await httpServices.get("quizzes");
+  const response = await httpServices.get("/quizzes");
   return response;
 }
 
-async function checkCorrectAnswer(questionId, indexOfAnswer) {
-  const response = await httpServices.post("quizzes", {
-    questionId,
-    indexOfAnswer,
-  });
+async function getCorrectAnswer(id) {
+  const response = await httpServices.get(`/quizzes/${id}`);
   return response;
 }
 
 const quizzesService = {
   getAllQuestions,
-  checkCorrectAnswer,
+  getCorrectAnswer,
 };
 export default quizzesService;

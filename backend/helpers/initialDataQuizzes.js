@@ -7,7 +7,7 @@ const quizzes = [
     category: categories.Nutrition,
     question: "Which vitamin helps with calcium absorption in the body?",
     answers: ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin D"],
-    correctAnswer: 2,
+    correctAnswer: 3,
   },
   {
     category: categories.Nutrition,

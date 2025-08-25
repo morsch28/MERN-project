@@ -1,5 +1,8 @@
 import { Button, Modal } from "react-bootstrap";
-function TriviaModal({ onShow, onClose, question }) {
+function TriviaModal({ onShow, onClose, question, onAnswer, correct, wrong }) {
+  // console.log("trivia modal qs", question);
+  // const question = questions[0];
+  console.log(question);
   return (
     <Modal show={onShow} onHide={onClose} size="xl" centered>
       <Modal.Header closeButton>
@@ -13,8 +16,18 @@ function TriviaModal({ onShow, onClose, question }) {
               style={{ gridTemplateColumns: "1fr 1fr" }}
               className="d-grid gap-0 column-gap-3 row-gap-3"
             >
-              {question?.answers.slice(0, 4).map((answers) => (
-                <button className="p-3 fs-3 bg-transparent rounded-3">
+              {question?.answers.slice(0, 4).map((answers, index) => (
+                <button
+                  key={index}
+                  className={`p-3 fs-3 bg-transparent rounded-3 ${
+                    wrong == index
+                      ? "border border-5 border-danger"
+                      : correct == index
+                      ? "border border-5 border-success"
+                      : ""
+                  }`}
+                  onClick={() => onAnswer(question._id, index)}
+                >
                   {answers}
                 </button>
               ))}
