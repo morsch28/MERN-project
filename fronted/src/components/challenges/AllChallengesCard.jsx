@@ -2,6 +2,7 @@ import challengesService from "../../services/challengesService";
 import CategoryIcons from "../common/CategoryIcons";
 import DifficultyBadge from "./DifficultyBadge";
 import feedbackService from "../../services/feedbackService";
+import { Link } from "react-router";
 
 function AllChallengesCard({ challenge, onAdd, status }) {
   const handleAddChallenge = async (id) => {

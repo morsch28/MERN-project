@@ -49,4 +49,13 @@ router.get("/community", authMdw, async (req, res) => {
   }
 });
 
+router.get("/:id", authMdw, async (req, res) => {
+  const id = req.params.id;
+  const result = await challengesService.getChallengeDetails(id);
+  if (!result.status) {
+    return res.status(400).send(result.msg);
+  }
+  res.status(200).send(result.data);
+});
+
 export default router;
