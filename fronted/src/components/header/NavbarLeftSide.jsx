@@ -30,14 +30,6 @@ function NavbarLeftSide() {
             Trivia
           </Link>
         </li>
-        <form role="search" className="d-flex mx-5">
-          <input
-            className="form-control"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-        </form>
       </ul>
     </div>
   );

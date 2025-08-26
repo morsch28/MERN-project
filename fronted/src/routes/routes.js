@@ -7,4 +7,5 @@ export const ROUTES = {
   USER_INFO: "/user-info",
   SIGN_IN: "sign-in",
   TRIVIA: "trivia",
+  CHALLENGE_DETAILS: "/challenge-details",
 };

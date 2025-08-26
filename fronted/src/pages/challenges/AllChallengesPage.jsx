@@ -7,6 +7,7 @@ import { useMyChallenges } from "../../context/challenges.context";
 function AllChallengesPage() {
   const [challenges, setChallenges] = useState([]);
   const [selectCategory, setSelectCategory] = useState("all");
+  const [search, setSearch] = useState("");
 
   const { myChallenges, loadUserChallenges } = useMyChallenges();
 
@@ -23,12 +24,15 @@ function AllChallengesPage() {
     loadAllChallenges();
   }, []);
 
-  const filterChallenges =
+  const filterByCategory =
     selectCategory == "all"
       ? challenges
       : challenges.filter((c) => c.category == selectCategory);
 
-  console.log("all card", myChallenges);
+  const searchChallenge = filterByCategory.filter((challenge) => {
+    const str = challenge?.title.toLowerCase();
+    return str.includes(search.trim().toLocaleLowerCase());
+  });
 
   const getStatus = (id) => {
     for (const chosen of myChallenges?.data) {
@@ -41,17 +45,25 @@ function AllChallengesPage() {
 
   return (
     <div className="mt-3">
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-center gap-2 challenges-cards">
         <OptionSelector
           options={["all", "fitness", "mental", "nutrition"]}
           onSelected={setSelectCategory}
           selected={selectCategory}
         />
+
+        <input
+          type="text"
+          className="form-control w-25"
+          placeholder="search by challenge title"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        ></input>
       </div>
       {myChallenges.data && (
         <div className=" container challengesContainer">
-          {filterChallenges.length > 0 &&
-            filterChallenges.map((challenge) => {
+          {searchChallenge.length > 0 &&
+            searchChallenge.map((challenge) => {
               let status = getStatus(challenge._id);
               return (
                 <AllChallengesCard

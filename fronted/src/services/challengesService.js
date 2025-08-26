@@ -17,6 +17,11 @@ async function getAllUserChallenges(id) {
   return response;
 }
 
+async function getChallengeById(id) {
+  const response = await httpServices.get(`challenges/${id}`);
+  return response;
+}
+
 async function updateChallenge(id, updateData) {
   const response = await httpServices.put(`/user-challenges/${id}`, updateData);
   return response;
@@ -43,5 +48,6 @@ const challengeService = {
   updateChallenge,
   uploadImage,
   deleteUserChallenge,
+  getChallengeById,
 };
 export default challengeService;

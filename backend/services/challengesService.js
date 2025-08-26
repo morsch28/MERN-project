@@ -45,9 +45,25 @@ async function getCompletedChallenges() {
   };
 }
 
+async function getChallengeDetails(id) {
+  if (!id) {
+    return { status: false, msg: "missing parameters" };
+  }
+  const challenge = Challenge.findById(id);
+  if (!challenge) {
+    return { status: false, msg: "challenge details not found" };
+  }
+  return {
+    status: true,
+    msg: "return challenge details successfully",
+    data: challenge,
+  };
+}
+
 const challengesService = {
   createChallenge,
   getAllChallenges,
   getCompletedChallenges,
+  getChallengeDetails,
 };
 export default challengesService;
