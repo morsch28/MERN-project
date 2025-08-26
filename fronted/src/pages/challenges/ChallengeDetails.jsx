@@ -3,7 +3,7 @@ import challengeService from "../../services/challengesService";
 import { useEffect, useState } from "react";
 
 function ChallengeDetails() {
-  const id = useParams();
+  const { id } = useParams();
   const [detailOfChallenge, setDetailsOfChallenge] = useState(null);
 
   useEffect(() => {

@@ -7,7 +7,6 @@ export const authMdw = async (req, res, next) => {
       return res.status(401).send("Access denied,no token provided");
     }
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("payload:", payload);
     req.user = payload;
     next();
   } catch (error) {

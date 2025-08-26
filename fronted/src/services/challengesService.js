@@ -18,7 +18,7 @@ async function getAllUserChallenges(id) {
 }
 
 async function getChallengeById(id) {
-  const response = await httpServices.get(`challenges/${id}`);
+  const response = await httpServices.get(`/challenges/${id}`);
   return response;
 }
 

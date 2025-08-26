@@ -9,7 +9,7 @@ import MyChallengesPage from "../pages/challenges/MyChallengesPage";
 import CommunityPage from "../pages/community/CommunityPage";
 import { ROUTES } from "./routes";
 import TriviaPage from "../pages/Trivia/TriviaPage";
-import ChallengeDetails from "../components/challenges/ChallengeDetails";
+import ChallengeDetails from "../pages/challenges/ChallengeDetails";
 
 function AppRouters() {
   const { user } = useAuth();
@@ -32,7 +32,10 @@ function AppRouters() {
       <Route path={ROUTES.USER_CHALLENGES} element={<MyChallengesPage />} />
       <Route path={ROUTES.COMMUNITY} element={<CommunityPage />} />
       <Route path={ROUTES.TRIVIA} element={<TriviaPage />} />
-      <Route path={ROUTES.CHALLENGE_DETAILS} element={<ChallengeDetails />} />
+      <Route
+        path={`${ROUTES.CHALLENGE_DETAILS}/:id`}
+        element={<ChallengeDetails />}
+      />
     </Routes>
   );
 }

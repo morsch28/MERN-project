@@ -37,6 +37,7 @@ router.get("/", authMdw, async (req, res) => {
 });
 
 //the all challenges of all users with done status
+// TODO: Move to Community Route
 router.get("/community", authMdw, async (req, res) => {
   try {
     const result = await challengesService.getCompletedChallenges();
@@ -50,7 +51,7 @@ router.get("/community", authMdw, async (req, res) => {
 });
 
 router.get("/:id", authMdw, async (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
   const result = await challengesService.getChallengeDetails(id);
   if (!result.status) {
     return res.status(400).send(result.msg);

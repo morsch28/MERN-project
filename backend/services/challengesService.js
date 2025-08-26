@@ -49,7 +49,7 @@ async function getChallengeDetails(id) {
   if (!id) {
     return { status: false, msg: "missing parameters" };
   }
-  const challenge = Challenge.findById(id);
+  const challenge = await Challenge.findById(id);
   if (!challenge) {
     return { status: false, msg: "challenge details not found" };
   }
