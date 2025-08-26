@@ -1,6 +1,6 @@
 import CardsStatus from "../../components/challenges/CardsStatus";
 import { useAuth } from "../../context/auth.context";
-import WelcomePage from "../WelcomePage";
+import WelcomePage from "../welcome/WelcomePage";
 import { useNavigate } from "react-router";
 import CategoryIcons from "../../components/common/CategoryIcons";
 import StatusBadge from "../../components/challenges/StatusBadge";

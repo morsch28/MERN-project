@@ -4,6 +4,7 @@ import TriviaModal from "../../components/trivia/TriviaModal";
 import TriviaScoreBoard from "../../components/trivia/TriviaScoreBoard";
 import TriviaCards from "../../components/trivia/TriviaCards";
 import FinishTriviaPanel from "../../components/trivia/FinishTriviaPanel";
+import "./trivia-page.css";
 
 function TriviaPage() {
   const COUNT = 8;

@@ -1,9 +1,10 @@
 import { useState } from "react";
-import TypeWriter from "../components/TypeWriter";
-import welcomePageImage from "../images/challenges_logo.jpg";
-import SignIn from "../components/SignIn";
-import SignUp from "../components/SignUp";
-import { useAuth } from "../context/auth.context";
+import TypeWriter from "../../components/TypeWriter";
+import welcomePageImage from "../../images/challenges_logo.jpg";
+import SignIn from "../../components/SignIn";
+import SignUp from "../../components/SignUp";
+import { useAuth } from "../../context/auth.context";
+import "./welcome-page.css";
 
 function WelcomePage() {
   const [singIn, setSignIn] = useState(true);

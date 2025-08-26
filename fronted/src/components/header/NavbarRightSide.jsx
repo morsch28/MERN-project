@@ -1,8 +1,7 @@
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../context/auth.context";
 import feedbackService from "../../services/feedbackService";
-import { useEffect } from "react";
-import WelcomePage from "../../pages/WelcomePage";
+import WelcomePage from "../../pages/welcome/WelcomePage";
 import { ROUTES } from "../../routes/routes";
 
 function NavbarRightSide() {

@@ -1,0 +1,108 @@
+.h1-welcomePage,
+.p-welcomePage {
+  font-family: Raleway;
+}
+.h1-welcomePage {
+  font-size: 2.7rem;
+  border-bottom: 3px solid black;
+}
+.btn-welcomePage:hover {
+  transform: scale(1.2);
+}
+
+.home-page-cards:hover {
+  transform: scale(1.05);
+}
+
+.welcome-screen {
+  z-index: 1000;
+}
+.sigUpForm {
+  background-color: #055276;
+}
+.welcomeImage {
+  width: 350px;
+  height: 350px;
+}
+.welcomeText {
+  font-size: 1.5rem;
+}
+.divStartBtn {
+  white-space: nowrap;
+  width: 350px;
+}
+.welcomePageToForm {
+  border-left: 2px solid purple;
+}
+.signUp {
+  border: 1px solid black;
+  background: linear-gradient(
+    to top right,
+    #f6ffaf 40%,
+    #fdbbf5e0 65%
+  ) !important;
+}
+.signIn {
+  border: 1px solid black;
+  background: linear-gradient(
+    to top right,
+    #f6ffaf 40%,
+    #fdbbf5e0 65%
+  ) !important;
+  width: 75%;
+  height: 80%;
+}
+
+.signInForm {
+  height: 265px !important;
+}
+.signUpForm {
+  height: 265px !important;
+}
+
+@media screen and (max-width: 1024px) {
+  .welcomeImage {
+    width: 60%;
+    height: 50%;
+  }
+  .welcomeText {
+    font-size: 100%;
+  }
+  .h1-welcomePage {
+    font-size: 2rem;
+  }
+  .signIn {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .h1-welcomePage {
+    font-size: 1.7rem;
+  }
+
+  .btnOneStart {
+    font-size: 0.8rem !important;
+  }
+  .divStartBtn {
+    white-space: nowrap;
+    width: 265px;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .welcome-screen {
+    flex-direction: column !important;
+  }
+  .welcomeText {
+    font-size: 74%;
+  }
+  .welcomePageToForm {
+    border-left: none;
+    border-top: 1px solid white;
+  }
+  .h1-welcomePage {
+    font-size: 0.9rem;
+    margin-top: 14px;
+  }
+}

@@ -3,6 +3,7 @@ import challengesService from "../../services/challengesService";
 import AllChallengesCard from "../../components/challenges/AllChallengesCard";
 import OptionSelector from "../../components/OptionSelector";
 import { useMyChallenges } from "../../context/challenges.context";
+import "./challenges.css";
 
 function AllChallengesPage() {
   const [challenges, setChallenges] = useState([]);
@@ -35,7 +36,7 @@ function AllChallengesPage() {
   });
 
   const getStatus = (id) => {
-    for (const chosen of myChallenges?.data) {
+    for (const chosen of myChallenges.data) {
       if (chosen.challengeId?._id === id) {
         return chosen.status;
       }

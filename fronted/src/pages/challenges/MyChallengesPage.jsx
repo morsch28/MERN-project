@@ -4,6 +4,7 @@ import MyChallengesManager from "../../components/challenges/MyChallengesManager
 import OptionSelector from "../../components/OptionSelector";
 import feedbackService from "../../services/feedbackService";
 import { useMyChallenges } from "../../context/challenges.context";
+import "./challenges.css";
 
 function MyChallengesPage() {
   const [challengesStatus, setChallengesStatus] = useState("pending");
@@ -44,7 +45,7 @@ function MyChallengesPage() {
     } catch (error) {
       await feedbackService.showAlert({
         title: "Ops..!",
-        text: "Server error",
+        text: `Server error: ${error.message}`,
         icon: "error",
         timer: 2000,
       });

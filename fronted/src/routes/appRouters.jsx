@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom";
-import HomePage from "../pages/home/HomePage";
-import WelcomePage from "../pages/WelcomePage";
 import { useAuth } from "../context/auth.context";
 import { useEffect } from "react";
+import { ROUTES } from "./routes";
 import userServices from "../services/userServices";
+import HomePage from "../pages/home/HomePage";
+import WelcomePage from "../pages/welcome/WelcomePage";
 import AllChallengesPage from "../pages/challenges/AllChallengesPage";
 import MyChallengesPage from "../pages/challenges/MyChallengesPage";
 import CommunityPage from "../pages/community/CommunityPage";
-import { ROUTES } from "./routes";
 import TriviaPage from "../pages/Trivia/TriviaPage";
 import ChallengeDetails from "../pages/challenges/ChallengeDetails";
 

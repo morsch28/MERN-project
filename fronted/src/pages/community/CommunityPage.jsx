@@ -3,6 +3,7 @@ import communityService from "../../services/communityService";
 import CompletedChallenges from "../../components/community/CompletedChallenges";
 import feedbackService from "../../services/feedbackService";
 import { getCommunityChallenge } from "../../utils/getCommunityChallenge";
+import "./community-page.css";
 
 function CommunityPage() {
   const [completedChallenges, setCompletedChallenges] = useState([]);
@@ -59,7 +60,7 @@ function CommunityPage() {
     } catch (error) {
       await feedbackService.showAlert({
         title: "Ops...!",
-        text: "Server error",
+        text: `Server error:${error.message}`,
         timer: 2000,
       });
     }
@@ -96,7 +97,7 @@ function CommunityPage() {
     } catch (error) {
       await feedbackService.showAlert({
         title: "Ops..!",
-        text: "Server Error",
+        text: `Server error:${error.message}`,
         timer: 2000,
       });
     }
