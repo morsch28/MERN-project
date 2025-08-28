@@ -59,4 +59,25 @@ router.get("/:id", authMdw, async (req, res) => {
   res.status(200).send(result.data);
 });
 
+router.put("/:id", authMdw, async (req, res) => {
+  const id = req.params.id;
+  const admin = req.user?.isAdmin;
+  const values = req.body;
+  const response = await challengesService.updateChallenge(id, values, admin);
+  if (!response.status) {
+    return res.status(400).send(response.msg);
+  }
+  res.status(200).send(response.data);
+});
+
+router.delete("/:id", authMdw, async (req, res) => {
+  const id = req.params.id;
+  const admin = req.user?.isAdmin;
+  const response = await challengesService.deleteChallenge(id, admin);
+  if (!response.status) {
+    return res.status(400).send(response.msg);
+  }
+  res.status(200).send(response.data);
+});
+
 export default router;

@@ -62,7 +62,7 @@ function FeedbackForm({ challengeId, onSuccess, initialFeedback = {} }) {
             },
           },
         };
-        const response = await challengesService.updateChallenge(
+        const response = await challengesService.updateUserChallenge(
           challengeId,
           feedbackData
         );

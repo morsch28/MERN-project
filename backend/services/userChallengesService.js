@@ -5,13 +5,14 @@ async function chooseChallenge(idOfUser, idOfChallenge) {
   if (!idOfUser || !idOfChallenge) {
     return { status: false, msg: "missing parameters" };
   }
-  const challengeExist = await UserChallenge.findOne({
+  const challenge = await UserChallenge.findOne({
     userId: idOfUser,
     challengeId: idOfChallenge,
   });
-  if (challengeExist) {
+  if (challenge) {
     return { status: false, msg: "challenge is already exist" };
   }
+
   const newUserChallenge = await new UserChallenge({
     userId: idOfUser,
     challengeId: idOfChallenge,

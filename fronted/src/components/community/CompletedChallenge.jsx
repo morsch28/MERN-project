@@ -15,9 +15,7 @@ function CompletedChallenge({ challenge, onOpenModal }) {
             <div>Complete Challenge - {challenge?.formatDate}</div>
           </div>
         </div>
-        <div
-          className={`p-1 h-75 d-flex align-items-center fw-bold ${challenge?.classes}`}
-        >
+        <div className={`p-1 rounded-2 fw-bold ${challenge?.classes}`}>
           {challenge?.category}
         </div>
       </div>

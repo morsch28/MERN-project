@@ -7,6 +7,7 @@ import initialChallenges from "./helpers/InitialDataChallenges.js";
 import cors from "cors";
 import initialQuizzes from "./helpers/initialDataQuizzes.js";
 import { morgan, errorLoggerFile } from "./middleWare/logger.js";
+import initialUsers from "./helpers/initialDataUsers.js";
 
 const app = express();
 app.use(express.json());
@@ -29,6 +30,7 @@ mongoose
     console.log("Connected to DB");
     await initialChallenges();
     await initialQuizzes();
+    await initialUsers();
     app.listen(PORT, console.log(`listening on port ${PORT}`));
   })
   .catch((err) => console.log(err));

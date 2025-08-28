@@ -10,6 +10,7 @@ import MyChallengesPage from "../pages/challenges/MyChallengesPage";
 import CommunityPage from "../pages/community/CommunityPage";
 import TriviaPage from "../pages/Trivia/TriviaPage";
 import ChallengeDetails from "../pages/challenges/ChallengeDetails";
+import ChallengeFormPage from "../pages/challenges/ChallengeFormPage";
 
 function AppRouters() {
   const { user } = useAuth();
@@ -35,6 +36,11 @@ function AppRouters() {
       <Route
         path={`${ROUTES.CHALLENGE_DETAILS}/:id`}
         element={<ChallengeDetails />}
+      />
+      <Route path={ROUTES.CREATE_CHALLENGE} element={<ChallengeFormPage />} />
+      <Route
+        path={`${ROUTES.UPDATE_CHALLENGE}/:id`}
+        element={<ChallengeFormPage />}
       />
     </Routes>
   );
