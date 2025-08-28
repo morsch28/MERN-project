@@ -24,12 +24,38 @@ function ChallengeForm({ challenge }) {
       const schema = Joi.object({
         category: Joi.string()
           .valid("fitness", "nutrition", "mental")
-          .required(),
-        difficulty: Joi.string().valid("easy", "medium", "hard").required(),
-        title: Joi.string().min(2).max(256).required(),
-        description: Joi.string().min(2).max(1024).required(),
-        duration_days: Joi.number().min(1).required(),
-        benefitsInput: Joi.string().allow("").max(1024),
+          .required()
+          .messages({
+            "any.required": "Category is required",
+            "any.only": "Invalid category",
+            "string.empty": "Category is required",
+          }),
+        difficulty: Joi.string()
+          .valid("easy", "medium", "hard")
+          .required()
+          .messages({
+            "any.required": "Difficulty is required",
+            "any.only": "Invalid difficulty",
+            "string.empty": "Difficulty is required",
+          }),
+        title: Joi.string().min(2).max(256).required().messages({
+          "string.empty": "Title is required",
+          "string.min": "Title is too short",
+          "string.max": "Title is too long",
+        }),
+        description: Joi.string().min(2).max(1024).required().messages({
+          "string.empty": "Description is required",
+          "string.min": "Description is too short",
+          "string.max": "Description is too long",
+        }),
+        duration_days: Joi.number().min(1).required().messages({
+          "number.base": "Duration must be a number",
+          "number.min": "Duration must be at least 1 day",
+          "any.required": "Duration is required",
+        }),
+        benefitsInput: Joi.string().allow("").max(1024).messages({
+          "string.max": "Benefits text is too long",
+        }),
       });
       const { error } = schema.validate(values, { abortEarly: false });
       if (!error) {
@@ -37,7 +63,7 @@ function ChallengeForm({ challenge }) {
       }
       const errors = {};
       for (const detail of error.details) {
-        errors[detail.path[0]] = error.message;
+        errors[detail.path[0]] = detail.message;
       }
       return errors;
     },
@@ -81,6 +107,7 @@ function ChallengeForm({ challenge }) {
             <option value="mental">mental</option>
             <option value="nutrition">nutrition</option>
           </select>
+          {errors.category}
         </div>
         <div className="mb-2">
           <label className="form-label">Difficulty</label>

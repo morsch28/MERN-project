@@ -17,8 +17,6 @@ export function ChallengesProvider({ children }) {
     }
     try {
       const response = await challengeService.getAllUserChallenges(user?._id);
-      console.log("challenge user", response.data.data);
-
       setMyChallenges(response?.data);
     } catch (error) {
       console.log("Failed load challenges", error);
