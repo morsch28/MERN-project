@@ -49,8 +49,9 @@
     #f6ffaf 40%,
     #fdbbf5e0 65%
   ) !important;
-  width: 75%;
-  height: 80%;
+  width: 480px;
+  height: 450px;
+  gap: 24px;
 }
 
 .signInForm {
@@ -58,11 +59,21 @@
 }
 .signUpForm {
   height: 265px !important;
+  margin-top: 14px;
+}
+.about-project {
+  width: 50%;
+}
+.welcomePageToForm {
+  width: 50%;
+}
+.btnStart {
+  font-size: 1.4rem;
 }
 
 @media screen and (max-width: 1024px) {
   .welcomeImage {
-    width: 60%;
+    width: 36%;
     height: 50%;
   }
   .welcomeText {
@@ -78,22 +89,45 @@
 
 @media screen and (max-width: 768px) {
   .h1-welcomePage {
-    font-size: 1.7rem;
+    font-size: 1.4rem;
   }
-
-  .btnOneStart {
-    font-size: 0.8rem !important;
+  .welcome-screen {
+    flex-direction: column;
+  }
+  .about-project {
+    width: 100%;
+    height: 50%;
+  }
+  .welcomePageToForm {
+    width: 100%;
+    border-left: none;
+  }
+  .btnStart {
+    font-size: 1rem !important;
   }
   .divStartBtn {
     white-space: nowrap;
-    width: 265px;
+    width: 200px;
+    height: 50px;
+  }
+  .p-welcomePage {
+    font-size: 86%;
+  }
+  .signInForm input,
+  .signInForm .form-control {
+    padding: 10px !important;
+  }
+  signUpForm input,
+  .signUpForm .form-control {
+    padding: 10px !important;
+  }
+  .signIn {
+    height: 76%;
+    gap: 18px;
+    padding: 10px;
   }
 }
-
 @media screen and (max-width: 426px) {
-  .welcome-screen {
-    flex-direction: column !important;
-  }
   .welcomeText {
     font-size: 74%;
   }

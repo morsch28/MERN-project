@@ -48,10 +48,12 @@ function AllChallengesCard({ challenge, onAdd, status, onDelete }) {
   };
 
   return (
-    <div className={`card pt-2  justify-content-center allChallenges gap-2`}>
+    <div
+      className={`card pt-2  justify-content-center allChallenges gap-2 d-flex flex-column h-100`}
+    >
       <Link
         to={`${ROUTES.CHALLENGE_DETAILS}/${challenge._id}`}
-        className="text-decoration-none text-dark"
+        className="text-decoration-none text-dark flex-grow-1 "
       >
         <div className="d-flex justify-content-between">
           <div className="card-header d-flex w-100 justify-content-between bg-transparent  border-bottom-0">
@@ -68,10 +70,10 @@ function AllChallengesCard({ challenge, onAdd, status, onDelete }) {
         </div>
       </Link>
       <div
-        className={`card-footer d-flex gap-2 justify-content-center  ${
+        className={`card-footer d-flex gap-2 justify-content-center   ${
           status && `is-chosen-${status}`
         }`}
-        style={{ height: "70px" }}
+        style={{ height: "74px" }}
       >
         {status ? (
           <button className="btn btn-secondary" disabled>

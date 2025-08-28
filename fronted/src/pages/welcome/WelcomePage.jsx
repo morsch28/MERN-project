@@ -23,17 +23,17 @@ function WelcomePage() {
   return (
     <>
       <div className="d-flex  align-items-center  vh-100 vw-100 bg-light position-fixed top-0 start-0  text-center gap-2 welcome-screen">
-        <div className="d-flex flex-column justify-content-center align-items-center w-50 gap-4">
+        <div className="d-flex flex-column justify-content-center align-items-center  gap-4 about-project">
           <img className="mt-1 welcomeImage" src={welcomePageImage} />
           <TypeWriter
             text={`Welcome to my website - your gateway to a healthier and more balanced life.\nDiscover personalized challenges to improve your fitness, nutrition, sleep quality,\n and embed healthy habits into your daily routine.\n Join our community and start your journey toward meaningful change today.`}
           />
         </div>
-        <div className="d-flex flex-column w-50 align-items-center gap-1  border-3 welcomePageToForm">
+        <div className="d-flex flex-column  align-items-center gap-1  border-3 welcomePageToForm">
           <h1 className=" h1-welcomePage">Mor(e) Wellness & LifeStyle</h1>
           <div className="bg-dark-subtle  d-flex align-items-center justify-content-center p-2 gap-2 divStartBtn">
             <button
-              className={`border-0 p-2 w-50 rounded-2 fs-4 btnOneStart ${
+              className={`border-0 p-2 w-50 rounded-2  btnStart ${
                 singIn ? "bg-white" : "bg-dark-subtle"
               }`}
               onClick={() => {
@@ -43,7 +43,7 @@ function WelcomePage() {
               Sign-In
             </button>
             <button
-              className={`border-0 p-2 rounded-2 fs-4  ${
+              className={`border-0 p-2 rounded-2 btnStart  ${
                 !singIn ? "bg-white" : "bg-dark-subtle"
               }`}
               onClick={() => {
@@ -53,11 +53,11 @@ function WelcomePage() {
               Get Started
             </button>
           </div>
-          <div className="d-flex flex-column mt-4 align-items-center gap-4 justify-content-center text-center signIn p-3 rounded-3">
-            <h2 className="fs-1">
+          <div className="d-flex flex-column mt-4 align-items-center  justify-content-center text-center signIn  rounded-3">
+            <h2 className="fs-2">
               {singIn ? "Welcome Back!" : "Start your journey"}
             </h2>
-            <p className="fs-4">
+            <p className="fs-5">
               {singIn
                 ? "sign-in to continue your challenges journey"
                 : "create your account and begin transforming your life"}

@@ -20,7 +20,7 @@ function CompletedChallenges({ challenges, onAddComment, onDeleteComment }) {
   );
 
   return (
-    <div className="d-flex  gap-2 mt-4 flex-column mb-4 community-cards">
+    <div className="d-flex  gap-2 mt-4 flex-column mb-4 community-cards align-items-center">
       {challenges.map((challenge) => (
         <CompletedChallenge
           challenge={challenge}

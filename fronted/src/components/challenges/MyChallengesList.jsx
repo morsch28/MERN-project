@@ -3,6 +3,7 @@ import ChallengesStatusButtons from "./ChallengesStatusButtons";
 import ChallengeProgress from "./ChallengeProgress";
 
 function MyChallengesList({ challenges, onUpdate, onShow, reloadChallenges }) {
+  console.log("chs", challenges);
   return (
     <div className="d-flex flex-wrap gap-3 justify-content-center w-100">
       {challenges.length > 0 &&

@@ -1,7 +1,7 @@
 function CompletedChallenge({ challenge, onOpenModal }) {
   return (
-    <div className="card text-center p-2 ">
-      <div className="card-header d-flex justify-content-between border border-0 bg-transparent align-items-center">
+    <div className="card text-center p-2 community-card">
+      <div className="card-header d-flex gap-3 justify-content-between border border-0 bg-transparent align-items-center">
         <div className="d-flex gap-3 align-items-center">
           {challenge?.imageUrl ? (
             <img className="img-CommunityCards01" src={challenge?.imageUrl} />

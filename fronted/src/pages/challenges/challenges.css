@@ -68,6 +68,9 @@
 .is-chosen-done {
   background-color: #1dc8782c !important;
 }
+.search-challenge {
+  width: 300px !important;
+}
 
 @media screen and (max-width: 1024px) {
   .challengesContainer {
@@ -86,5 +89,15 @@
 
   .MyChallengesManager {
     width: 85% !important;
+  }
+}
+@media screen and (max-width: 426px) {
+  .challenges-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  .challengesContainer {
+    grid-template-columns: repeat(1, 1fr);
+    width: 84% !important;
   }
 }

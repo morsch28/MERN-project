@@ -12,10 +12,14 @@ function NavbarRightSide() {
     return <WelcomePage />;
   }
 
-  const DEFAULT_IMAGE =
-    "https://cdn-icons-png.flaticon.com/512/2922/2922510.png";
+  const DEFAULT_IMAGE = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
 
-  const USER_IMAGE = `http://localhost:3000${user.image.url}`;
+  const raw = user?.image?.url;
+  const IMG_SRC = raw
+    ? raw.startsWith("http")
+      ? raw
+      : `http://localhost:3000${raw}`
+    : `${DEFAULT_IMAGE}`;
 
   const handleLogout = async () => {
     const result = await feedbackService.showConfirm({
@@ -39,7 +43,7 @@ function NavbarRightSide() {
     <div className="collapse navbar-collapse">
       <div className="dropdown">
         <img
-          src={user.image.url ? USER_IMAGE : DEFAULT_IMAGE}
+          src={IMG_SRC}
           className="rounded-circle bg-primary"
           width="65"
           height="65"

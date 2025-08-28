@@ -68,7 +68,7 @@ function SignIn() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="d-flex flex-column justify-content-center align-items-center gap-4 signInForm"
+      className="d-flex flex-column justify-content-center align-items-center gap-3 signInForm"
     >
       <Input
         placeholder="Email"

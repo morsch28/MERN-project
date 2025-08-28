@@ -147,7 +147,7 @@ function SignUp() {
       </div>
       <button
         type="submit"
-        className="btn btn-primary  p-2 fs-5 mb-2"
+        className="btn btn-primary  p-2 fs-5 mb-5"
         disabled={!isValid}
       >
         Let's Start

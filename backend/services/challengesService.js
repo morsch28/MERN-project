@@ -11,6 +11,16 @@ async function createChallenge(values, userIsAdmin) {
   if (!userIsAdmin) {
     return { status: false, msg: "UnAuthorize" };
   }
+  const exists = await Challenge.findOne({
+    title: values.title,
+    isDeleted: { $ne: true },
+  });
+  if (exists) {
+    return {
+      status: false,
+      msg: "Challenge is already exist please choose another title",
+    };
+  }
   const newChallenge = new Challenge(values);
   await newChallenge.save();
   return {

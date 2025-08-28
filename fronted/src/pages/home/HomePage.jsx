@@ -14,17 +14,16 @@ function HomePage() {
   const { myChallenges } = useMyChallenges();
   const [isMobile, setIsMobile] = useState(false);
 
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 768);
+  }, []);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
   if (!user) {
     return <WelcomePage />;
   }
-  useEffect(() => {
-    // window.addEventListener("resize", () => {
-    setIsMobile(window.innerWidth <= 768);
-    // });
-  }, []);
 
   const list = myChallenges?.data || [];
   const selectedChallenges = list.slice(0, 3);

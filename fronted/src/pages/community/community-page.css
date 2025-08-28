@@ -24,6 +24,9 @@
   border-radius: 50%;
   object-fit: cover;
 }
+.community-card {
+  width: 100%;
+}
 
 @media screen and (max-width: 768px) {
   .userName-upperCaseImg {
@@ -32,5 +35,10 @@
   }
   .community-cards {
     width: 500px;
+  }
+}
+@media screen and (max-width: 426px) {
+  .community-card {
+    width: 90% !important;
   }
 }

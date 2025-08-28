@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import nutritionImg from "../../images/shaksuka.jpg";
 import fitness from "../../images/fitness.jpg";
 import mentalImg from "../../images/nature2.jpg";
-console.log(nutritionImg);
 
 function ChallengeDetails() {
   const { id } = useParams();
@@ -14,7 +13,6 @@ function ChallengeDetails() {
     const loadChallengeDetails = async () => {
       try {
         const response = await challengeService.getChallengeById(id);
-        console.log("ch details", response.data);
         setChallenge(response.data);
       } catch (error) {
         console.log(error);
@@ -63,8 +61,11 @@ function ChallengeDetails() {
           <h5 className="fs-4">{challenge?.title}</h5>
           <p className="challenge-description">{challenge?.description}</p>
           <div className="d-flex gap-3">
-            {challenge?.benefits.map((benefit) => (
-              <div className="bg-primary-subtle px-2 py-2 text-primary border border-primary fw-bold rounded-2 challenge-benefit ">
+            {challenge?.benefits.map((benefit, index) => (
+              <div
+                key={index}
+                className="bg-primary-subtle px-2 py-2 text-primary border border-primary fw-bold rounded-2 challenge-benefit "
+              >
                 {benefit}
               </div>
             ))}
