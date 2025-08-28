@@ -41,22 +41,26 @@ function CommentsList({
               <div id={`update-${comment._id}`}>{comment.text}</div>
             </div>
             <div className="d-flex gap-2 ms-auto">
+              {/* edit button  */}
+              <button
+                onClick={() => onStart(comment._id)}
+                className="btn btn-outline-secondary"
+              >
+                <i className="bi bi-pencil"></i>
+              </button>
               {/* delete button */}
               <button
                 onClick={() => onDelete(challenge.id, comment._id)}
-                className="border border-danger text-danger"
+                className="btn btn-outline-danger"
               >
                 <i className="bi bi-trash3"></i>
               </button>
-              {/* edit button  */}
-              <button onClick={() => onStart(comment._id)}>
-                <i className="bi bi-pencil"></i>
-              </button>
+
               {/* save button */}
               {commentToEdit == comment._id && (
                 <button
                   onClick={() => onSave(comment._id)}
-                  className="border border-success text-success"
+                  className="btn btn-outline-success"
                 >
                   <i className="bi bi-box-arrow-down"></i>
                 </button>

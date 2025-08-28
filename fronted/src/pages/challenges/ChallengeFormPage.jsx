@@ -24,11 +24,25 @@ function ChallengeForm({ challenge }) {
       const schema = Joi.object({
         category: Joi.string()
           .valid("fitness", "nutrition", "mental")
-          .required(),
-        difficulty: Joi.string().valid("easy", "medium", "hard").required(),
-        title: Joi.string().min(2).max(256).required(),
-        description: Joi.string().min(2).max(1024),
-        duration_days: Joi.number().min(1).required(),
+          .required()
+          .messages({
+            "*": "select one category", // לכל שגיאה של any
+          }),
+        difficulty: Joi.string()
+          .valid("easy", "medium", "hard")
+          .required()
+          .messages({
+            "*": "השדה אינו תקין", // לכל שגיאה של any
+          }),
+        title: Joi.string().min(2).max(256).required().messages({
+          "*": "השדה אינו תקין", // לכל שגיאה של any
+        }),
+        description: Joi.string().min(2).max(1024).messages({
+          "*": "השדה אינו תקין", // לכל שגיאה של any
+        }),
+        duration_days: Joi.number().min(1).required().messages({
+          "*": "השדה אינו תקין", // לכל שגיאה של any
+        }),
         benefitsInput: Joi.string().allow("").max(1024),
       });
       const { error } = schema.validate(values, { abortEarly: false });
@@ -75,11 +89,7 @@ function ChallengeForm({ challenge }) {
       <div className="d-flex gap-3 text-center my-3">
         <div className="mb-2">
           <label className="form-label">Category</label>
-          <select
-            className="form-select"
-            {...getFieldProps("category")}
-            error={touched.category && errors.category}
-          >
+          <select className="form-select">
             <option value="">Select Category</option>
             <option value="fitness">fitness</option>
             <option value="mental">mental</option>
@@ -88,16 +98,13 @@ function ChallengeForm({ challenge }) {
         </div>
         <div className="mb-2">
           <label className="form-label">Difficulty</label>
-          <select
-            className="form-select"
-            {...getFieldProps("difficulty")}
-            error={touched.difficulty && errors.difficulty}
-          >
+          <select className="form-select">
             <option value="">Select Difficulty</option>
             <option value="easy">easy</option>
             <option value="medium">medium</option>
             <option value="hard">hard</option>
           </select>
+          {errors.difficulty}
         </div>
       </div>
       <div className="d-flex flex-column gap-2">

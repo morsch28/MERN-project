@@ -6,11 +6,13 @@ import CategoryIcons from "../../components/common/CategoryIcons";
 import StatusBadge from "../../components/challenges/StatusBadge";
 import { ROUTES } from "../../routes/routes";
 import { useMyChallenges } from "../../context/challenges.context";
+import { useEffect, useState } from "react";
 
 function HomePage() {
   const { isLoading, user } = useAuth();
   const navigate = useNavigate();
   const { myChallenges } = useMyChallenges();
+  const [isMobile, setIsMobile] = useState(false);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -18,6 +20,11 @@ function HomePage() {
   if (!user) {
     return <WelcomePage />;
   }
+  useEffect(() => {
+    // window.addEventListener("resize", () => {
+    setIsMobile(window.innerWidth <= 768);
+    // });
+  }, []);
 
   const list = myChallenges?.data || [];
   const selectedChallenges = list.slice(0, 3);
@@ -28,12 +35,14 @@ function HomePage() {
       <div className="d-flex gap-5 justify-content-center mt-2 mb-3 align-items-center home-Challenges">
         <div className="d-flex flex flex-column gap-2 selectedChallenges ">
           <div className="d-flex justify-content-center">
-            <button
-              onClick={() => navigate(ROUTES.ALL_CHALLENGES)}
-              className="btn btn-primary px-2 fs-5 position-fixed start-0 top-0 mt-2 mx-3"
-            >
-              All challenges
-            </button>
+            {!isMobile && (
+              <button
+                onClick={() => navigate(ROUTES.ALL_CHALLENGES)}
+                className="btn btn-primary px-2 fs-5 position-fixed start-0 top-0 mt-2 mx-3"
+              >
+                All challenges
+              </button>
+            )}
             <h1 style={{ fontSize: "30px" }}>Selected Challenges</h1>
           </div>
           <div className="d-flex gap-3 selectedCardsContainer">

@@ -77,22 +77,12 @@ function AllChallengesPage() {
 
   return (
     <div className="mt-3">
-      {user?.isAdmin && (
-        <button
-          onClick={() => navigate("/create-challenge")}
-          className="btn btn-warning border border-dark border-1 fs-5  create-challenge"
-        >
-          Create +
-        </button>
-      )}
-
       <div className="d-flex justify-content-center gap-2 challenges-cards">
         <OptionSelector
           options={["all", "fitness", "mental", "nutrition"]}
           onSelected={setSelectCategory}
           selected={selectCategory}
         />
-
         <input
           type="text"
           className="form-control search-challenge p-2"
@@ -100,6 +90,14 @@ function AllChallengesPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         ></input>
+        {user?.isAdmin && (
+          <button
+            onClick={() => navigate("/create-challenge")}
+            className="btn btn-warning border border-dark border-1 fs-5  create-challenge"
+          >
+            Create +
+          </button>
+        )}
       </div>
       {myChallenges.data && (
         <div className=" container challengesContainer">

@@ -7,7 +7,7 @@ function ChallengeProgress({ progress, daysNumber, totalDays }) {
         <span>{p}%</span>
       </div>
       <div className="c-days text-nowrap">
-        days {daysNumber} of {totalDays}
+        days {daysNumber}/{totalDays}
       </div>
     </div>
   );

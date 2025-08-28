@@ -88,13 +88,13 @@ function AllChallengesCard({ challenge, onAdd, status, onDelete }) {
         {user?.isAdmin && (
           <>
             <button onClick={handleEdit} className="btn btn-outline-secondary">
-              <i className="bi bi-pencil me-1" />
+              <i className="bi bi-pencil" />
             </button>
             <button
               onClick={() => onDelete(challenge._id)}
               className="btn btn-outline-danger"
             >
-              <i className="bi bi-trash me-1" />
+              <i className="bi bi-trash " />
             </button>
           </>
         )}
