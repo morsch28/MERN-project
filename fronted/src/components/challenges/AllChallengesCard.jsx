@@ -3,10 +3,13 @@ import CategoryIcons from "../common/CategoryIcons";
 import DifficultyBadge from "./DifficultyBadge";
 import feedbackService from "../../services/feedbackService";
 import { ROUTES } from "../../routes/routes";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../../context/auth.context";
 
-function AllChallengesCard({ challenge, onAdd, status }) {
+function AllChallengesCard({ challenge, onAdd, status, onDelete }) {
   const navigate = useNavigate();
+  const { user } = useAuth();
+
   const handleAddChallenge = async (id) => {
     try {
       const addChallenge = await challengesService.addChallengeToList(id);
@@ -37,30 +40,39 @@ function AllChallengesCard({ challenge, onAdd, status }) {
     }
   };
 
-  const onNavigateToChallange = () => {
-    console.log(challenge);
-    navigate(`${ROUTES.CHALLENGE_DETAILS}/${challenge._id}`);
+  const handleEdit = (e) => {
+    e.stopPropagation();
+    navigate(`${ROUTES.UPDATE_CHALLENGE}/${challenge._id}`, {
+      state: { challenge },
+    });
   };
 
   return (
-    <div
-      onClick={onNavigateToChallange}
-      className={`card pt-2  justify-content-center allChallenges gap-2`}
-    >
-      <div className="d-flex justify-content-between">
-        <div className="card-header d-flex w-100 justify-content-between bg-transparent  border-bottom-0">
-          <CategoryIcons category={challenge.category} />
-          <div className="d-flex flex-column gap-2">
-            <DifficultyBadge difficulty={challenge.difficulty} />
-            <div className="border p-1">{challenge.duration_days} days</div>
+    <div className={`card pt-2  justify-content-center allChallenges gap-2`}>
+      <Link
+        to={`${ROUTES.CHALLENGE_DETAILS}/${challenge._id}`}
+        className="text-decoration-none text-dark"
+      >
+        <div className="d-flex justify-content-between">
+          <div className="card-header d-flex w-100 justify-content-between bg-transparent  border-bottom-0">
+            <CategoryIcons category={challenge.category} />
+            <div className="d-flex flex-column gap-2">
+              <DifficultyBadge difficulty={challenge.difficulty} />
+              <div className="border p-1">{challenge.duration_days} days</div>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="card-body">
-        <h5 className="card-title">{challenge.title}</h5>
-        <div>{challenge.description}</div>
-      </div>
-      <div className={`card-footer  ${status && `is-chosen-${status}`}`}>
+        <div className="card-body">
+          <h5 className="card-title">{challenge.title}</h5>
+          <div>{challenge.description}</div>
+        </div>
+      </Link>
+      <div
+        className={`card-footer d-flex gap-2 justify-content-center  ${
+          status && `is-chosen-${status}`
+        }`}
+        style={{ height: "70px" }}
+      >
         {status ? (
           <button className="btn btn-secondary" disabled>
             {status}
@@ -70,8 +82,21 @@ function AllChallengesCard({ challenge, onAdd, status }) {
             className="btn btn-primary  "
             onClick={() => handleAddChallenge(challenge._id)}
           >
-            Add Challenge<i className="bi bi-plus-lg"></i>
+            Add Challenge
           </button>
+        )}
+        {user?.isAdmin && (
+          <>
+            <button onClick={handleEdit} className="btn btn-outline-secondary">
+              <i className="bi bi-pencil me-1" />
+            </button>
+            <button
+              onClick={() => onDelete(challenge._id)}
+              className="btn btn-outline-danger"
+            >
+              <i className="bi bi-trash me-1" />
+            </button>
+          </>
         )}
       </div>
     </div>

@@ -19,7 +19,7 @@ function MyChallengesPage() {
       if (currentStatus == "pending") nextStatus = "in-progress";
       else if (currentStatus == "in-progress") nextStatus = "done";
       else return;
-      const response = await challengesService.updateChallenge(id, {
+      const response = await challengesService.updateUserChallenge(id, {
         status: nextStatus,
       });
       if (response.status) {

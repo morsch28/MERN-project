@@ -5,6 +5,26 @@ async function getAllChallenges() {
   return response;
 }
 
+async function getChallengeById(id) {
+  const response = await httpServices.get(`/challenges/${id}`);
+  return response;
+}
+
+async function deleteChallenge(id) {
+  const response = await httpServices.delete(`/challenges/${id}`);
+  return response;
+}
+
+async function updateChallenge(id, values) {
+  const response = await httpServices.put(`/challenges/${id}`, values);
+  return response;
+}
+
+async function createChallenge(values) {
+  const response = await httpServices.post("/challenges", values);
+  return response;
+}
+
 async function addChallengeToList(id) {
   const response = await httpServices.post(
     `/user-challenges/choose-challenge/${id}`
@@ -17,12 +37,7 @@ async function getAllUserChallenges(id) {
   return response;
 }
 
-async function getChallengeById(id) {
-  const response = await httpServices.get(`/challenges/${id}`);
-  return response;
-}
-
-async function updateChallenge(id, updateData) {
+async function updateUserChallenge(id, updateData) {
   const response = await httpServices.put(`/user-challenges/${id}`, updateData);
   return response;
 }
@@ -45,9 +60,12 @@ const challengeService = {
   getAllChallenges,
   addChallengeToList,
   getAllUserChallenges,
-  updateChallenge,
+  updateUserChallenge,
   uploadImage,
   deleteUserChallenge,
   getChallengeById,
+  updateChallenge,
+  deleteChallenge,
+  createChallenge,
 };
 export default challengeService;

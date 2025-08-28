@@ -60,10 +60,59 @@ async function getChallengeDetails(id) {
   };
 }
 
+async function deleteChallenge(id, isAdmin) {
+  if (!id) {
+    return { status: false, msg: "missing parameters" };
+  }
+  if (!isAdmin) {
+    return { status: false, msg: "Unauthorized" };
+  }
+  const challengeToDelete = await Challenge.findByIdAndUpdate(
+    id,
+    {
+      $set: { isDeleted: true },
+    },
+    { new: true }
+  );
+  if (!challengeToDelete) {
+    return { status: false, msg: "not found challenge to delete" };
+  }
+  return {
+    status: true,
+    msg: "return deleted challenge",
+    data: challengeToDelete,
+  };
+}
+async function updateChallenge(id, values, isAdmin) {
+  if (!id) {
+    return { status: false, msg: "missing parameters" };
+  }
+  if (!isAdmin) {
+    return { status: false, msg: "Unauthorized" };
+  }
+  const challengeToUpdate = await Challenge.findByIdAndUpdate(
+    id,
+    {
+      $set: values,
+    },
+    { new: true, runValidators: true }
+  );
+  if (!challengeToUpdate) {
+    return { status: false, msg: "not found challenge to update" };
+  }
+  return {
+    status: true,
+    msg: "return updated challenge",
+    data: challengeToUpdate,
+  };
+}
+
 const challengesService = {
   createChallenge,
   getAllChallenges,
   getCompletedChallenges,
   getChallengeDetails,
+  deleteChallenge,
+  updateChallenge,
 };
 export default challengesService;

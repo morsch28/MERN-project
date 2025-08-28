@@ -8,4 +8,7 @@ export const ROUTES = {
   SIGN_IN: "sign-in",
   TRIVIA: "trivia",
   CHALLENGE_DETAILS: "/challenge-details",
+
+  CREATE_CHALLENGE: "/create-challenge",
+  UPDATE_CHALLENGE: "/update-challenge",
 };

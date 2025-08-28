@@ -24,6 +24,10 @@ const challengeSchema = new mongoose.Schema({
   benefits: {
     type: [String],
   },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Challenge = mongoose.model("Challenge", challengeSchema, "challenge");
