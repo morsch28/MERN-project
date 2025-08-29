@@ -11,6 +11,7 @@ import CommunityPage from "../pages/community/CommunityPage";
 import TriviaPage from "../pages/Trivia/TriviaPage";
 import ChallengeDetails from "../pages/challenges/ChallengeDetails";
 import ChallengeFormPage from "../pages/challenges/ChallengeFormPage";
+import SignUp from "../components/SignUp";
 
 function AppRouters() {
   const { user } = useAuth();
@@ -42,6 +43,7 @@ function AppRouters() {
         path={`${ROUTES.UPDATE_CHALLENGE}/:id`}
         element={<ChallengeFormPage />}
       />
+      <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
     </Routes>
   );
 }

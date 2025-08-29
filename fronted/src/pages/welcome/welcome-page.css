@@ -1,4 +1,4 @@
-.h1-welcomePage,
+/* .h1-welcomePage,
 .p-welcomePage {
   font-family: Raleway;
 }
@@ -21,26 +21,23 @@
   background-color: #055276;
 }
 .welcomeImage {
-  width: 350px;
-  height: 350px;
+  width: 330px;
+  height: 330px;
 }
 .welcomeText {
   font-size: 1.5rem;
 }
 .divStartBtn {
   white-space: nowrap;
-  width: 350px;
+  width: 300px;
+  height: 60px;
 }
 .welcomePageToForm {
   border-left: 2px solid purple;
 }
 .signUp {
   border: 1px solid black;
-  background: linear-gradient(
-    to top right,
-    #f6ffaf 40%,
-    #fdbbf5e0 65%
-  ) !important;
+  
 }
 .signIn {
   border: 1px solid black;
@@ -49,9 +46,9 @@
     #f6ffaf 40%,
     #fdbbf5e0 65%
   ) !important;
-  width: 480px;
-  height: 450px;
-  gap: 24px;
+  width: 550px;
+
+  gap: 16px;
 }
 
 .signInForm {
@@ -59,10 +56,12 @@
 }
 .signUpForm {
   height: 265px !important;
+
   margin-top: 14px;
 }
 .about-project {
   width: 50%;
+  flex-direction: column;
 }
 .welcomePageToForm {
   width: 50%;
@@ -73,7 +72,7 @@
 
 @media screen and (max-width: 1024px) {
   .welcomeImage {
-    width: 36%;
+    width: 42%;
     height: 50%;
   }
   .welcomeText {
@@ -94,9 +93,11 @@
   .welcome-screen {
     flex-direction: column;
   }
+
   .about-project {
     width: 100%;
     height: 50%;
+    flex-direction: row;
   }
   .welcomePageToForm {
     width: 100%;
@@ -112,6 +113,8 @@
   }
   .p-welcomePage {
     font-size: 86%;
+    width: 50%;
+    height: 100px;
   }
   .signInForm input,
   .signInForm .form-control {
@@ -121,10 +124,12 @@
   .signUpForm .form-control {
     padding: 10px !important;
   }
-  .signIn {
-    height: 76%;
-    gap: 18px;
-    padding: 10px;
+
+  .welcomeImage {
+    height: 90%;
+  }
+  .signInForm {
+    height: 0px;
   }
 }
 @media screen and (max-width: 426px) {
@@ -138,5 +143,123 @@
   .h1-welcomePage {
     font-size: 0.9rem;
     margin-top: 14px;
+  }
+} */
+
+.about-project {
+  flex-direction: column;
+  width: 50%;
+}
+.welcomeImage {
+  width: 300px;
+  height: 300px;
+}
+.welcomeText {
+  height: 250px;
+  font-size: 1.3rem;
+}
+.form-welcome {
+  width: 50%;
+  border-left: 4px solid purple;
+}
+.divStartBtn {
+  width: 300px;
+}
+.h1-welcomePage {
+  border-bottom: 3px solid black;
+}
+.form-section {
+  border: 1px solid black;
+  height: 430px;
+  width: 550px;
+  background: linear-gradient(
+    to top right,
+    #f6ffaf 40%,
+    #fdbbf5e0 65%
+  ) !important;
+}
+.welcome-input {
+  padding: 12px !important;
+}
+
+@media screen and (max-width: 1024px) {
+  .form-section {
+    width: 96%;
+  }
+  .welcome-input {
+    padding: 10px !important;
+  }
+  .about-project {
+    width: 44%;
+  }
+  .form-welcome {
+    width: 56%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .welcome-screen {
+    flex-direction: column;
+  }
+  .about-project {
+    width: 100%;
+    height: 30%;
+  }
+  .p-welcomePage {
+    display: none;
+  }
+  .welcomeImage {
+    width: 54%;
+    height: 100%;
+  }
+  .welcomeText {
+    font-size: 0.9rem;
+  }
+  .form-welcome {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    border-left: none;
+  }
+  .h1-welcomePage {
+    font-size: 1.4rem;
+  }
+  .divStartBtn {
+    height: 62px;
+    width: 70%;
+  }
+  .form-section {
+    width: 92%;
+    height: 70%;
+  }
+  .welcome-input {
+    padding: 10px !important;
+    width: 100%;
+  }
+  .h1-welcomePage {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .welcome-screen {
+    flex-direction: column;
+  }
+  .about-project {
+    width: 100%;
+    height: 30%;
+  }
+  .p-welcomePage {
+    display: none;
+  }
+  .form-welcome {
+    border-left: none;
+    width: 100%;
+  }
+  .h1-welcomePage {
+    font-size: 1.2rem;
+  }
+  .welcome-input {
+    padding: 6px !important;
   }
 }

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { useAuth } from "../context/auth.context";
 import feedbackService from "../services/feedbackService";
 import { ROUTES } from "../routes/routes";
+import { Link } from "react-router-dom";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -68,14 +69,16 @@ function SignIn() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="d-flex flex-column justify-content-center align-items-center gap-3 signInForm"
+      className="d-flex flex-column justify-content-center align-items-center gap-3"
     >
       <Input
+        className="welcome-input"
         placeholder="Email"
         {...getFieldProps("email")}
         error={touched.email && errors.email}
       />
       <Input
+        className="welcome-input"
         placeholder="Password"
         {...getFieldProps("password")}
         error={touched.password && errors.password}
@@ -83,7 +86,7 @@ function SignIn() {
 
       <button
         type="submit"
-        className="btn btn-primary p-2 fs-5 mb-3"
+        className="btn btn-primary p-2 fs-5 mb-3 w-50"
         disabled={!isValid}
       >
         Submit

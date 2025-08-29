@@ -20,7 +20,7 @@ function TypeWriter({ text, speed = 100 }) {
   return (
     <p
       className="p-welcomePage text-wrap welcomeText"
-      style={{ whiteSpace: "pre-line", height: "150px" }}
+      style={{ whiteSpace: "pre-line" }}
     >
       {displayText}
     </p>

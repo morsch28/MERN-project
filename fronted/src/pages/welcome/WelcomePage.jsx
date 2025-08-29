@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TypeWriter from "../../components/TypeWriter";
 import welcomePageImage from "../../images/challenges_logo.jpg";
 import SignIn from "../../components/SignIn";
@@ -9,6 +9,11 @@ import "./welcome-page.css";
 function WelcomePage() {
   const [singIn, setSignIn] = useState(true);
   const { isLoading } = useAuth();
+  const [isMobile, setIsMobile] = useState(null);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 425);
+  });
 
   if (isLoading) {
     return (
@@ -23,13 +28,13 @@ function WelcomePage() {
   return (
     <>
       <div className="d-flex  align-items-center  vh-100 vw-100 bg-light position-fixed top-0 start-0  text-center gap-2 welcome-screen">
-        <div className="d-flex flex-column justify-content-center align-items-center  gap-4 about-project">
+        <div className="d-flex justify-content-center align-items-center  gap-3 about-project">
           <img className="mt-1 welcomeImage" src={welcomePageImage} />
           <TypeWriter
             text={`Welcome to my website - your gateway to a healthier and more balanced life.\nDiscover personalized challenges to improve your fitness, nutrition, sleep quality,\n and embed healthy habits into your daily routine.\n Join our community and start your journey toward meaningful change today.`}
           />
         </div>
-        <div className="d-flex flex-column  align-items-center gap-1  border-3 welcomePageToForm">
+        <div className="d-flex flex-column  align-items-center gap-2  border-3 form-welcome">
           <h1 className=" h1-welcomePage">Mor(e) Wellness & LifeStyle</h1>
           <div className="bg-dark-subtle  d-flex align-items-center justify-content-center p-2 gap-2 divStartBtn">
             <button
@@ -53,8 +58,8 @@ function WelcomePage() {
               Get Started
             </button>
           </div>
-          <div className="d-flex flex-column mt-4 align-items-center  justify-content-center text-center signIn  rounded-3">
-            <h2 className="fs-2">
+          <div className="d-flex flex-column mt-2 align-items-center  justify-content-center text-center signIn form-section  rounded-3">
+            <h2 className="fs-3 form-title">
               {singIn ? "Welcome Back!" : "Start your journey"}
             </h2>
             <p className="fs-5">

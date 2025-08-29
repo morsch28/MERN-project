@@ -6,6 +6,7 @@ export const ROUTES = {
   COMMUNITY: "/community-feed",
   USER_INFO: "/user-info",
   SIGN_IN: "sign-in",
+  SIGN_UP: "/sign-up",
   TRIVIA: "trivia",
   CHALLENGE_DETAILS: "/challenge-details",
 

@@ -99,15 +99,17 @@ function SignUp() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="d-flex flex-column justify-content-center align-items-center gap-4 signUpForm "
+      className="d-flex flex-column justify-content-center align-items-center gap-3"
     >
       <div className="d-flex">
         <Input
+          className="welcome-input"
           placeholder="First Name"
           {...getFieldProps("first")}
           error={touched.first && errors.first}
         />
         <Input
+          className="welcome-input"
           placeholder="Last Name"
           {...getFieldProps("last")}
           error={touched.last && errors.last}
@@ -115,11 +117,13 @@ function SignUp() {
       </div>
       <div className="d-flex">
         <Input
+          className="welcome-input"
           placeholder="Email"
           {...getFieldProps("email")}
           error={touched.email && errors.email}
         />
         <Input
+          className="welcome-input"
           placeholder="Password"
           {...getFieldProps("password")}
           error={touched.password && errors.password}
@@ -147,7 +151,7 @@ function SignUp() {
       </div>
       <button
         type="submit"
-        className="btn btn-primary  p-2 fs-5 mb-5"
+        className="btn btn-primary  p-2 fs-5 mb-5 w-50"
         disabled={!isValid}
       >
         Let's Start
