@@ -23,6 +23,10 @@ app.use(
 app.use("/uploads", express.static("uploads"));
 app.use(routers);
 
+app.get("/", (req, res) => {
+  res.send("Welcome to my API ✨");
+});
+
 app.get("/healthy-lifestyle", (req, res) => {
   res.send("Healthy lifestyle");
 });
@@ -35,6 +39,6 @@ mongoose
     await initialChallenges();
     await initialQuizzes();
     await initialUsers();
-    app.listen(PORT, "0.0.0.0", console.log(`listening on port ${PORT}`));
+    app.listen(PORT, "0.0.0.0", () => console.log(`listening on port ${PORT}`));
   })
   .catch((err) => console.log(err));
