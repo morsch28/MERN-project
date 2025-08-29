@@ -5,6 +5,8 @@ const apiUrl =
   import.meta.env.VITE_API_URL || (import.meta.env.DEV ? config.apiUrl : "");
 axios.defaults.baseURL = apiUrl;
 
+axios.defaults.withCredentials = true;
+
 function setDefaultHeader(headerName, value) {
   axios.defaults.headers.common[headerName] = value;
 }
