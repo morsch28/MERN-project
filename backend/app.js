@@ -23,7 +23,11 @@ app.use(
 app.use("/uploads", express.static("uploads"));
 app.use(routers);
 
-const PORT = 3000;
+app.get("/healthy-lifestyle", (req, res) => {
+  res.send("Healthy lifestyle");
+});
+
+const PORT = process.env.PORT || 3000;
 mongoose
   .connect(process.env.MONGO_URI)
   .then(async () => {
@@ -31,6 +35,6 @@ mongoose
     await initialChallenges();
     await initialQuizzes();
     await initialUsers();
-    app.listen(PORT, console.log(`listening on port ${PORT}`));
+    app.listen(PORT, "0.0.0.0", console.log(`listening on port ${PORT}`));
   })
   .catch((err) => console.log(err));
