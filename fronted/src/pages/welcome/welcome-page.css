@@ -71,13 +71,14 @@
     height: 100%;
     justify-content: center;
     border-left: none;
+    margin-top: 2em;
   }
   .h1-welcomePage {
     font-size: 1.4rem;
   }
   .divStartBtn {
     height: 62px;
-    width: 224px;
+    width: 252px;
   }
   .form-section {
     width: 80%;
