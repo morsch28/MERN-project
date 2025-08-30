@@ -1,162 +1,14 @@
-/* .h1-welcomePage,
-.p-welcomePage {
-  font-family: Raleway;
-}
-.h1-welcomePage {
-  font-size: 2.7rem;
-  border-bottom: 3px solid black;
-}
-.btn-welcomePage:hover {
-  transform: scale(1.2);
-}
-
-.home-page-cards:hover {
-  transform: scale(1.05);
-}
-
-.welcome-screen {
-  z-index: 1000;
-}
-.sigUpForm {
-  background-color: #055276;
-}
-.welcomeImage {
-  width: 330px;
-  height: 330px;
-}
-.welcomeText {
-  font-size: 1.5rem;
-}
-.divStartBtn {
-  white-space: nowrap;
-  width: 300px;
-  height: 60px;
-}
-.welcomePageToForm {
-  border-left: 2px solid purple;
-}
-.signUp {
-  border: 1px solid black;
-  
-}
-.signIn {
-  border: 1px solid black;
-  background: linear-gradient(
-    to top right,
-    #f6ffaf 40%,
-    #fdbbf5e0 65%
-  ) !important;
-  width: 550px;
-
-  gap: 16px;
-}
-
-.signInForm {
-  height: 265px !important;
-}
-.signUpForm {
-  height: 265px !important;
-
-  margin-top: 14px;
-}
-.about-project {
-  width: 50%;
-  flex-direction: column;
-}
-.welcomePageToForm {
-  width: 50%;
-}
-.btnStart {
-  font-size: 1.4rem;
-}
-
-@media screen and (max-width: 1024px) {
-  .welcomeImage {
-    width: 42%;
-    height: 50%;
-  }
-  .welcomeText {
-    font-size: 100%;
-  }
-  .h1-welcomePage {
-    font-size: 2rem;
-  }
-  .signIn {
-    width: 90%;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .h1-welcomePage {
-    font-size: 1.4rem;
-  }
-  .welcome-screen {
-    flex-direction: column;
-  }
-
-  .about-project {
-    width: 100%;
-    height: 50%;
-    flex-direction: row;
-  }
-  .welcomePageToForm {
-    width: 100%;
-    border-left: none;
-  }
-  .btnStart {
-    font-size: 1rem !important;
-  }
-  .divStartBtn {
-    white-space: nowrap;
-    width: 200px;
-    height: 50px;
-  }
-  .p-welcomePage {
-    font-size: 86%;
-    width: 50%;
-    height: 100px;
-  }
-  .signInForm input,
-  .signInForm .form-control {
-    padding: 10px !important;
-  }
-  signUpForm input,
-  .signUpForm .form-control {
-    padding: 10px !important;
-  }
-
-  .welcomeImage {
-    height: 90%;
-  }
-  .signInForm {
-    height: 0px;
-  }
-}
-@media screen and (max-width: 426px) {
-  .welcomeText {
-    font-size: 74%;
-  }
-  .welcomePageToForm {
-    border-left: none;
-    border-top: 1px solid white;
-  }
-  .h1-welcomePage {
-    font-size: 0.9rem;
-    margin-top: 14px;
-  }
-} */
-
 .about-project {
   flex-direction: column;
   width: 50%;
 }
 .welcomeImage {
-  width: 300px;
-  height: 300px;
+  width: 270px;
+  height: 270px;
 }
 .welcomeText {
-  height: 250px;
-  font-size: 1.3rem;
+  height: 150px;
+  font-size: 1.2rem;
 }
 .form-welcome {
   width: 50%;
@@ -167,11 +19,13 @@
 }
 .h1-welcomePage {
   border-bottom: 3px solid black;
+  font-size: 2rem;
 }
 .form-section {
   border: 1px solid black;
-  height: 430px;
-  width: 550px;
+  max-height: 340px;
+  min-height: 340px;
+  width: 460px;
   background: linear-gradient(
     to top right,
     #f6ffaf 40%,
@@ -200,17 +54,14 @@
 @media screen and (max-width: 768px) {
   .welcome-screen {
     flex-direction: column;
+    overflow-y: scroll;
   }
   .about-project {
     width: 100%;
-    height: 30%;
+    margin-top: 14px;
   }
   .p-welcomePage {
     display: none;
-  }
-  .welcomeImage {
-    width: 54%;
-    height: 100%;
   }
   .welcomeText {
     font-size: 0.9rem;
@@ -226,10 +77,11 @@
   }
   .divStartBtn {
     height: 62px;
-    width: 70%;
+    width: 224px;
   }
   .form-section {
-    width: 92%;
+    width: 80%;
+
     height: 70%;
   }
   .welcome-input {
