@@ -32,7 +32,7 @@ function WelcomePage() {
         {isMobile && (
           <div className="bg-dark-subtle  d-flex align-items-center justify-content-center p-2 gap-2 divStartBtn">
             <button
-              className={`border-0 p-2 w-50 rounded-2  btnStart ${
+              className={`border-0 p-2 w-75 rounded-2  btnStart ${
                 singIn ? "bg-white" : "bg-dark-subtle"
               }`}
               onClick={() => {
@@ -42,7 +42,7 @@ function WelcomePage() {
               Sign-In
             </button>
             <button
-              className={`border-0 p-2 rounded-2 btnStart  ${
+              className={`border-0 p-2 rounded-2 w-75 btnStart  ${
                 !singIn ? "bg-white" : "bg-dark-subtle"
               }`}
               onClick={() => {
@@ -72,7 +72,7 @@ function WelcomePage() {
               Sign-In
             </button>
             <button
-              className={`border-0 p-2 rounded-2 btnStart  ${
+              className={`border-0 p-2 rounded-2 w-50 btnStart  ${
                 !singIn ? "bg-white" : "bg-dark-subtle"
               }`}
               onClick={() => {

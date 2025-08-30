@@ -90,8 +90,9 @@
     font-size: 1.4rem;
   }
   .divStartBtn {
-    height: 74px;
+    height: 120px;
     width: 252px;
+    flex-direction: column;
   }
   .welcome-input {
     padding: 6px !important;
@@ -124,6 +125,6 @@
     padding: 6px !important;
   }
   .divStartBtn {
-    width: 224px;
+    width: 200px;
   }
 }
