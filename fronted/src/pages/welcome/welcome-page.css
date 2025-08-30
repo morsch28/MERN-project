@@ -90,7 +90,7 @@
     font-size: 1.4rem;
   }
   .divStartBtn {
-    height: 50px;
+    height: 74px;
     width: 252px;
   }
   .welcome-input {
@@ -125,8 +125,5 @@
   }
   .divStartBtn {
     width: 224px;
-  }
-  .welcomeImage {
-    width: 130px;
   }
 }
