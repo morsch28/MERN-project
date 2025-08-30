@@ -54,7 +54,7 @@
 @media screen and (max-width: 768px) {
   .welcome-screen {
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: scroll !important;
   }
   .about-project {
     width: 100%;

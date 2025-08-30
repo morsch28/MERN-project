@@ -48,7 +48,10 @@ function SignUp() {
       return errors;
     },
     onSubmit: async (values) => {
+      const btn = document.querySelector(".register-btn");
+
       try {
+        btn.style.pointerEvents = "none";
         let imageUrl = values.url || "";
         let imageAlt = values.alt || "";
 
@@ -92,6 +95,8 @@ function SignUp() {
           icon: "error",
           timer: 2000,
         });
+      } finally {
+        btn.style.pointerEvents = "auto";
       }
     },
   });
@@ -151,7 +156,7 @@ function SignUp() {
       </div>
       <button
         type="submit"
-        className="btn btn-primary  p-2 fs-5  w-50"
+        className="btn btn-primary register-btn p-2 fs-5  w-50"
         disabled={!isValid}
       >
         Let's Start
