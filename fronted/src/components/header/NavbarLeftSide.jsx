@@ -3,7 +3,7 @@ import { ROUTES } from "../../routes/routes";
 
 function NavbarLeftSide() {
   return (
-    <div className="collapse navbar-collapse" id="navbarsExample04">
+    <div className="collapse navbar-collapse" id="mainNav">
       <ul className="navbar-nav me-auto mb-2 mb-md-0 gap-2">
         <li className="nav-item">
           <Link className="nav-link active" to={ROUTES.HOME}>

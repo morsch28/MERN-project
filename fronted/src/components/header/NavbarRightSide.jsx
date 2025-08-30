@@ -40,50 +40,47 @@ function NavbarRightSide() {
   };
 
   return (
-    <div className="collapse navbar-collapse">
-      <div className="dropdown">
-        <img
-          src={IMG_SRC}
-          className="rounded-circle bg-primary"
-          width="65"
-          height="65"
-          role="button"
-          id="userDropdown"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          style={{ cursor: "pointer", objectFit: "cover" }}
-        />
-        <ul
-          className="dropdown-menu dropdown-menu-end"
-          aria-labelledby="userDropdown"
-          data-bs-auto-close="true"
-        >
-          {user ? (
-            <li className=" fs-5 d-flex flex-column fw-bold">
-              <Link
-                className="dropdown-item text-primary"
-                to={ROUTES.USER_INFO}
-              >
-                User Info
-              </Link>
-              <button
-                className="dropdown-item text-danger d-flex gap-2"
-                onClick={handleLogout}
-              >
-                Logout
-                <i className="bi bi-box-arrow-right"></i>
-              </button>
-            </li>
-          ) : (
-            <li>
-              <Link className="dropdown-item text-primary" to={ROUTES.SIGN_IN}>
-                Login
-              </Link>
-            </li>
-          )}
-        </ul>
-      </div>
+    // <div className="collapse navbar-collapse">
+    <div className="dropdown">
+      <img
+        src={IMG_SRC}
+        className="rounded-circle bg-primary"
+        width="65"
+        height="65"
+        role="button"
+        id="userDropdown"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        style={{ cursor: "pointer", objectFit: "cover" }}
+      />
+      <ul
+        className="dropdown-menu dropdown-menu-end"
+        aria-labelledby="userDropdown"
+        data-bs-auto-close="true"
+      >
+        {user ? (
+          <li className=" fs-5 d-flex flex-column fw-bold">
+            <Link className="dropdown-item text-primary" to={ROUTES.USER_INFO}>
+              User Info
+            </Link>
+            <button
+              className="dropdown-item text-danger d-flex gap-2"
+              onClick={handleLogout}
+            >
+              Logout
+              <i className="bi bi-box-arrow-right"></i>
+            </button>
+          </li>
+        ) : (
+          <li>
+            <Link className="dropdown-item text-primary" to={ROUTES.SIGN_IN}>
+              Login
+            </Link>
+          </li>
+        )}
+      </ul>
     </div>
+    // </div>
   );
 }
 
