@@ -86,7 +86,7 @@ function SignIn() {
 
       <button
         type="submit"
-        className="btn btn-primary p-2 fs-5 mb-3 w-50"
+        className="btn btn-primary p-1 fs-5 mb-3 w-50"
         disabled={!isValid}
       >
         Submit

@@ -8,7 +8,7 @@
 }
 .welcomeText {
   height: 150px;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 .form-welcome {
   width: 50%;
@@ -23,7 +23,6 @@
 }
 .form-section {
   border: 1px solid black;
-  max-height: 340px;
   min-height: 340px;
   width: 460px;
   background: linear-gradient(
@@ -39,9 +38,11 @@
 @media screen and (max-width: 1024px) {
   .form-section {
     width: 96%;
+    min-height: 290px;
   }
   .welcome-input {
     padding: 10px !important;
+    width: 100%;
   }
   .about-project {
     width: 44%;
@@ -55,6 +56,10 @@
   .welcome-screen {
     flex-direction: column;
     overflow-y: scroll !important;
+  }
+  .welcomeImage {
+    width: 300px;
+    height: 150px;
   }
   .about-project {
     width: 100%;
@@ -79,13 +84,8 @@
     height: 50px;
     width: 252px;
   }
-  .form-section {
-    width: 80%;
-
-    height: 70%;
-  }
   .welcome-input {
-    padding: 10px !important;
+    padding: 6px !important;
     width: 100%;
   }
   .h1-welcomePage {
