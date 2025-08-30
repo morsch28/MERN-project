@@ -34,6 +34,13 @@
 .welcome-input {
   padding: 12px !important;
 }
+.invalid-feedback {
+  min-height: 18px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 @media screen and (max-width: 1024px) {
   .form-section {
@@ -42,7 +49,7 @@
   }
   .welcome-input {
     padding: 10px !important;
-    width: 100%;
+    max-width: 200px;
   }
   .about-project {
     width: 44%;
@@ -64,6 +71,7 @@
   .about-project {
     width: 100%;
     margin-top: 14px;
+    flex-direction: row;
   }
   .p-welcomePage {
     display: none;
@@ -74,7 +82,8 @@
   .form-welcome {
     width: 100%;
     height: 100%;
-    justify-content: center;
+    justify-content: start;
+    margin-top: px;
     border-left: none;
   }
   .h1-welcomePage {
@@ -113,5 +122,11 @@
   }
   .welcome-input {
     padding: 6px !important;
+  }
+  .divStartBtn {
+    width: 224px;
+  }
+  .welcomeImage {
+    width: 130px;
   }
 }

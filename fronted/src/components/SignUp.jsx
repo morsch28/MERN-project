@@ -25,14 +25,34 @@ function SignUp() {
     },
     validate(values) {
       const schema = Joi.object({
-        first: Joi.string().min(2).max(256).required(),
-        last: Joi.string().min(2).max(256).required(),
-        email: Joi.string().min(5).max(256).email({ tlds: false }).required(),
+        first: Joi.string().min(2).max(256).required().messages({
+          "string.empty": "First name is required",
+          "string.min": "At least 2 chars",
+        }),
+        last: Joi.string().min(2).max(256).required().messages({
+          "string.empty": "Last name is required",
+          "string.min": "At least 2 chars",
+        }),
+        email: Joi.string()
+          .min(5)
+          .max(256)
+          .email({ tlds: false })
+          .required()
+          .messages({
+            "string.email": "Invalid email",
+            "string.empty": "Email is required",
+          }),
         password: Joi.string()
           .min(8)
           .max(50)
           .required()
-          .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*(\d))(?=.*[!@#$%^&*-])/),
+          .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*(\d))(?=.*[!@#$%^&*-])/)
+          .messages({
+            "string.empty": "Password is required",
+            "any.required": "Password is required",
+            "string.min": "At least 8 chars",
+            "string.pattern.base": "upper/lower, digit, symbol",
+          }),
         url: Joi.string().min(14).allow("").uri(),
         alt: Joi.string().allow(""),
       });

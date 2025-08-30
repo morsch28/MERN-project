@@ -18,12 +18,26 @@ function SignIn() {
     },
     validate(values) {
       const schema = Joi.object({
-        email: Joi.string().min(5).max(256).email({ tlds: false }).required(),
+        email: Joi.string()
+          .min(5)
+          .max(256)
+          .email({ tlds: false })
+          .required()
+          .messages({
+            "string.email": "Invalid email",
+            "string.empty": "Email is required",
+          }),
         password: Joi.string()
           .min(8)
           .max(50)
           .required()
-          .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*(\d))(?=.*[!@#$%^&*-])/),
+          .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*(\d))(?=.*[!@#$%^&*-])/)
+          .messages({
+            "string.empty": "Password is required",
+            "any.required": "Password is required",
+            "string.min": "At least 8 chars",
+            "string.pattern.base": "upper/lower, digit, symbol",
+          }),
       });
 
       const { error } = schema.validate(values, { abortEarly: false });
@@ -86,7 +100,7 @@ function SignIn() {
 
       <button
         type="submit"
-        className="btn btn-primary p-1 fs-5 mb-3 w-50"
+        className="btn btn-primary p- fs-5 mb-3 w-50"
         disabled={!isValid}
       >
         Submit
