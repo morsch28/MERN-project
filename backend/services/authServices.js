@@ -51,7 +51,7 @@ async function createUser(user) {
 
   const newUser = await new User({
     ...user,
-    password: await bcrypt.hash(user.password, 14),
+    password: await bcrypt.hash(user.password, 10),
   }).save();
 
   const token = createToken(newUser);
