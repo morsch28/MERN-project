@@ -7,6 +7,7 @@ import feedbackService from "../services/feedbackService";
 import { ROUTES } from "../routes/routes";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import ErrorBanner from "./common/ErrorBanner";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -91,11 +92,7 @@ function SignIn() {
       onSubmit={handleSubmit}
       className="d-flex flex-column justify-content-center align-items-center form-container"
     >
-      {Object.keys(errors).length > 0 && (
-        <div className="text-danger bg-danger-subtle border rounded-2 border-danger text-center error-msg">
-          {Object.values(errors).join(" | ")}
-        </div>
-      )}
+      <ErrorBanner errors={errors} />
       <Input
         className="welcome-input"
         placeholder="Email"

@@ -47,7 +47,7 @@ function SignUp() {
           .min(8)
           .max(50)
           .required()
-          .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*(\d))(?=.*[!@#$%^&*-])/)
+          .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*(\d))(?=.*[^a-zA-Z0-9])/)
           .messages({
             "string.empty": "Password is required",
             "any.required": "Password is required",
