@@ -1,0 +1,13 @@
+@local=http://localhost:3000/challenges
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODg3NTkxNDU5YWFkZDU5MzJmN2Y5OGMiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzUzNzA2MzE0LCJleHAiOjE3NTQzMTExMTR9.KBQF65TKgfu5jc5OYagrdgXv49qdFge-IHtrW7IHnew
+
+GET {{local}}
+x-auth-token: {{token}}
+
+###
+GET {{local}}/6887591459aadd5932f7f98c
+x-auth-token: {{token}}
+
+###
+GET {{local}}/all/fitness
+x-auth-token: {{token}}

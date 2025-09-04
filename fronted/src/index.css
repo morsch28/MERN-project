@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Savate:ital,wght@0,200..900;1,200..900&display=swap");
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.custom-main {
+  background: linear-gradient(
+    to top right,
+    rgba(13, 110, 253, 0.25) 30%,
+    #7aedfc59 60%
+  );
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.selectedChallenges {
+  text-align: center;
+  padding: 14px;
+  overflow: auto;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8.3px);
+  -webkit-backdrop-filter: blur(8.3px);
+  border: 1px solid rgba(255, 255, 255, 0.46);
+  max-width: 1280px;
+  width: 100%;
+}
+.selectedCards {
+  width: 100%;
+  padding: 6px;
+}
+
+.cardsStatus-title {
+  font-size: 20px;
+}
+
+.upload-label {
+  border: 4px dashed black;
+  border-radius: 8px;
+  padding: 30px;
+  width: 100%;
+  cursor: pointer;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+.upload-label:hover {
+  border-color: green;
+}
+
+@media screen and (max-width: 768px) {
+  .home-Challenges {
+    flex-direction: column;
+  }
+  .selectedCardsContainer {
+    flex-direction: column;
+  }
+  .selectedCards {
+    height: 47% !important;
+  }
+}

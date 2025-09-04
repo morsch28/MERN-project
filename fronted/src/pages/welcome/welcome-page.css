@@ -1,0 +1,184 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Savate:ital,wght@0,200..900;1,200..900&display=swap");
+
+.welcome-title {
+  font-family: Heebo;
+}
+
+.welcome-input {
+  padding: 0.3rem;
+  border-radius: 6px;
+  border: none;
+  border: 1px solid black;
+}
+.welcome-form {
+  max-height: 480px;
+  min-height: 480px;
+  width: 390px;
+  box-shadow: 0px 0px 20px 4px;
+  align-items: center;
+}
+.welcome-challenges {
+  height: 100%;
+}
+.welcome-left {
+  width: 50%;
+  background: url("../../images/mor_logo.jpg") no-repeat;
+  background-size: cover;
+  position: relative;
+  border-top-right-radius: 80px;
+  border-bottom-right-radius: 80px;
+  border: 1px solid black;
+}
+
+.welcome-titles {
+  width: 100%;
+  text-wrap: nowrap;
+  padding: 31px 0px 0px 16px;
+  color: white;
+  text-shadow: 2px 4px rgb(162 10 235);
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome-left::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.212);
+  border-top-right-radius: 80px;
+  border-bottom-right-radius: 80px;
+}
+.welcome-title-1 {
+  font-size: 2.8rem;
+}
+.welcome-title-2 {
+  font-size: 2.4rem;
+}
+.welcome-title-3 {
+  font-size: 2.2rem;
+}
+
+.welcome-right {
+  width: 50%;
+  align-items: center;
+}
+.form-container {
+  gap: 10px;
+  width: 80%;
+}
+.error-msg {
+  padding: 2px;
+  width: 92%;
+}
+.signing-btns {
+  padding: 6px 10px;
+}
+.btn-signing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-top: 12px;
+}
+@media screen and (max-width: 1024px) {
+  .welcome-left {
+    width: 56%;
+  }
+  .welcome-right {
+    width: 44%;
+    padding: 25px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .welcome-left {
+    width: 100%;
+    height: 30%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background: none;
+    border: none;
+    flex-direction: row-reverse;
+  }
+
+  .welcome-titles {
+    height: 100%;
+    width: 50%;
+  }
+  .welcome-bg {
+    height: 94%;
+    width: 50%;
+    box-shadow: 0px 6px 8px black;
+    border-radius: 20%;
+  }
+  .welcome-titles {
+    padding: 4px 0px 0px 16px;
+    color: black;
+    text-shadow: none;
+  }
+  .welcome-title-1 {
+    font-size: 1.5rem;
+  }
+  .welcome-title-2 {
+    font-size: 1.5rem;
+  }
+  .welcome-title-3 {
+    font-size: 1.5rem;
+  }
+  .welcome-left::before {
+    background: none;
+  }
+  .welcome-challenges {
+    height: 100vh;
+    flex-direction: column;
+    background: white;
+  }
+  .welcome-right {
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(90deg, #1e2957f5 45%, #0b5ea8 100%);
+    border-left: none !important;
+    align-items: start;
+    margin-top: 0px;
+  }
+  .welcome-form {
+    width: 92%;
+    max-height: 400px;
+    min-height: 400px;
+    padding: 0px;
+    align-items: center;
+  }
+  .form-container {
+    width: 94%;
+  }
+  .input-image {
+    width: 100%;
+  }
+
+  .logo-img {
+    margin-right: 50px;
+  }
+  .error-msg {
+    width: 92%;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .welcome-titles {
+    z-index: 1;
+    align-self: start;
+    padding: 8px 0px 0px 10px;
+  }
+  .welcome-left {
+    justify-content: unset;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .form-container {
+    width: 96%;
+  }
+}
